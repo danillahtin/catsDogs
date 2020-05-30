@@ -10,52 +10,6 @@ import XCTest
 import Core
 
 
-
-final class CatsLoaderSpy: CatLoader {
-    private var completions: [(Result<[Cat], Error>) -> ()] = []
-    
-    var loadCallCount: Int { completions.count }
-    
-    func load(_ completion: @escaping (Result<[Cat], Error>) -> ()) {
-        completions.append(completion)
-    }
-    
-    func complete(
-        with cats: [Cat],
-        at index: Int = 0,
-        file: StaticString = #file,
-        line: UInt = #line)
-    {
-        complete(with: .success(cats), at: index, file: file, line: line)
-    }
-    
-    func complete(
-        with error: Error,
-        at index: Int = 0,
-        file: StaticString = #file,
-        line: UInt = #line)
-    {
-        complete(with: .failure(error), at: index, file: file, line: line)
-    }
-    
-    func complete(
-        with result: Result<[Cat], Error>,
-        at index: Int = 0,
-        file: StaticString = #file,
-        line: UInt = #line)
-    {
-        guard completions.indices.contains(index) else {
-            XCTFail(
-                "Completion at index \(index) not found, has only \(completions.count) completions",
-                file: file,
-                line: line)
-            return
-        }
-        
-        completions[index](result)
-    }
-}
-
 final class CatService {
     typealias Observer<T> = (T) -> ()
     
@@ -214,6 +168,51 @@ class CatServiceTests: XCTestCase {
             sut.subscribe(onError: { [weak self] in
                 self?.retrieved.append($0 as NSError)
             })
+        }
+    }
+    
+    private final class CatsLoaderSpy: CatLoader {
+        private var completions: [(Result<[Cat], Error>) -> ()] = []
+        
+        var loadCallCount: Int { completions.count }
+        
+        func load(_ completion: @escaping (Result<[Cat], Error>) -> ()) {
+            completions.append(completion)
+        }
+        
+        func complete(
+            with cats: [Cat],
+            at index: Int = 0,
+            file: StaticString = #file,
+            line: UInt = #line)
+        {
+            complete(with: .success(cats), at: index, file: file, line: line)
+        }
+        
+        func complete(
+            with error: Error,
+            at index: Int = 0,
+            file: StaticString = #file,
+            line: UInt = #line)
+        {
+            complete(with: .failure(error), at: index, file: file, line: line)
+        }
+        
+        func complete(
+            with result: Result<[Cat], Error>,
+            at index: Int = 0,
+            file: StaticString = #file,
+            line: UInt = #line)
+        {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
         }
     }
 }
