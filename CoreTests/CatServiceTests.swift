@@ -43,7 +43,7 @@ final class CatsLoader {
 final class CatService {
     typealias Observer = ([Cat]) -> ()
     
-    let loader: CatsLoader
+    private let loader: CatsLoader
     private var observers: [Observer] = []
     private var cats: [Cat]? {
         didSet {
@@ -78,6 +78,13 @@ class CatServiceTests: XCTestCase {
         sut.subscribe(onNext: { _ in })
         
         XCTAssertEqual(loader.loadCallCount, 1)
+        sut.subscribe(onNext: { _ in })
+        
+        XCTAssertEqual(loader.loadCallCount, 2)
+        loader.complete(with: [], at: 1)
+        sut.subscribe(onNext: { _ in })
+        
+        XCTAssertEqual(loader.loadCallCount, 2)
     }
     
     func test_loadCompletionWithCats_notifies() {
