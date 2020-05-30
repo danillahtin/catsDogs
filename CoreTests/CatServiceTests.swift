@@ -41,21 +41,31 @@ final class CatsLoader {
 }
 
 final class CatService {
+    typealias Observer = ([Cat]) -> ()
+    
     let loader: CatsLoader
-    private var cats: [Cat]?
+    private var observers: [Observer] = []
+    private var cats: [Cat]? {
+        didSet {
+            guard let cats = cats else {
+                return
+            }
+            
+            observers.forEach({ $0(cats) })
+        }
+    }
     
     init(loader: CatsLoader) {
         self.loader = loader
     }
     
     func subscribe(onNext: @escaping ([Cat]) -> ()) {
-        if let cats = cats {
-            return onNext(cats)
-        }
+        observers.append(onNext)
         
-        loader.load { [weak self] in
-            self?.cats = $0
-            onNext($0)
+        if let cats = cats {
+            onNext(cats)
+        } else {
+            loader.load { [weak self] in self?.cats = $0 }
         }
     }
 }
@@ -73,17 +83,24 @@ class CatServiceTests: XCTestCase {
     func test_loadCompletionWithCats_notifies() {
         let (sut, loader) = makeSut()
         
-        var retrievedCats: [[Cat]] = []
+        var observer0: [[Cat]] = []
         sut.subscribe(onNext: {
-            retrievedCats.append($0)
+            observer0.append($0)
         })
         
-        XCTAssertEqual(retrievedCats, [])
+        var observer1: [[Cat]] = []
+        sut.subscribe(onNext: {
+            observer1.append($0)
+        })
+        
+        XCTAssertEqual(observer0, [])
+        XCTAssertEqual(observer1, [])
         
         let cats = [Cat(), Cat(), Cat()]
         loader.complete(with: cats)
         
-        XCTAssertEqual(retrievedCats, [cats])
+        XCTAssertEqual(observer0, [cats])
+        XCTAssertEqual(observer1, [cats])
     }
     
     func test_subscribeAfterSuccessfulLoad_notifiesWithPreviouslyLoadedCats() {
