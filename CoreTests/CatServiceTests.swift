@@ -9,11 +9,34 @@
 import XCTest
 
 
-final class CatsLoader {
-    var loadCallCount = 0
+struct Cat: Equatable {
     
-    func load() {
-        loadCallCount += 1
+}
+
+final class CatsLoader {
+    private var completions: [([Cat]) -> ()] = []
+    
+    var loadCallCount: Int { completions.count }
+    
+    func load(_ completion: @escaping ([Cat]) -> ()) {
+        completions.append(completion)
+    }
+    
+    func complete(
+        with cats: [Cat],
+        at index: Int = 0,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        guard completions.indices.contains(index) else {
+            XCTFail(
+                "Completion at index \(index) not found, has only \(completions.count) completions",
+                file: file,
+                line: line)
+            return
+        }
+        
+        completions[index](cats)
     }
 }
 
@@ -24,8 +47,8 @@ final class CatService {
         self.loader = loader
     }
     
-    func subscribe() {
-        loader.load()
+    func subscribe(onNext: @escaping ([Cat]) -> ()) {
+        loader.load(onNext)
     }
 }
 
@@ -34,9 +57,25 @@ class CatServiceTests: XCTestCase {
         let (sut, loader) = makeSut()
         
         XCTAssertEqual(loader.loadCallCount, 0)
-        sut.subscribe()
+        sut.subscribe(onNext: { _ in })
         
         XCTAssertEqual(loader.loadCallCount, 1)
+    }
+    
+    func test_loadCompletionWithCats_notifies() {
+        let (sut, loader) = makeSut()
+        
+        var retrievedCats: [[Cat]] = []
+        sut.subscribe(onNext: {
+            retrievedCats.append($0)
+        })
+        
+        XCTAssertEqual(retrievedCats, [])
+        
+        let cats = [Cat(), Cat(), Cat()]
+        loader.complete(with: cats)
+        
+        XCTAssertEqual(retrievedCats, [cats])
     }
     
     // MARK: - Helpers
