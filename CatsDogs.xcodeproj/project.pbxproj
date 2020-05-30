@@ -16,6 +16,7 @@
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
 		8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24F248302AB0056AEE9 /* CatLoader.swift */; };
+		8BDDD252248303400056AEE9 /* CatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* CatService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +53,7 @@
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 		8BDDD24F248302AB0056AEE9 /* CatLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatLoader.swift; sourceTree = "<group>"; };
+		8BDDD251248303400056AEE9 /* CatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
 				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
 				8BDDD24F248302AB0056AEE9 /* CatLoader.swift */,
+				8BDDD251248303400056AEE9 /* CatService.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -342,6 +345,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BDDD252248303400056AEE9 /* CatService.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 				8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */,
 			);
