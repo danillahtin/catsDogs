@@ -83,24 +83,17 @@ class CatServiceTests: XCTestCase {
     func test_loadCompletionWithCats_notifies() {
         let (sut, loader) = makeSut()
         
-        var observer0: [[Cat]] = []
-        sut.subscribe(onNext: {
-            observer0.append($0)
-        })
+        let observer0 = CatsObserver(sut: sut)
+        let observer1 = CatsObserver(sut: sut)
         
-        var observer1: [[Cat]] = []
-        sut.subscribe(onNext: {
-            observer1.append($0)
-        })
-        
-        XCTAssertEqual(observer0, [])
-        XCTAssertEqual(observer1, [])
+        XCTAssertEqual(observer0.retrieved, [])
+        XCTAssertEqual(observer1.retrieved, [])
         
         let cats = [Cat(), Cat(), Cat()]
         loader.complete(with: cats)
         
-        XCTAssertEqual(observer0, [cats])
-        XCTAssertEqual(observer1, [cats])
+        XCTAssertEqual(observer0.retrieved, [cats])
+        XCTAssertEqual(observer1.retrieved, [cats])
     }
     
     func test_subscribeAfterSuccessfulLoad_notifiesWithPreviouslyLoadedCats() {
@@ -110,12 +103,7 @@ class CatServiceTests: XCTestCase {
         let cats = [Cat(), Cat(), Cat()]
         loader.complete(with: cats)
         
-        var retrievedCats: [[Cat]] = []
-        sut.subscribe(onNext: {
-            retrievedCats.append($0)
-        })
-        
-        XCTAssertEqual(retrievedCats, [cats])
+        XCTAssertEqual(CatsObserver(sut: sut).retrieved, [cats])
     }
     
     // MARK: - Helpers
@@ -131,5 +119,15 @@ class CatServiceTests: XCTestCase {
         trackMemoryLeaks(for: sut, file: file, line: line)
         
         return (sut, loader)
+    }
+    
+    private final class CatsObserver {
+        private(set) var retrieved: [[Cat]] = []
+        
+        init(sut: CatService) {
+            sut.subscribe(onNext: { [weak self] in
+                self?.retrieved.append($0)
+            })
+        }
     }
 }
