@@ -15,6 +15,7 @@
 		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
+		8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24F248302AB0056AEE9 /* CatLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +51,7 @@
 		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
+		8BDDD24F248302AB0056AEE9 /* CatLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 			children = (
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
 				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
+				8BDDD24F248302AB0056AEE9 /* CatLoader.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
+				8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

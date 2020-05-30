@@ -10,9 +10,6 @@ import XCTest
 import Core
 
 
-public protocol CatLoader {
-    func load(_ completion: @escaping (Result<[Cat], Error>) -> ())
-}
 
 final class CatsLoaderSpy: CatLoader {
     private var completions: [(Result<[Cat], Error>) -> ()] = []
