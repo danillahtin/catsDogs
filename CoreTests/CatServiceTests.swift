@@ -10,7 +10,11 @@ import XCTest
 import Core
 
 
-final class CatsLoader {
+public protocol CatLoader {
+    func load(_ completion: @escaping (Result<[Cat], Error>) -> ())
+}
+
+final class CatsLoaderSpy: CatLoader {
     private var completions: [(Result<[Cat], Error>) -> ()] = []
     
     var loadCallCount: Int { completions.count }
@@ -58,13 +62,13 @@ final class CatsLoader {
 final class CatService {
     typealias Observer<T> = (T) -> ()
     
-    private let loader: CatsLoader
+    private let loader: CatLoader
     private var catObservers: [Observer<[Cat]>] = []
     private var errorObservers: [Observer<Error>] = []
     
     private var cats: [Cat]?
     
-    init(loader: CatsLoader) {
+    init(loader: CatLoader) {
         self.loader = loader
     }
     
@@ -177,9 +181,9 @@ class CatServiceTests: XCTestCase {
     
     private func makeSut(
         file: StaticString = #file,
-        line: UInt = #line) -> (sut: CatService, loader: CatsLoader)
+        line: UInt = #line) -> (sut: CatService, loader: CatsLoaderSpy)
     {
-        let loader = CatsLoader()
+        let loader = CatsLoaderSpy()
         let sut = CatService(loader: loader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
