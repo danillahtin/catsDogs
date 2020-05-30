@@ -10,7 +10,7 @@ import XCTest
 
 
 struct Cat: Equatable {
-    
+    let id: UUID
 }
 
 final class CatsLoader {
@@ -65,7 +65,7 @@ final class CatService {
     private var catObservers: [Observer<[Cat]>] = []
     private var errorObservers: [Observer<Error>] = []
     
-    private var cats: [Cat]? 
+    private var cats: [Cat]?
     
     init(loader: CatsLoader) {
         self.loader = loader
@@ -132,7 +132,7 @@ class CatServiceTests: XCTestCase {
         XCTAssertEqual(observer0.retrieved, [])
         XCTAssertEqual(observer1.retrieved, [])
         
-        let cats = [Cat(), Cat(), Cat()]
+        let cats = makeCats()
         loader.complete(with: cats)
         
         XCTAssertEqual(observer0.retrieved, [cats])
@@ -143,7 +143,7 @@ class CatServiceTests: XCTestCase {
         let (sut, loader) = makeSut()
         
         sut.subscribe(onNext: { _ in })
-        let cats = [Cat(), Cat(), Cat()]
+        let cats = makeCats()
         loader.complete(with: cats)
         
         XCTAssertEqual(CatsObserver(sut: sut).retrieved, [cats])
@@ -189,6 +189,10 @@ class CatServiceTests: XCTestCase {
         trackMemoryLeaks(for: sut, file: file, line: line)
         
         return (sut, loader)
+    }
+    
+    private func makeCats() -> [Cat] {
+        [Cat(id: UUID()), Cat(id: UUID()), Cat(id: UUID())]
     }
     
     private func anyError() -> NSError {
