@@ -65,15 +65,7 @@ final class CatService {
     private var catObservers: [Observer<[Cat]>] = []
     private var errorObservers: [Observer<Error>] = []
     
-    private var cats: [Cat]? {
-        didSet {
-            guard let cats = cats else {
-                return
-            }
-            
-            catObservers.forEach({ $0(cats) })
-        }
-    }
+    private var cats: [Cat]? 
     
     init(loader: CatsLoader) {
         self.loader = loader
@@ -99,9 +91,18 @@ final class CatService {
         switch loadResult {
         case .success(let cats):
             self.cats = cats
+            notify(with: cats)
         case .failure(let error):
-            errorObservers.forEach({ $0(error) })
+            notify(with: error)
         }
+    }
+    
+    private func notify(with error: Error) {
+        errorObservers.forEach({ $0(error) })
+    }
+    
+    private func notify(with cats: [Cat]) {
+        catObservers.forEach({ $0(cats) })
     }
 }
 
