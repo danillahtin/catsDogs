@@ -12,7 +12,8 @@
 		8BDDD19E2482A2C70056AEE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */; };
 		8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1A82482A2C70056AEE9 /* CatsDogsTests.swift */; };
 		8BDDD1C12482A37E0056AEE9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDD1B82482A37E0056AEE9 /* Core.framework */; };
-		8BDDD1C62482A37E0056AEE9 /* CoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1C52482A37E0056AEE9 /* CoreTests.swift */; };
+		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
+		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +45,9 @@
 		8BDDD1B82482A37E0056AEE9 /* Core.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Core.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDDD1BB2482A37E0056AEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BDDD1C02482A37E0056AEE9 /* CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8BDDD1C52482A37E0056AEE9 /* CoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreTests.swift; sourceTree = "<group>"; };
 		8BDDD1C72482A37E0056AEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
+		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,8 +137,9 @@
 		8BDDD1C42482A37E0056AEE9 /* CoreTests */ = {
 			isa = PBXGroup;
 			children = (
-				8BDDD1C52482A37E0056AEE9 /* CoreTests.swift */,
+				8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */,
 				8BDDD1C72482A37E0056AEE9 /* Info.plist */,
+				8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */,
 			);
 			path = CoreTests;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 					};
 					8BDDD1B72482A37E0056AEE9 = {
 						CreatedOnToolsVersion = 11.4.1;
+						LastSwiftMigration = 1140;
 					};
 					8BDDD1BF2482A37E0056AEE9 = {
 						CreatedOnToolsVersion = 11.4.1;
@@ -339,7 +343,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDDD1C62482A37E0056AEE9 /* CoreTests.swift in Sources */,
+				8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */,
+				8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -563,6 +568,7 @@
 		8BDDD1CA2482A37E0056AEE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -583,6 +589,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -592,6 +599,7 @@
 		8BDDD1CB2482A37E0056AEE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
