@@ -14,16 +14,34 @@ struct Cat: Equatable {
 }
 
 final class CatsLoader {
-    private var completions: [([Cat]) -> ()] = []
+    private var completions: [(Result<[Cat], Error>) -> ()] = []
     
     var loadCallCount: Int { completions.count }
     
-    func load(_ completion: @escaping ([Cat]) -> ()) {
+    func load(_ completion: @escaping (Result<[Cat], Error>) -> ()) {
         completions.append(completion)
     }
     
     func complete(
         with cats: [Cat],
+        at index: Int = 0,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        complete(with: .success(cats), at: index, file: file, line: line)
+    }
+    
+    func complete(
+        with error: Error,
+        at index: Int = 0,
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        complete(with: .failure(error), at: index, file: file, line: line)
+    }
+    
+    func complete(
+        with result: Result<[Cat], Error>,
         at index: Int = 0,
         file: StaticString = #file,
         line: UInt = #line)
@@ -36,22 +54,24 @@ final class CatsLoader {
             return
         }
         
-        completions[index](cats)
+        completions[index](result)
     }
 }
 
 final class CatService {
-    typealias Observer = ([Cat]) -> ()
+    typealias Observer<T> = (T) -> ()
     
     private let loader: CatsLoader
-    private var observers: [Observer] = []
+    private var catObservers: [Observer<[Cat]>] = []
+    private var errorObservers: [Observer<Error>] = []
+    
     private var cats: [Cat]? {
         didSet {
             guard let cats = cats else {
                 return
             }
             
-            observers.forEach({ $0(cats) })
+            catObservers.forEach({ $0(cats) })
         }
     }
     
@@ -60,12 +80,27 @@ final class CatService {
     }
     
     func subscribe(onNext: @escaping ([Cat]) -> ()) {
-        observers.append(onNext)
+        catObservers.append(onNext)
         
         if let cats = cats {
-            onNext(cats)
-        } else {
-            loader.load { [weak self] in self?.cats = $0 }
+            return onNext(cats)
+        }
+        
+        loader.load { [weak self] in
+            self?.handle(loadResult: $0)
+        }
+    }
+    
+    func subscribe(onError: @escaping (Error) -> ()) {
+        errorObservers.append(onError)
+    }
+    
+    private func handle(loadResult: Result<[Cat], Error>) {
+        switch loadResult {
+        case .success(let cats):
+            self.cats = cats
+        case .failure(let error):
+            errorObservers.forEach({ $0(error) })
         }
     }
 }
@@ -113,6 +148,33 @@ class CatServiceTests: XCTestCase {
         XCTAssertEqual(CatsObserver(sut: sut).retrieved, [cats])
     }
     
+    func test_loadCompletionWithCats_doesNotNotifyError() {
+        let (sut, loader) = makeSut()
+        
+        sut.subscribe(onNext: { _ in })
+        loader.complete(with: [])
+        
+        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+    }
+    
+    func test_loadCompletionWithError_notifiesError() {
+        let (sut, loader) = makeSut()
+        let error = anyError()
+        let errorObserver = ErrorObserver(sut: sut)
+        
+        sut.subscribe(onNext: { _ in })
+        loader.complete(with: error, at: 0)
+        
+        XCTAssertEqual(errorObserver.retrieved, [error])
+        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+        
+        sut.subscribe(onNext: { _ in })
+        loader.complete(with: error, at: 1)
+        
+        XCTAssertEqual(errorObserver.retrieved, [error, error])
+        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -128,12 +190,26 @@ class CatServiceTests: XCTestCase {
         return (sut, loader)
     }
     
+    private func anyError() -> NSError {
+        NSError(domain: "TestDomain", code: 0, userInfo: nil)
+    }
+    
     private final class CatsObserver {
         private(set) var retrieved: [[Cat]] = []
         
         init(sut: CatService) {
             sut.subscribe(onNext: { [weak self] in
                 self?.retrieved.append($0)
+            })
+        }
+    }
+    
+    private final class ErrorObserver {
+        private(set) var retrieved: [NSError] = []
+        
+        init(sut: CatService) {
+            sut.subscribe(onError: { [weak self] in
+                self?.retrieved.append($0 as NSError)
             })
         }
     }
