@@ -14,6 +14,7 @@
 		8BDDD1C12482A37E0056AEE9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDD1B82482A37E0056AEE9 /* Core.framework */; };
 		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
+		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		8BDDD1C72482A37E0056AEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
+				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -336,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -629,6 +633,7 @@
 		8BDDD1CD2482A37E0056AEE9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CoreTests/Info.plist;
@@ -648,6 +653,7 @@
 		8BDDD1CE2482A37E0056AEE9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = CoreTests/Info.plist;

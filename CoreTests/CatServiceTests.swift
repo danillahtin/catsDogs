@@ -7,11 +7,8 @@
 //
 
 import XCTest
+import Core
 
-
-struct Cat: Equatable {
-    let id: UUID
-}
 
 final class CatsLoader {
     private var completions: [(Result<[Cat], Error>) -> ()] = []
