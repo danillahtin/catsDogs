@@ -9,8 +9,10 @@
 import XCTest
 import Core
 
+private typealias Service = CatService<CatServiceTests.CatsLoaderSpy>
 
 class CatServiceTests: XCTestCase {
+    
     func test_subscribe_loadsCats() {
         let (sut, loader) = makeSut()
         
@@ -111,10 +113,10 @@ class CatServiceTests: XCTestCase {
     
     private func makeSut(
         file: StaticString = #file,
-        line: UInt = #line) -> (sut: CatService, loader: CatsLoaderSpy)
+        line: UInt = #line) -> (sut: Service, loader: CatsLoaderSpy)
     {
         let loader = CatsLoaderSpy()
-        let sut = CatService(loader: loader)
+        let sut = Service(loader: loader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: sut, file: file, line: line)
@@ -130,7 +132,7 @@ class CatServiceTests: XCTestCase {
         NSError(domain: "TestDomain", code: 0, userInfo: nil)
     }
     
-    private final class CatsLoaderSpy: CatLoader {
+    fileprivate final class CatsLoaderSpy: Loader {
         private var completions: [(Result<[Cat], Error>) -> ()] = []
         
         var loadCallCount: Int { completions.count }
@@ -176,7 +178,7 @@ class CatServiceTests: XCTestCase {
     }
 }
 
-private extension CatService {
+private extension Service {
     func subscribeCats() {
         _ = subscribe(onNext: { _ in })
     }
@@ -184,13 +186,13 @@ private extension CatService {
 
 
 private extension SpyObserver where Value == [Cat] {
-    convenience init(sut: CatService) {
+    convenience init(sut: Service) {
         self.init(sut.subscribe(onNext:))
     }
 }
 
 private extension SpyObserver where Value == NSError {
-    convenience init(sut: CatService) {
+    convenience init(sut: Service) {
         self.init { observeBlock in
             sut.subscribe(onError: {
                 observeBlock($0 as NSError)

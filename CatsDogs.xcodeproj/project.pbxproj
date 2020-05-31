@@ -15,11 +15,11 @@
 		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
-		8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24F248302AB0056AEE9 /* CatLoader.swift */; };
 		8BDDD252248303400056AEE9 /* CatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* CatService.swift */; };
 		8BDDD2562483969E0056AEE9 /* SpyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD2552483969E0056AEE9 /* SpyObserver.swift */; };
 		8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25724839A840056AEE9 /* Cancellable.swift */; };
 		8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */; };
+		8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25D24839EE10056AEE9 /* Loader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +55,11 @@
 		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
-		8BDDD24F248302AB0056AEE9 /* CatLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatLoader.swift; sourceTree = "<group>"; };
 		8BDDD251248303400056AEE9 /* CatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatService.swift; sourceTree = "<group>"; };
 		8BDDD2552483969E0056AEE9 /* SpyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyObserver.swift; sourceTree = "<group>"; };
 		8BDDD25724839A840056AEE9 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableBlock.swift; sourceTree = "<group>"; };
+		8BDDD25D24839EE10056AEE9 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +145,7 @@
 				8BDDD2532483060A0056AEE9 /* Cat */,
 				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
 				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
+				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -170,7 +171,6 @@
 			isa = PBXGroup;
 			children = (
 				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
-				8BDDD24F248302AB0056AEE9 /* CatLoader.swift */,
 				8BDDD251248303400056AEE9 /* CatService.swift */,
 			);
 			path = Cat;
@@ -372,9 +372,9 @@
 			files = (
 				8BDDD252248303400056AEE9 /* CatService.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
+				8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */,
 				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,
 				8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */,
-				8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,16 +9,16 @@
 import Foundation
 
 
-public final class CatService {
+public final class CatService<LoaderType: Loader> where LoaderType.Entity == Cat {
     private typealias Observer<T> = (T) -> ()
     
-    private let loader: CatLoader
+    private let loader: LoaderType
     private var catObservers: [UUID: Observer<[Cat]>] = [:]
     private var errorObservers: [UUID: Observer<Error>] = [:]
     
     private var cats: [Cat]?
     
-    public init(loader: CatLoader) {
+    public init(loader: LoaderType) {
         self.loader = loader
     }
     
