@@ -106,7 +106,7 @@ class CatListViewControllerTests: XCTestCase {
     }
     
     private func makeCat(name: String = "noname") -> Cat {
-        Cat(id: UUID(), name: name, imageUrls: [])
+        Cat(id: UUID(), name: name, imageUrl: URL(string: "any.url")!)
     }
     
     private final class PublisherStub: Publisher {

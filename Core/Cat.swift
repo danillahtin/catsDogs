@@ -12,15 +12,15 @@ import Foundation
 public struct Cat: Equatable {
     public let id: UUID
     public let name: String
-    public let imageUrls: [URL]
+    public let imageUrl: URL
     
     public init(
         id: UUID,
         name: String,
-        imageUrls: [URL])
+        imageUrl: URL)
     {
         self.id = id
         self.name = name
-        self.imageUrls = imageUrls
+        self.imageUrl = imageUrl
     }
 }
