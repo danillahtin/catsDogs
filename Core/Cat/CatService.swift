@@ -9,20 +9,21 @@
 import Foundation
 
 
-public final class CatService<LoaderType: Loader> where LoaderType.Entity == Cat {
+public final class CatService<LoaderType: Loader> {
+    public typealias Entity = LoaderType.Entity
     private typealias Observer<T> = (T) -> ()
     
     private let loader: LoaderType
-    private var catObservers: [UUID: Observer<[Cat]>] = [:]
+    private var catObservers: [UUID: Observer<[Entity]>] = [:]
     private var errorObservers: [UUID: Observer<Error>] = [:]
     
-    private var cats: [Cat]?
+    private var cats: [Entity]?
     
     public init(loader: LoaderType) {
         self.loader = loader
     }
     
-    public func subscribe(onNext: @escaping ([Cat]) -> ()) -> Cancellable {
+    public func subscribe(onNext: @escaping ([Entity]) -> ()) -> Cancellable {
         let token = UUID()
         let cancellable = CancellableBlock { [weak self] in
             self?.catObservers[token] = nil
@@ -53,7 +54,7 @@ public final class CatService<LoaderType: Loader> where LoaderType.Entity == Cat
         return cancellable
     }
     
-    private func handle(loadResult: Result<[Cat], Error>) {
+    private func handle(loadResult: Result<[Entity], Error>) {
         switch loadResult {
         case .success(let cats):
             self.cats = cats
@@ -67,7 +68,7 @@ public final class CatService<LoaderType: Loader> where LoaderType.Entity == Cat
         errorObservers.forEach({ $0.value(error) })
     }
     
-    private func notify(with cats: [Cat]) {
+    private func notify(with cats: [Entity]) {
         catObservers.forEach({ $0.value(cats) })
     }
 }
