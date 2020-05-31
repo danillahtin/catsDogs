@@ -14,10 +14,10 @@ public final class LoadingStorage<LoaderType: Loader> {
     private typealias Observer<T> = (T) -> ()
     
     private let loader: LoaderType
-    private var catObservers: [UUID: Observer<[Entity]>] = [:]
+    private var entitiesObservers: [UUID: Observer<[Entity]>] = [:]
     private var errorObservers: [UUID: Observer<Error>] = [:]
     
-    private var cats: [Entity]?
+    private var entities: [Entity]?
     
     public init(loader: LoaderType) {
         self.loader = loader
@@ -26,13 +26,13 @@ public final class LoadingStorage<LoaderType: Loader> {
     public func subscribe(onNext: @escaping ([Entity]) -> ()) -> Cancellable {
         let token = UUID()
         let cancellable = CancellableBlock { [weak self] in
-            self?.catObservers[token] = nil
+            self?.entitiesObservers[token] = nil
         }
         
-        catObservers[token] = onNext
+        entitiesObservers[token] = onNext
         
-        if let cats = cats {
-            onNext(cats)
+        if let entities = entities {
+            onNext(entities)
             return cancellable
         }
         
@@ -56,9 +56,9 @@ public final class LoadingStorage<LoaderType: Loader> {
     
     private func handle(loadResult: Result<[Entity], Error>) {
         switch loadResult {
-        case .success(let cats):
-            self.cats = cats
-            notify(with: cats)
+        case .success(let entities):
+            self.entities = entities
+            notify(with: entities)
         case .failure(let error):
             notify(with: error)
         }
@@ -68,7 +68,7 @@ public final class LoadingStorage<LoaderType: Loader> {
         errorObservers.forEach({ $0.value(error) })
     }
     
-    private func notify(with cats: [Entity]) {
-        catObservers.forEach({ $0.value(cats) })
+    private func notify(with entities: [Entity]) {
+        entitiesObservers.forEach({ $0.value(entities) })
     }
 }
