@@ -33,7 +33,7 @@ public final class CatService {
     
     private let loader: CatLoader
     private var catObservers: [UUID: Observer<[Cat]>] = [:]
-    private var errorObservers: [Observer<Error>] = []
+    private var errorObservers: [UUID: Observer<Error>] = [:]
     
     private var cats: [Cat]?
     
@@ -61,8 +61,15 @@ public final class CatService {
         return cancellable
     }
     
-    public func subscribe(onError: @escaping (Error) -> ()) {
-        errorObservers.append(onError)
+    public func subscribe(onError: @escaping (Error) -> ()) -> Cancellable {
+        let token = UUID()
+        let cancellable = CancellableBlock { [weak self] in
+            self?.errorObservers[token] = nil
+        }
+        
+        errorObservers[token] = onError
+        
+        return cancellable
     }
     
     private func handle(loadResult: Result<[Cat], Error>) {
@@ -76,7 +83,7 @@ public final class CatService {
     }
     
     private func notify(with error: Error) {
-        errorObservers.forEach({ $0(error) })
+        errorObservers.forEach({ $0.value(error) })
     }
     
     private func notify(with cats: [Cat]) {
