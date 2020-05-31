@@ -12,7 +12,7 @@
 		8BDDD19E2482A2C70056AEE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */; };
 		8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1A82482A2C70056AEE9 /* CatsDogsTests.swift */; };
 		8BDDD1C12482A37E0056AEE9 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDD1B82482A37E0056AEE9 /* Core.framework */; };
-		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
+		8BDDD1D82482A44F0056AEE9 /* LoadingStorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* LoadingStorageTests.swift */; };
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
 		8BDDD252248303400056AEE9 /* LoadingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* LoadingStorage.swift */; };
@@ -52,7 +52,7 @@
 		8BDDD1BB2482A37E0056AEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8BDDD1C02482A37E0056AEE9 /* CoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDDD1C72482A37E0056AEE9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
+		8BDDD1D72482A44F0056AEE9 /* LoadingStorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStorageTests.swift; sourceTree = "<group>"; };
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
 		8BDDD251248303400056AEE9 /* LoadingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStorage.swift; sourceTree = "<group>"; };
@@ -156,7 +156,7 @@
 			children = (
 				8BDDD2542483968A0056AEE9 /* Helpers */,
 				8BDDD1C72482A37E0056AEE9 /* Info.plist */,
-				8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */,
+				8BDDD1D72482A44F0056AEE9 /* LoadingStorageTests.swift */,
 			);
 			path = CoreTests;
 			sourceTree = "<group>";
@@ -374,7 +374,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */,
+				8BDDD1D82482A44F0056AEE9 /* LoadingStorageTests.swift in Sources */,
 				8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 				8BDDD2562483969E0056AEE9 /* SpyObserver.swift in Sources */,
 			);

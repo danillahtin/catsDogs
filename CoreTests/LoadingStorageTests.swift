@@ -1,5 +1,5 @@
 //
-//  CatServiceTests.swift
+//  LoadingStorageTests.swift
 //  CoreTests
 //
 //  Created by Danil Lahtin on 30.05.2020.
@@ -9,9 +9,9 @@
 import XCTest
 import Core
 
-private typealias Service = LoadingStorage<CatServiceTests.CatsLoaderSpy>
+private typealias Service = LoadingStorage<LoadingStorageTests.CatsLoaderSpy>
 
-class CatServiceTests: XCTestCase {
+class LoadingStorageTests: XCTestCase {
     
     func test_subscribe_loadsCats() {
         let (sut, loader) = makeSut()
