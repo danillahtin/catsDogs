@@ -9,11 +9,29 @@
 import XCTest
 
 
-final class CatListViewController {}
+final class CatListViewController: UIViewController {
+    let tableView = UITableView()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.dataSource = self
+    }
+}
+
+extension CatListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
+}
 
 class CatListViewControllerTests: XCTestCase {
-    func test() {
-        let sut = makeSut()
+    func test_loadView_rendersEmptyList() {
+        XCTAssertEqual(makeSut().renderedViewsCount, 0)
     }
     
     // MARK: - Helpers
@@ -23,9 +41,17 @@ class CatListViewControllerTests: XCTestCase {
         line: UInt = #line) -> CatListViewController
     {
         let sut = CatListViewController()
+        sut.loadViewIfNeeded()
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         
         return sut
+    }
+}
+
+
+private extension CatListViewController {
+    var renderedViewsCount: Int {
+        tableView.dataSource!.tableView(tableView, numberOfRowsInSection: 0)
     }
 }
