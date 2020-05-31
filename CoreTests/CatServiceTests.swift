@@ -125,7 +125,13 @@ class CatServiceTests: XCTestCase {
     }
     
     private func makeCats() -> [Cat] {
-        [Cat(id: UUID()), Cat(id: UUID()), Cat(id: UUID())]
+        [makeUniqueCat(), makeUniqueCat(), makeUniqueCat()]
+    }
+    
+    private func makeUniqueCat() -> Cat {
+        Cat(id: UUID(),
+            name: "some name",
+            imageUrls: [])
     }
     
     private func anyError() -> NSError {

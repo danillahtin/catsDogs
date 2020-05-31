@@ -11,8 +11,16 @@ import Foundation
 
 public struct Cat: Equatable {
     public let id: UUID
+    public let name: String
+    public let imageUrls: [URL]
     
-    public init(id: UUID) {
+    public init(
+        id: UUID,
+        name: String,
+        imageUrls: [URL])
+    {
         self.id = id
+        self.name = name
+        self.imageUrls = imageUrls
     }
 }
