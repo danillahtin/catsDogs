@@ -6,12 +6,33 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
+import Foundation
+
+public protocol Cancellable {
+    func cancel()
+}
+
+final class CancellableBlock: Cancellable {
+    let cancelBlock: () -> ()
+    
+    init(cancelBlock: @escaping () -> ()) {
+        self.cancelBlock = cancelBlock
+    }
+    
+    deinit {
+        cancelBlock()
+    }
+    
+    func cancel() {
+        cancelBlock()
+    }
+}
 
 public final class CatService {
     private typealias Observer<T> = (T) -> ()
     
     private let loader: CatLoader
-    private var catObservers: [Observer<[Cat]>] = []
+    private var catObservers: [UUID: Observer<[Cat]>] = [:]
     private var errorObservers: [Observer<Error>] = []
     
     private var cats: [Cat]?
@@ -20,16 +41,24 @@ public final class CatService {
         self.loader = loader
     }
     
-    public func subscribe(onNext: @escaping ([Cat]) -> ()) {
-        catObservers.append(onNext)
+    public func subscribe(onNext: @escaping ([Cat]) -> ()) -> Cancellable {
+        let token = UUID()
+        let cancellable = CancellableBlock { [weak self] in
+            self?.catObservers[token] = nil
+        }
+        
+        catObservers[token] = onNext
         
         if let cats = cats {
-            return onNext(cats)
+            onNext(cats)
+            return cancellable
         }
         
         loader.load { [weak self] in
             self?.handle(loadResult: $0)
         }
+        
+        return cancellable
     }
     
     public func subscribe(onError: @escaping (Error) -> ()) {
@@ -51,6 +80,6 @@ public final class CatService {
     }
     
     private func notify(with cats: [Cat]) {
-        catObservers.forEach({ $0(cats) })
+        catObservers.forEach({ $0.value(cats) })
     }
 }

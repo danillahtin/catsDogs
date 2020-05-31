@@ -9,20 +9,23 @@
 import XCTest
 import Core
 
+// TODO:
+// - thread safety
+// - cancel subscription
 
 class CatServiceTests: XCTestCase {
     func test_subscribe_loadsCats() {
         let (sut, loader) = makeSut()
         
         XCTAssertEqual(loader.loadCallCount, 0)
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         
         XCTAssertEqual(loader.loadCallCount, 1)
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         
         XCTAssertEqual(loader.loadCallCount, 2)
         loader.complete(with: [], at: 1)
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         
         XCTAssertEqual(loader.loadCallCount, 2)
     }
@@ -46,7 +49,7 @@ class CatServiceTests: XCTestCase {
     func test_subscribeAfterSuccessfulLoad_notifiesWithPreviouslyLoadedCats() {
         let (sut, loader) = makeSut()
         
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         let cats = makeCats()
         loader.complete(with: cats)
         
@@ -56,7 +59,7 @@ class CatServiceTests: XCTestCase {
     func test_loadCompletionWithCats_doesNotNotifyError() {
         let (sut, loader) = makeSut()
         
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         loader.complete(with: [])
         
         XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
@@ -67,17 +70,30 @@ class CatServiceTests: XCTestCase {
         let error = anyError()
         let errorObserver = ErrorObserver(sut: sut)
         
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         loader.complete(with: error, at: 0)
         
         XCTAssertEqual(errorObserver.retrieved, [error])
         XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
         
-        sut.subscribe(onNext: { _ in })
+        sut.subscribe()
         loader.complete(with: error, at: 1)
         
         XCTAssertEqual(errorObserver.retrieved, [error, error])
         XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+    }
+    
+    func test_cancelSubscription_doesNotNotify() {
+        let (sut, loader) = makeSut()
+        
+        var retrieved = [[Cat]]()
+        sut.subscribe(onNext: { retrieved.append($0) }).cancel()
+        _ = sut.subscribe(onNext: { retrieved.append($0) })
+        
+        XCTAssertEqual(retrieved, [])
+        
+        loader.complete(with: makeCats())
+        XCTAssertEqual(retrieved, [])
     }
     
     // MARK: - Helpers
@@ -104,10 +120,11 @@ class CatServiceTests: XCTestCase {
     }
     
     private final class CatsObserver {
+        private var subscription: Cancellable!
         private(set) var retrieved: [[Cat]] = []
         
         init(sut: CatService) {
-            sut.subscribe(onNext: { [weak self] in
+            subscription = sut.subscribe(onNext: { [weak self] in
                 self?.retrieved.append($0)
             })
         }
@@ -166,5 +183,11 @@ class CatServiceTests: XCTestCase {
             
             completions[index](result)
         }
+    }
+}
+
+private extension CatService {
+    func subscribe() {
+        _ = subscribe(onNext: { _ in })
     }
 }

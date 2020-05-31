@@ -136,9 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
-				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
-				8BDDD24F248302AB0056AEE9 /* CatLoader.swift */,
-				8BDDD251248303400056AEE9 /* CatService.swift */,
+				8BDDD2532483060A0056AEE9 /* Cat */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -158,6 +156,16 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8BDDD2532483060A0056AEE9 /* Cat */ = {
+			isa = PBXGroup;
+			children = (
+				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
+				8BDDD24F248302AB0056AEE9 /* CatLoader.swift */,
+				8BDDD251248303400056AEE9 /* CatService.swift */,
+			);
+			path = Cat;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
