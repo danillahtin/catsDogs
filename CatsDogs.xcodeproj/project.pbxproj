@@ -15,7 +15,7 @@
 		8BDDD1D82482A44F0056AEE9 /* CatServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */; };
 		8BDDD1DA2482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24D2483023E0056AEE9 /* Cat.swift */; };
-		8BDDD252248303400056AEE9 /* CatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* CatService.swift */; };
+		8BDDD252248303400056AEE9 /* LoadingStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* LoadingStorage.swift */; };
 		8BDDD2562483969E0056AEE9 /* SpyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD2552483969E0056AEE9 /* SpyObserver.swift */; };
 		8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25724839A840056AEE9 /* Cancellable.swift */; };
 		8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */; };
@@ -55,7 +55,7 @@
 		8BDDD1D72482A44F0056AEE9 /* CatServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatServiceTests.swift; sourceTree = "<group>"; };
 		8BDDD1D92482A5A40056AEE9 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BDDD24D2483023E0056AEE9 /* Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cat.swift; sourceTree = "<group>"; };
-		8BDDD251248303400056AEE9 /* CatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatService.swift; sourceTree = "<group>"; };
+		8BDDD251248303400056AEE9 /* LoadingStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingStorage.swift; sourceTree = "<group>"; };
 		8BDDD2552483969E0056AEE9 /* SpyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyObserver.swift; sourceTree = "<group>"; };
 		8BDDD25724839A840056AEE9 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableBlock.swift; sourceTree = "<group>"; };
@@ -141,11 +141,12 @@
 		8BDDD1B92482A37E0056AEE9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
-				8BDDD2532483060A0056AEE9 /* Cat */,
 				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
 				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
 				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
+				8BDDD251248303400056AEE9 /* LoadingStorage.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -165,15 +166,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		8BDDD2532483060A0056AEE9 /* Cat */ = {
-			isa = PBXGroup;
-			children = (
-				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
-				8BDDD251248303400056AEE9 /* CatService.swift */,
-			);
-			path = Cat;
 			sourceTree = "<group>";
 		};
 		8BDDD2542483968A0056AEE9 /* Helpers */ = {
@@ -370,7 +362,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BDDD252248303400056AEE9 /* CatService.swift in Sources */,
+				8BDDD252248303400056AEE9 /* LoadingStorage.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 				8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */,
 				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,

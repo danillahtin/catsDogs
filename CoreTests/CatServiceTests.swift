@@ -9,7 +9,7 @@
 import XCTest
 import Core
 
-private typealias Service = CatService<CatServiceTests.CatsLoaderSpy>
+private typealias Service = LoadingStorage<CatServiceTests.CatsLoaderSpy>
 
 class CatServiceTests: XCTestCase {
     
