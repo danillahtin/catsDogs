@@ -9,8 +9,6 @@
 import XCTest
 import Core
 
-// TODO:
-// - thread safety
 
 class CatServiceTests: XCTestCase {
     func test_subscribe_loadsCats() {

@@ -18,6 +18,7 @@
 		8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD24F248302AB0056AEE9 /* CatLoader.swift */; };
 		8BDDD252248303400056AEE9 /* CatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD251248303400056AEE9 /* CatService.swift */; };
 		8BDDD2562483969E0056AEE9 /* SpyObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD2552483969E0056AEE9 /* SpyObserver.swift */; };
+		8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25724839A840056AEE9 /* Cancellable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		8BDDD24F248302AB0056AEE9 /* CatLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatLoader.swift; sourceTree = "<group>"; };
 		8BDDD251248303400056AEE9 /* CatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatService.swift; sourceTree = "<group>"; };
 		8BDDD2552483969E0056AEE9 /* SpyObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpyObserver.swift; sourceTree = "<group>"; };
+		8BDDD25724839A840056AEE9 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +141,7 @@
 			children = (
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
 				8BDDD2532483060A0056AEE9 /* Cat */,
+				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 			files = (
 				8BDDD252248303400056AEE9 /* CatService.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
+				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,
 				8BDDD250248302AB0056AEE9 /* CatLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

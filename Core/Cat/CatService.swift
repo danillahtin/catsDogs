@@ -8,9 +8,6 @@
 
 import Foundation
 
-public protocol Cancellable {
-    func cancel()
-}
 
 final class CancellableBlock: Cancellable {
     let cancelBlock: () -> ()
