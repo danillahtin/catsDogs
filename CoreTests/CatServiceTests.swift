@@ -32,8 +32,8 @@ class CatServiceTests: XCTestCase {
     func test_loadCompletionWithCats_notifies() {
         let (sut, loader) = makeSut()
         
-        let observer0 = CatsObserver(sut: sut)
-        let observer1 = CatsObserver(sut: sut)
+        let observer0 = SpyObserver<[Cat]>(sut: sut)
+        let observer1 = SpyObserver<[Cat]>(sut: sut)
         
         XCTAssertEqual(observer0.retrieved, [])
         XCTAssertEqual(observer1.retrieved, [])
@@ -52,7 +52,7 @@ class CatServiceTests: XCTestCase {
         let cats = makeCats()
         loader.complete(with: cats)
         
-        XCTAssertEqual(CatsObserver(sut: sut).retrieved, [cats])
+        XCTAssertEqual(SpyObserver<[Cat]>(sut: sut).retrieved, [cats])
     }
     
     func test_loadCompletionWithCats_doesNotNotifyError() {
@@ -61,25 +61,25 @@ class CatServiceTests: XCTestCase {
         sut.subscribeCats()
         loader.complete(with: [])
         
-        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+        XCTAssertEqual(SpyObserver<NSError>(sut: sut).retrieved, [])
     }
     
     func test_loadCompletionWithError_notifiesError() {
         let (sut, loader) = makeSut()
         let error = anyError()
-        let errorObserver = ErrorObserver(sut: sut)
+        let errorObserver = SpyObserver<NSError>(sut: sut)
         
         sut.subscribeCats()
         loader.complete(with: error, at: 0)
         
         XCTAssertEqual(errorObserver.retrieved, [error])
-        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+        XCTAssertEqual(SpyObserver<NSError>(sut: sut).retrieved, [])
         
         sut.subscribeCats()
         loader.complete(with: error, at: 1)
         
         XCTAssertEqual(errorObserver.retrieved, [error, error])
-        XCTAssertEqual(ErrorObserver(sut: sut).retrieved, [])
+        XCTAssertEqual(SpyObserver<NSError>(sut: sut).retrieved, [])
     }
     
     func test_cancelSubscription_doesNotNotify() {
@@ -132,28 +132,6 @@ class CatServiceTests: XCTestCase {
         NSError(domain: "TestDomain", code: 0, userInfo: nil)
     }
     
-    private final class CatsObserver {
-        private var subscription: Cancellable!
-        private(set) var retrieved: [[Cat]] = []
-        
-        init(sut: CatService) {
-            subscription = sut.subscribe(onNext: { [weak self] in
-                self?.retrieved.append($0)
-            })
-        }
-    }
-    
-    private final class ErrorObserver {
-        private var subscription: Cancellable!
-        private(set) var retrieved: [NSError] = []
-        
-        init(sut: CatService) {
-            subscription = sut.subscribe(onError: { [weak self] in
-                self?.retrieved.append($0 as NSError)
-            })
-        }
-    }
-    
     private final class CatsLoaderSpy: CatLoader {
         private var completions: [(Result<[Cat], Error>) -> ()] = []
         
@@ -203,5 +181,22 @@ class CatServiceTests: XCTestCase {
 private extension CatService {
     func subscribeCats() {
         _ = subscribe(onNext: { _ in })
+    }
+}
+
+
+private extension SpyObserver where Value == [Cat] {
+    convenience init(sut: CatService) {
+        self.init(sut.subscribe(onNext:))
+    }
+}
+
+private extension SpyObserver where Value == NSError {
+    convenience init(sut: CatService) {
+        self.init { observeBlock in
+            sut.subscribe(onError: {
+                observeBlock($0 as NSError)
+            })
+        }
     }
 }
