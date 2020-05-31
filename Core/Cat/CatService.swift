@@ -9,22 +9,6 @@
 import Foundation
 
 
-final class CancellableBlock: Cancellable {
-    let cancelBlock: () -> ()
-    
-    init(cancelBlock: @escaping () -> ()) {
-        self.cancelBlock = cancelBlock
-    }
-    
-    deinit {
-        cancelBlock()
-    }
-    
-    func cancel() {
-        cancelBlock()
-    }
-}
-
 public final class CatService {
     private typealias Observer<T> = (T) -> ()
     
