@@ -11,57 +11,6 @@ import Core
 import UI
 
 
-final class CatListViewController: UIViewController {
-    private weak var tableView: UITableView!
-    private var imageLoader: ImageLoader!
-    
-    private var cats: [Cat] = [] {
-        didSet {
-            tableView?.reloadData()
-        }
-    }
-    
-    convenience init(imageLoader: ImageLoader) {
-        self.init()
-        
-        self.imageLoader = imageLoader
-    }
-    
-    override func loadView() {
-        let tableView = UITableView()
-        
-        self.view = tableView
-        self.tableView = tableView
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.dataSource = self
-    }
-}
-
-extension CatListViewController {
-    func catsUpdated(with cats: [Cat]) {
-        self.cats = cats
-    }
-}
-
-extension CatListViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cats.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        
-        cell.textLabel?.text = cats[indexPath.row].name
-        imageLoader.load(from: cats[indexPath.row].imageUrl, into: cell.imageView)
-        
-        return cell
-    }
-}
-
 class CatListViewControllerTests: XCTestCase {
     func test_catsUpdated_doesNotLoadView() {
         let sut = makeSut()

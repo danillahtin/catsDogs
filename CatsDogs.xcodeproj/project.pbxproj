@@ -13,6 +13,7 @@
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
 		8B270CB724859B7400A345B4 /* CatsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB624859B7400A345B4 /* CatsListener.swift */; };
+		8B270CB924859BAA00A345B4 /* CatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB824859BAA00A345B4 /* CatListViewController.swift */; };
 		8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */; };
 		8BDDD19B2482A2C70056AEE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */; };
 		8BDDD19E2482A2C70056AEE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */; };
@@ -75,6 +76,7 @@
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		8B270CB624859B7400A345B4 /* CatsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsListener.swift; sourceTree = "<group>"; };
+		8B270CB824859BAA00A345B4 /* CatListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatListViewController.swift; sourceTree = "<group>"; };
 		8BDDD18E2482A2C20056AEE9 /* CatsDogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatsDogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				8B0F986F2483C8B1008E6D50 /* Info.plist */,
 				8B270CB424859B4400A345B4 /* ImageLoader.swift */,
+				8B270CB824859BAA00A345B4 /* CatListViewController.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */,
+				8B270CB924859BAA00A345B4 /* CatListViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
