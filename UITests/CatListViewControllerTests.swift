@@ -13,6 +13,10 @@ protocol ImageLoader {
     func load(from url: URL, into imageView: UIImageView?)
 }
 
+protocol CatsListener {
+    func catsUpdated(with cats: [Cat])
+}
+
 final class CatListViewController: UIViewController {
     private weak var tableView: UITableView!
     private var imageLoader: ImageLoader!
@@ -41,7 +45,9 @@ final class CatListViewController: UIViewController {
         
         tableView.dataSource = self
     }
-    
+}
+
+extension CatListViewController {
     func catsUpdated(with cats: [Cat]) {
         self.cats = cats
     }
