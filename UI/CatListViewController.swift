@@ -11,9 +11,11 @@ import Core
 
 
 public final class CatListViewController: UIViewController {
-    public private(set) weak var tableView: UITableView!
+    public typealias CellFactory = (UITableView, IndexPath, Cat) -> UITableViewCell
     
+    public private(set) weak var tableView: UITableView!
     private var imageLoader: ImageLoader!
+    private var cellFactory: CellFactory!
     
     private var cats: [Cat] = [] {
         didSet {
@@ -25,6 +27,14 @@ public final class CatListViewController: UIViewController {
         self.init()
         
         self.imageLoader = imageLoader
+        self.cellFactory = { _, _, cat in
+            let cell = UITableViewCell()
+            
+            cell.textLabel?.text = cat.name
+            imageLoader.load(from: cat.imageUrl, into: cell.imageView)
+            
+            return cell
+        }
     }
     
     public override func loadView() {
@@ -53,11 +63,6 @@ extension CatListViewController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        
-        cell.textLabel?.text = cats[indexPath.row].name
-        imageLoader.load(from: cats[indexPath.row].imageUrl, into: cell.imageView)
-        
-        return cell
+        cellFactory(tableView, indexPath, cats[indexPath.row])
     }
 }
