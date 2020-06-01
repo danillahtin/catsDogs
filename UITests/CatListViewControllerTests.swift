@@ -76,9 +76,9 @@ class CatListViewControllerTests: XCTestCase {
     private func makeSut(
         imageLoader: ImageLoaderSpy = .init(),
         file: StaticString = #file,
-        line: UInt = #line) -> CatListViewController
+        line: UInt = #line) -> CatListViewController<Cat>
     {
-        let sut = CatListViewController(
+        let sut = CatListViewController<Cat>(
             imageLoader: imageLoader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
@@ -95,7 +95,7 @@ class CatListViewControllerTests: XCTestCase {
     }
     
     private func assert(
-        sut: CatListViewController,
+        sut: CatListViewController<Cat>,
         renders cats: [Cat],
         file: StaticString = #file,
         line: UInt = #line)

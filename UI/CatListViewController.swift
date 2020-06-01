@@ -23,12 +23,10 @@ public func catCellFactory(imageLoader: ImageLoader)
     }
 }
 
-public final class CatListViewController: UIViewController {
-    public typealias Entity = Cat
+public final class CatListViewController<Entity>: UIViewController, UITableViewDataSource {
     public typealias CellFactory = (UITableView, IndexPath, Entity) -> UITableViewCell
     
     public private(set) weak var tableView: UITableView!
-    private var imageLoader: ImageLoader!
     private var cellFactory: CellFactory!
     
     private var entities: [Entity] = [] {
@@ -37,11 +35,10 @@ public final class CatListViewController: UIViewController {
         }
     }
     
-    public convenience init(imageLoader: ImageLoader) {
+    public convenience init(cellFactory: @escaping CellFactory) {
         self.init()
         
-        self.imageLoader = imageLoader
-        self.cellFactory = catCellFactory(imageLoader: imageLoader)
+        self.cellFactory = cellFactory
     }
     
     public override func loadView() {
@@ -60,20 +57,25 @@ public final class CatListViewController: UIViewController {
     public func entitiesUpdated(with entities: [Entity]) {
         self.entities = entities
     }
-}
-
-extension CatListViewController: CatsListener {
-    public func catsUpdated(with entities: [Entity]) {
-        entitiesUpdated(with: entities)
-    }
-}
-
-extension CatListViewController: UITableViewDataSource {
+    
+    // MARK: UITableViewDataSource
+    
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         entities.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cellFactory(tableView, indexPath, entities[indexPath.row])
+    }
+}
+
+
+extension CatListViewController: CatsListener where Entity == Cat {
+    public convenience init(imageLoader: ImageLoader) {
+        self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
+    }
+    
+    public func catsUpdated(with cats: [Cat]) {
+        entitiesUpdated(with: cats)
     }
 }
