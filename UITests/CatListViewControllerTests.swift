@@ -13,37 +13,37 @@ protocol ImageLoader {
     func load(from url: URL, into imageView: UIImageView?)
 }
 
-protocol Publisher {
-    func subscribe(_ observer: @escaping ([Cat]) -> ())
-}
-
 final class CatListViewController: UIViewController {
-    let tableView = UITableView()
-    
-    private var publisher: Publisher!
+    private weak var tableView: UITableView!
     private var imageLoader: ImageLoader!
     
     private var cats: [Cat] = [] {
         didSet {
-            tableView.reloadData()
+            tableView?.reloadData()
         }
     }
     
-    convenience init(
-        publisher: Publisher,
-        imageLoader: ImageLoader)
-    {
+    convenience init(imageLoader: ImageLoader) {
         self.init()
         
-        self.publisher = publisher
         self.imageLoader = imageLoader
+    }
+    
+    override func loadView() {
+        let tableView = UITableView()
+        
+        self.view = tableView
+        self.tableView = tableView
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.dataSource = self
-        publisher.subscribe { [weak self] in self?.cats = $0 }
+    }
+    
+    func catsUpdated(with cats: [Cat]) {
+        self.cats = cats
     }
 }
 
@@ -54,7 +54,7 @@ extension CatListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-
+        
         cell.textLabel?.text = cats[indexPath.row].name
         imageLoader.load(from: cats[indexPath.row].imageUrl, into: cell.imageView)
         
@@ -63,6 +63,14 @@ extension CatListViewController: UITableViewDataSource {
 }
 
 class CatListViewControllerTests: XCTestCase {
+    func test_catsUpdated_doesNotLoadView() {
+        let sut = makeSut()
+        
+        sut.catsUpdated(with: [])
+        
+        XCTAssertFalse(sut.isViewLoaded)
+    }
+    
     func test_loadView_rendersEmptyList() {
         let sut = makeSut()
         sut.loadViewIfNeeded()
@@ -70,36 +78,46 @@ class CatListViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.renderedViewsCount, 0)
     }
     
-    func test_loadView_subscribes() {
-        let publisher = PublisherStub()
-        let sut = makeSut(publisher: publisher)
+    func test_loadView_rendersUpdatedCats() {
+        let sut = makeSut()
         
-        XCTAssertEqual(publisher.subscribers.count, 0)
+        let cats = [
+            makeCat(name: "Buffy"),
+            makeCat(name: "Buckwheat"),
+        ]
+        
+        sut.catsUpdated(with: cats)
         sut.loadViewIfNeeded()
-        XCTAssertEqual(publisher.subscribers.count, 1)
+        
+        assert(sut: sut, renders: cats)
+        
+        sut.catsUpdated(with: cats.reversed())
+        assert(sut: sut, renders: cats.reversed())
+        
+        sut.catsUpdated(with: [])
+        assert(sut: sut, renders: [])
     }
     
-    func test_publisherNotification_rendersCats() {
+    func test_renderCats_loadsImages() {
         let imageLoader = ImageLoaderSpy()
-        let publisher = PublisherStub()
-        let sut = makeSut(publisher: publisher, imageLoader: imageLoader)
+        let sut = makeSut(imageLoader: imageLoader)
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(sut.renderedViewsCount, 0)
         XCTAssertEqual(imageLoader.requestedUrls, [])
         
         let buffy = makeCat(name: "Buffy", url: "buffy.url")
         let buckwheat = makeCat(name: "Buckwheat", url: "buckwheat.url")
         
-        publisher.notify(with: [buffy])
-        XCTAssertEqual(sut.renderedViewsCount, 1)
-        XCTAssertEqual(sut.view(at: 0)?.title, "Buffy")
+        sut.catsUpdated(with: [buffy])
+        _ = sut.view(at: 0)
         XCTAssertEqual(imageLoader.requestedUrls, ["buffy.url"])
-
-        publisher.notify(with: [buckwheat, buffy])
-        XCTAssertEqual(sut.renderedViewsCount, 2)
-        XCTAssertEqual(sut.view(at: 0)?.title, "Buckwheat")
-        XCTAssertEqual(sut.view(at: 1)?.title, "Buffy")
+        
+        sut.catsUpdated(with: [buckwheat, buffy])
+        _ = sut.view(at: 0)
+        XCTAssertEqual(imageLoader.requestedUrls,
+                       ["buffy.url", "buckwheat.url"])
+        
+        _ = sut.view(at: 1)
         XCTAssertEqual(imageLoader.requestedUrls,
                        ["buffy.url", "buckwheat.url", "buffy.url"])
     }
@@ -107,17 +125,14 @@ class CatListViewControllerTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSut(
-        publisher: PublisherStub = .init(),
         imageLoader: ImageLoaderSpy = .init(),
         file: StaticString = #file,
         line: UInt = #line) -> CatListViewController
     {
         let sut = CatListViewController(
-            publisher: publisher,
             imageLoader: imageLoader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
-       trackMemoryLeaks(for: publisher, file: file, line: line)
         trackMemoryLeaks(for: imageLoader, file: file, line: line)
         
         return sut
@@ -125,20 +140,33 @@ class CatListViewControllerTests: XCTestCase {
     
     private func makeCat(
         name: String = "noname",
-        url: String) -> Cat
+        url: String = "any.url") -> Cat
     {
         Cat(id: UUID(), name: name, imageUrl: URL(string: url)!)
     }
     
-    private final class PublisherStub: Publisher {
-        var subscribers: [([Cat]) -> ()] = []
+    private func assert(
+        sut: CatListViewController,
+        renders cats: [Cat],
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        XCTAssertEqual(
+            sut.renderedViewsCount,
+            cats.count,
+            "Expected to render \(cats.count) views, got \(sut.renderedViewsCount) instead",
+            file: file,
+            line: line)
         
-        func subscribe(_ observer: @escaping ([Cat]) -> ()) {
-            subscribers.append(observer)
-        }
-        
-        func notify(with cats: [Cat]) {
-            subscribers.forEach({ $0(cats) })
+        for (index, cat) in cats.enumerated() {
+            let renderedName = sut.view(at: index)?.title
+            
+            XCTAssertEqual(
+                renderedName,
+                cat.name,
+                "Expected to render name \(cat.name) at index \(index), got \(String(describing: renderedName)) instead",
+                file: file,
+                line: line)
         }
     }
     
