@@ -8,10 +8,7 @@
 
 import XCTest
 import Core
-
-protocol ImageLoader {
-    func load(from url: URL, into imageView: UIImageView?)
-}
+import UI
 
 protocol CatsListener {
     func catsUpdated(with cats: [Cat])
