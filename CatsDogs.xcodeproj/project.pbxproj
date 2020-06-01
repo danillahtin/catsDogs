@@ -12,6 +12,7 @@
 		8B270C822483CA5C00A345B4 /* CatListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* CatListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
+		8B270CB724859B7400A345B4 /* CatsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB624859B7400A345B4 /* CatsListener.swift */; };
 		8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */; };
 		8BDDD19B2482A2C70056AEE9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */; };
 		8BDDD19E2482A2C70056AEE9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */; };
@@ -73,6 +74,7 @@
 		8B270C812483CA5C00A345B4 /* CatListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		8B270CB624859B7400A345B4 /* CatsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatsListener.swift; sourceTree = "<group>"; };
 		8BDDD18E2482A2C20056AEE9 /* CatsDogs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CatsDogs.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -219,6 +221,7 @@
 				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
 				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
 				8BDDD251248303400056AEE9 /* LoadingStorage.swift */,
+				8B270CB624859B7400A345B4 /* CatsListener.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 				8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */,
 				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,
+				8B270CB724859B7400A345B4 /* CatsListener.swift in Sources */,
 				8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

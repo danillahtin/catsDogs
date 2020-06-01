@@ -10,9 +10,6 @@ import XCTest
 import Core
 import UI
 
-protocol CatsListener {
-    func catsUpdated(with cats: [Cat])
-}
 
 final class CatListViewController: UIViewController {
     private weak var tableView: UITableView!
