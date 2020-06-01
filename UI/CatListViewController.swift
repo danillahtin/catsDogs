@@ -10,6 +10,19 @@ import UIKit
 import Core
 
 
+public func catCellFactory(imageLoader: ImageLoader)
+    -> (UITableView, IndexPath, Cat) -> UITableViewCell
+{
+    return { _, _, cat in
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = cat.name
+        imageLoader.load(from: cat.imageUrl, into: cell.imageView)
+        
+        return cell
+    }
+}
+
 public final class CatListViewController: UIViewController {
     public typealias Entity = Cat
     public typealias CellFactory = (UITableView, IndexPath, Entity) -> UITableViewCell
@@ -28,14 +41,7 @@ public final class CatListViewController: UIViewController {
         self.init()
         
         self.imageLoader = imageLoader
-        self.cellFactory = { _, _, cat in
-            let cell = UITableViewCell()
-            
-            cell.textLabel?.text = cat.name
-            imageLoader.load(from: cat.imageUrl, into: cell.imageView)
-            
-            return cell
-        }
+        self.cellFactory = catCellFactory(imageLoader: imageLoader)
     }
     
     public override func loadView() {
