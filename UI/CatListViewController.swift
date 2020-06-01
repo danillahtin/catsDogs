@@ -11,13 +11,14 @@ import Core
 
 
 public final class CatListViewController: UIViewController {
-    public typealias CellFactory = (UITableView, IndexPath, Cat) -> UITableViewCell
+    public typealias Entity = Cat
+    public typealias CellFactory = (UITableView, IndexPath, Entity) -> UITableViewCell
     
     public private(set) weak var tableView: UITableView!
     private var imageLoader: ImageLoader!
     private var cellFactory: CellFactory!
     
-    private var cats: [Cat] = [] {
+    private var entities: [Entity] = [] {
         didSet {
             tableView?.reloadData()
         }
@@ -49,20 +50,24 @@ public final class CatListViewController: UIViewController {
         
         tableView.dataSource = self
     }
+    
+    public func entitiesUpdated(with entities: [Entity]) {
+        self.entities = entities
+    }
 }
 
-extension CatListViewController {
-    public func catsUpdated(with cats: [Cat]) {
-        self.cats = cats
+extension CatListViewController: CatsListener {
+    public func catsUpdated(with entities: [Entity]) {
+        entitiesUpdated(with: entities)
     }
 }
 
 extension CatListViewController: UITableViewDataSource {
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        cats.count
+        entities.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        cellFactory(tableView, indexPath, cats[indexPath.row])
+        cellFactory(tableView, indexPath, entities[indexPath.row])
     }
 }
