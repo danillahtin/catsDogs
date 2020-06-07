@@ -7,14 +7,27 @@
 //
 
 import XCTest
+import UIKit
 
 
-final class LoginViewController {}
+final class LoginViewController: UIViewController {
+    var didLogin: () -> () = {}
+    
+}
 
 class LoginViewControllerTests: XCTestCase {
     
-    func test() {
+    func test_loadView_doesNotLogin() {
         let sut = makeSut()
+        
+        var loginCallCount = 0
+        sut.didLogin = {
+            loginCallCount += 1
+        }
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(loginCallCount, 0)
     }
     
     // MARK: - Helpers
