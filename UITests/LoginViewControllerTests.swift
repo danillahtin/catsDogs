@@ -12,7 +12,8 @@ import UIKit
 
 final class LoginViewController: UIViewController {
     let loginButton = UIButton()
-    var didLogin: () -> () = {}
+    let loginTextField = UITextField()
+    var didLogin: (String) -> () = { _ in }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,31 +23,37 @@ final class LoginViewController: UIViewController {
     
     @objc
     func onLoginButtonTapped() {
-        didLogin()
+        didLogin(loginTextField.text ?? "")
     }
 }
 
 class LoginViewControllerTests: XCTestCase {
     
-    func test_loginButtonTap_logsIn() {
+    func test_loginButtonTap_logsInWithCorrectLogin() {
         let sut = makeSut()
         
-        var loginCallCount = 0
+        var retrievedLogins = [String]()
         sut.didLogin = {
-            loginCallCount += 1
+            retrievedLogins.append($0)
         }
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(loginCallCount, 0)
+        XCTAssertEqual(retrievedLogins, [])
         
         sut.simulateLoginButtonTap()
         
-        XCTAssertEqual(loginCallCount, 1)
+        XCTAssertEqual(retrievedLogins, [""])
         
+        sut.simulateLoginInput("login")
         sut.simulateLoginButtonTap()
         
-        XCTAssertEqual(loginCallCount, 2)
+        XCTAssertEqual(retrievedLogins, ["", "login"])
+        
+        sut.simulateLoginInput("another login")
+        sut.simulateLoginButtonTap()
+        
+        XCTAssertEqual(retrievedLogins, ["", "login", "another login"])
     }
     
     // MARK: - Helpers
@@ -66,5 +73,9 @@ class LoginViewControllerTests: XCTestCase {
 private extension LoginViewController {
     func simulateLoginButtonTap() {
         loginButton.triggerTap()
+    }
+    
+    func simulateLoginInput(_ login: String) {
+        loginTextField.text = login
     }
 }
