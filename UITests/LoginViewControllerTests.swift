@@ -9,26 +9,8 @@
 import XCTest
 import UIKit
 import Core
+import UI
 
-
-final class LoginViewController: UIViewController {
-    let loginButton = UIButton()
-    let loginTextField = UITextField()
-    let passwordTextField = UITextField()
-    var didLogin: (Credentials) -> () = { _ in }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        loginButton.addTarget(self, action: #selector(onLoginButtonTapped), for: .touchUpInside)
-    }
-    
-    @objc
-    func onLoginButtonTapped() {
-        didLogin(Credentials(login: loginTextField.text ?? "",
-                             password: passwordTextField.text ?? ""))
-    }
-}
 
 class LoginViewControllerTests: XCTestCase {
     
