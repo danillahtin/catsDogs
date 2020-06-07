@@ -11,8 +11,19 @@ import UIKit
 
 
 final class LoginViewController: UIViewController {
+    let loginButton = UIButton()
     var didLogin: () -> () = {}
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        loginButton.addTarget(self, action: #selector(onLoginButtonTapped), for: .touchUpInside)
+    }
+    
+    @objc
+    func onLoginButtonTapped() {
+        didLogin()
+    }
 }
 
 class LoginViewControllerTests: XCTestCase {
@@ -30,6 +41,27 @@ class LoginViewControllerTests: XCTestCase {
         XCTAssertEqual(loginCallCount, 0)
     }
     
+    func test_loginButtonTap_logsIn() {
+        let sut = makeSut()
+        
+        var loginCallCount = 0
+        sut.didLogin = {
+            loginCallCount += 1
+        }
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(loginCallCount, 0)
+        
+        sut.simulateLoginButtonTap()
+        
+        XCTAssertEqual(loginCallCount, 1)
+        
+        sut.simulateLoginButtonTap()
+        
+        XCTAssertEqual(loginCallCount, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -41,5 +73,11 @@ class LoginViewControllerTests: XCTestCase {
         trackMemoryLeaks(for: sut, file: file, line: line)
         
         return sut
+    }
+}
+
+private extension LoginViewController {
+    func simulateLoginButtonTap() {
+        loginButton.triggerTap()
     }
 }
