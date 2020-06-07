@@ -12,10 +12,6 @@ import UI
 
 
 class ProfileViewControllerTests: XCTestCase {
-    func test() {
-        let sut = makeSut()
-    }
-    
     func test_initialStateIsNotAuthorized() {
         let sut = makeSut()
         
