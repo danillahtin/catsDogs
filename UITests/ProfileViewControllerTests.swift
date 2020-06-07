@@ -7,13 +7,9 @@
 //
 
 import XCTest
+import Core
 import UIKit
 
-
-enum ProfileState {
-    case authorized(String)
-    case unauthorized
-}
 
 class ProfileViewController: UIViewController {
     let profileViewContainerView = UIView()

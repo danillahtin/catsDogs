@@ -28,6 +28,7 @@
 		8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */; };
 		8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BDDD25D24839EE10056AEE9 /* Loader.swift */; };
 		8BF5C9BD248CDAA00053C55B /* ProfileViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9BC248CDAA00053C55B /* ProfileViewControllerTests.swift */; };
+		8BF5C9BF248CDFF30053C55B /* ProfileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9BE248CDFF30053C55B /* ProfileState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,7 @@
 		8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancellableBlock.swift; sourceTree = "<group>"; };
 		8BDDD25D24839EE10056AEE9 /* Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loader.swift; sourceTree = "<group>"; };
 		8BF5C9BC248CDAA00053C55B /* ProfileViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerTests.swift; sourceTree = "<group>"; };
+		8BF5C9BE248CDFF30053C55B /* ProfileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
 				8BDDD251248303400056AEE9 /* LoadingStorage.swift */,
 				8B270CB624859B7400A345B4 /* CatsListener.swift */,
+				8BF5C9BE248CDFF30053C55B /* ProfileState.swift */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 				8BDDD252248303400056AEE9 /* LoadingStorage.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 				8BDDD25E24839EE10056AEE9 /* Loader.swift in Sources */,
+				8BF5C9BF248CDFF30053C55B /* ProfileState.swift in Sources */,
 				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,
 				8B270CB724859B7400A345B4 /* CatsListener.swift in Sources */,
 				8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */,
