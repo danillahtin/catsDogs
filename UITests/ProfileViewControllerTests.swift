@@ -44,6 +44,24 @@ class ProfileViewControllerTests: XCTestCase {
         assert(sut: sut, renders: .authorized("Another user"))
     }
     
+    func test_signInButtonTapped_notifies() {
+        let sut = makeSut()
+        
+        var signInCallsCount = 0
+        sut.onSignIn = { signInCallsCount += 1 }
+        
+        sut.loadViewIfNeeded()
+        sut.profileUpdated(state: .unauthorized)
+        
+        XCTAssertEqual(signInCallsCount, 0)
+        sut.simulateSignInButtonTapped()
+        
+        XCTAssertEqual(signInCallsCount, 1)
+        sut.simulateSignInButtonTapped()
+        
+        XCTAssertEqual(signInCallsCount, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -100,5 +118,9 @@ private extension ProfileViewController {
     
     var renderedProfileName: String? {
         profileNameLabel.text
+    }
+    
+    func simulateSignInButtonTapped() {
+        signInButton.triggerTap()
     }
 }

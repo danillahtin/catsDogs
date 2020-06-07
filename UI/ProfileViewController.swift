@@ -13,12 +13,16 @@ public final class ProfileViewController: UIViewController {
     public let profileViewContainerView = UIView()
     public let signInButtonContainerView = UIView()
     public let profileNameLabel = UILabel()
+    public let signInButton = UIButton()
+    
+    public var onSignIn: () -> () = {}
     
     private var state: ProfileState = .unauthorized
     
     public override func viewDidLoad() {
         super.viewDidLoad()
         
+        signInButton.addTarget(self, action: #selector(onSigninButtonTapped), for: .touchUpInside)
         render(state: state)
     }
     
@@ -38,5 +42,10 @@ public final class ProfileViewController: UIViewController {
             signInButtonContainerView.isHidden = false
             profileViewContainerView.isHidden = true
         }
+    }
+    
+    @objc
+    func onSigninButtonTapped() {
+        onSignIn()
     }
 }
