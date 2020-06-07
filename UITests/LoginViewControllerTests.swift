@@ -28,19 +28,6 @@ final class LoginViewController: UIViewController {
 
 class LoginViewControllerTests: XCTestCase {
     
-    func test_loadView_doesNotLogin() {
-        let sut = makeSut()
-        
-        var loginCallCount = 0
-        sut.didLogin = {
-            loginCallCount += 1
-        }
-        
-        sut.loadViewIfNeeded()
-        
-        XCTAssertEqual(loginCallCount, 0)
-    }
-    
     func test_loginButtonTap_logsIn() {
         let sut = makeSut()
         
