@@ -8,40 +8,7 @@
 
 import XCTest
 import Core
-import UIKit
-
-
-class ProfileViewController: UIViewController {
-    let profileViewContainerView = UIView()
-    let signInButtonContainerView = UIView()
-    let profileNameLabel = UILabel()
-    
-    private var state: ProfileState = .unauthorized
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        render(state: state)
-    }
-    
-    func profileUpdated(state: ProfileState) {
-        self.state = state
-        
-        render(state: state)
-    }
-    
-    func render(state: ProfileState) {
-        switch state {
-        case .authorized(let user):
-            signInButtonContainerView.isHidden = true
-            profileViewContainerView.isHidden = false
-            profileNameLabel.text = user
-        case .unauthorized:
-            signInButtonContainerView.isHidden = false
-            profileViewContainerView.isHidden = true
-        }
-    }
-}
+import UI
 
 
 class ProfileViewControllerTests: XCTestCase {
