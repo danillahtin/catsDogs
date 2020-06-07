@@ -8,17 +8,7 @@
 
 import XCTest
 import UIKit
-
-
-public struct Credentials: Equatable {
-    public let login: String
-    public let password: String
-    
-    public init(login: String, password: String) {
-        self.login = login
-        self.password = password
-    }
-}
+import Core
 
 
 final class LoginViewController: UIViewController {
