@@ -9,15 +9,59 @@
 import UIKit
 import Core
 
+
 public final class ProfileViewController: UIViewController {
-    public let profileViewContainerView = UIView()
-    public let signInButtonContainerView = UIView()
-    public let profileNameLabel = UILabel()
-    public let signInButton = UIButton()
+    private let padding = UIEdgeInsets(top: 20, left: 16, bottom: 20, right: 16)
+    
+    public private(set) weak var profileViewContainerView: UIView!
+    public private(set) weak var signInButtonContainerView: UIView!
+    public private(set) weak var profileNameLabel: UILabel!
+    public private(set) weak var signInButton: UIButton!
     
     public var onSignIn: () -> () = {}
     
     private var state: ProfileState = .unauthorized
+    
+    public override func loadView() {
+        let profile = buildProfileView()
+        let signIn = buildSignInButton()
+        
+        profile.container.translatesAutoresizingMaskIntoConstraints = false
+        signIn.container.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView(arrangedSubviews: [profile.container, signIn.container])
+        stackView.axis = .vertical
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let view = UIView()
+        view.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            view.leftAnchor.constraint(equalTo: stackView.leftAnchor),
+            view.rightAnchor.constraint(equalTo: stackView.rightAnchor),
+            view.topAnchor.constraint(equalTo: stackView.topAnchor),
+        ])
+        
+        self.profileViewContainerView = profile.container
+        self.signInButtonContainerView = signIn.container
+        self.profileNameLabel = profile.nameLabel
+        self.signInButton = signIn.button
+        self.view = view
+    }
+    
+    private func buildSignInButton() -> (container: UIView, button: UIButton) {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return (UIView.wrapping(button, padding: padding), button)
+    }
+    
+    private func buildProfileView() -> (container: UIView, nameLabel: UILabel) {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return (UIView.wrapping(label, padding: padding), label)
+    }
     
     public override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +72,10 @@ public final class ProfileViewController: UIViewController {
     
     public func profileUpdated(state: ProfileState) {
         self.state = state
+        
+        guard isViewLoaded else {
+            return
+        }
         
         render(state: state)
     }
@@ -47,5 +95,22 @@ public final class ProfileViewController: UIViewController {
     @objc
     func onSigninButtonTapped() {
         onSignIn()
+    }
+}
+
+
+private extension UIView {
+    static func wrapping(_ contentView: UIView, padding: UIEdgeInsets) -> UIView {
+        let container = UIView()
+        container.addSubview(contentView)
+        
+        NSLayoutConstraint.activate([
+            container.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: -padding.left),
+            container.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: padding.right),
+            container.topAnchor.constraint(equalTo: contentView.topAnchor, constant: -padding.top),
+            container.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: padding.bottom),
+        ])
+        
+        return container
     }
 }
