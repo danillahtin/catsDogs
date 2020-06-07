@@ -9,7 +9,19 @@
 import UIKit
 import Core
 
-public func catCellFactory(imageLoader: ImageLoader)
+
+extension EntityListViewController: CatsListener where Entity == Cat {
+    public convenience init(imageLoader: ImageLoader) {
+        self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
+    }
+    
+    public func catsUpdated(with cats: [Cat]) {
+        entitiesUpdated(with: cats)
+    }
+}
+
+
+private func catCellFactory(imageLoader: ImageLoader)
     -> (UITableView, IndexPath, Cat) -> UITableViewCell
 {
     return { _, _, cat in
@@ -19,15 +31,5 @@ public func catCellFactory(imageLoader: ImageLoader)
         imageLoader.load(from: cat.imageUrl, into: cell.imageView)
         
         return cell
-    }
-}
-
-extension EntityListViewController: CatsListener where Entity == Cat {
-    public convenience init(imageLoader: ImageLoader) {
-        self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
-    }
-    
-    public func catsUpdated(with cats: [Cat]) {
-        entitiesUpdated(with: cats)
     }
 }
