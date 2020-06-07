@@ -32,6 +32,7 @@
 		8BF5C9C1248CE0290053C55B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */; };
 		8BF5C9C3248CE1070053C55B /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C2248CE1070053C55B /* UIControl.swift */; };
 		8BF5C9C5248CE5650053C55B /* EntityListViewController+Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C4248CE5650053C55B /* EntityListViewController+Cat.swift */; };
+		8BF5C9CD248D61B00053C55B /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8BF5C9C2248CE1070053C55B /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		8BF5C9C4248CE5650053C55B /* EntityListViewController+Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityListViewController+Cat.swift"; sourceTree = "<group>"; };
+		8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,6 +180,7 @@
 				8B0F987D2483C8B2008E6D50 /* Info.plist */,
 				8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */,
 				8BF5C9BC248CDAA00053C55B /* ProfileViewControllerTests.swift */,
+				8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -522,6 +525,7 @@
 				8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */,
 				8BF5C9C3248CE1070053C55B /* UIControl.swift in Sources */,
 				8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */,
+				8BF5C9CD248D61B00053C55B /* LoginViewControllerTests.swift in Sources */,
 				8BF5C9BD248CDAA00053C55B /* ProfileViewControllerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
