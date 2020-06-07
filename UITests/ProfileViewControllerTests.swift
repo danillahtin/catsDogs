@@ -30,6 +30,8 @@ class ProfileViewController: UIViewController {
     
     func profileUpdated(state: ProfileState) {
         self.state = state
+        
+        render(state: state)
     }
     
     func render(state: ProfileState) {
@@ -60,10 +62,27 @@ class ProfileViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.isProfileViewHidden, true)
     }
     
-    func test_rendersState_whenStateUpdatedBeforeLoadView() {
+    func test_rendersState_whenStateIsUpdatedBeforeLoadView() {
         assertStateIsRenderedOnLoadView(.unauthorized)
         assertStateIsRenderedOnLoadView(.authorized("User"))
         assertStateIsRenderedOnLoadView(.authorized("Another user"))
+    }
+    
+    func test_rendersState_whenStateIsUpdatedAfterLoadView() {
+        let sut = makeSut()
+        sut.loadViewIfNeeded()
+        
+        sut.profileUpdated(state: .unauthorized)
+        assert(sut: sut, renders: .unauthorized)
+        
+        sut.profileUpdated(state: .authorized("User"))
+        assert(sut: sut, renders: .authorized("User"))
+        
+        sut.profileUpdated(state: .unauthorized)
+        assert(sut: sut, renders: .unauthorized)
+        
+        sut.profileUpdated(state: .authorized("Another user"))
+        assert(sut: sut, renders: .authorized("Another user"))
     }
     
     // MARK: - Helpers
