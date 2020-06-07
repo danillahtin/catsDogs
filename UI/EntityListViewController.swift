@@ -7,21 +7,7 @@
 //
 
 import UIKit
-import Core
 
-
-public func catCellFactory(imageLoader: ImageLoader)
-    -> (UITableView, IndexPath, Cat) -> UITableViewCell
-{
-    return { _, _, cat in
-        let cell = UITableViewCell()
-        
-        cell.textLabel?.text = cat.name
-        imageLoader.load(from: cat.imageUrl, into: cell.imageView)
-        
-        return cell
-    }
-}
 
 public final class EntityListViewController<Entity>: UIViewController, UITableViewDataSource {
     public typealias CellFactory = (UITableView, IndexPath, Entity) -> UITableViewCell
@@ -66,16 +52,5 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         cellFactory(tableView, indexPath, entities[indexPath.row])
-    }
-}
-
-
-extension EntityListViewController: CatsListener where Entity == Cat {
-    public convenience init(imageLoader: ImageLoader) {
-        self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
-    }
-    
-    public func catsUpdated(with cats: [Cat]) {
-        entitiesUpdated(with: cats)
     }
 }
