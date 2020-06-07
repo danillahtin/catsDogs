@@ -10,10 +10,22 @@ import XCTest
 import UIKit
 
 
+public struct Credentials: Equatable {
+    public let login: String
+    public let password: String
+    
+    public init(login: String, password: String) {
+        self.login = login
+        self.password = password
+    }
+}
+
+
 final class LoginViewController: UIViewController {
     let loginButton = UIButton()
     let loginTextField = UITextField()
-    var didLogin: (String) -> () = { _ in }
+    let passwordTextField = UITextField()
+    var didLogin: (Credentials) -> () = { _ in }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,37 +35,49 @@ final class LoginViewController: UIViewController {
     
     @objc
     func onLoginButtonTapped() {
-        didLogin(loginTextField.text ?? "")
+        didLogin(Credentials(login: loginTextField.text ?? "",
+                             password: passwordTextField.text ?? ""))
     }
 }
 
 class LoginViewControllerTests: XCTestCase {
     
-    func test_loginButtonTap_logsInWithCorrectLogin() {
+    func test_loginButtonTap_logsInWithCorrectCredentials() {
         let sut = makeSut()
         
-        var retrievedLogins = [String]()
+        var retrievedCredentials = [Credentials]()
         sut.didLogin = {
-            retrievedLogins.append($0)
+            retrievedCredentials.append($0)
         }
         
         sut.loadViewIfNeeded()
         
-        XCTAssertEqual(retrievedLogins, [])
+        XCTAssertEqual(retrievedCredentials, [])
         
         sut.simulateLoginButtonTap()
         
-        XCTAssertEqual(retrievedLogins, [""])
+        XCTAssertEqual(retrievedCredentials, [
+            Credentials(login: "", password: "")
+        ])
         
         sut.simulateLoginInput("login")
+        sut.simulatePasswordInput("password")
         sut.simulateLoginButtonTap()
         
-        XCTAssertEqual(retrievedLogins, ["", "login"])
+        XCTAssertEqual(retrievedCredentials, [
+            Credentials(login: "", password: ""),
+            Credentials(login: "login", password: "password"),
+        ])
         
         sut.simulateLoginInput("another login")
+        sut.simulatePasswordInput("another password")
         sut.simulateLoginButtonTap()
         
-        XCTAssertEqual(retrievedLogins, ["", "login", "another login"])
+        XCTAssertEqual(retrievedCredentials, [
+            Credentials(login: "", password: ""),
+            Credentials(login: "login", password: "password"),
+            Credentials(login: "another login", password: "another password"),
+        ])
     }
     
     // MARK: - Helpers
@@ -77,5 +101,9 @@ private extension LoginViewController {
     
     func simulateLoginInput(_ login: String) {
         loginTextField.text = login
+    }
+    
+    func simulatePasswordInput(_ password: String) {
+        passwordTextField.text = password
     }
 }
