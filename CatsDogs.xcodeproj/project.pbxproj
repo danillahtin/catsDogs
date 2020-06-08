@@ -39,6 +39,7 @@
 		8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */; };
 		8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F0248ECA880053C55B /* Flow.swift */; };
 		8BF5C9F3248ECB270053C55B /* FlowSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F2248ECB270053C55B /* FlowSpy.swift */; };
+		8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -121,6 +122,7 @@
 		8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8BF5C9F0248ECA880053C55B /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		8BF5C9F2248ECB270053C55B /* FlowSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSpy.swift; sourceTree = "<group>"; };
+		8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoditionalFlowCompositeTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -244,6 +246,7 @@
 				8BDDD1AA2482A2C70056AEE9 /* Info.plist */,
 				8BF5C9F4248ECB2C0053C55B /* Helpers */,
 				8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */,
+				8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */,
 			);
 			path = CatsDogsTests;
 			sourceTree = "<group>";
@@ -572,6 +575,7 @@
 			files = (
 				8BF5C9F3248ECB270053C55B /* FlowSpy.swift in Sources */,
 				8BF5C9ED248EC9240053C55B /* AppDelegateTests.swift in Sources */,
+				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
 				8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
