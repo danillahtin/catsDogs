@@ -11,20 +11,29 @@ import XCTest
 
 
 class AppDelegateTests: XCTestCase {
-    func test() {
-        let sut = makeSut()
+    func test_applicationDidFinishLaunchingWithOptions_startsFlow() {
+        let (sut, flow) = makeSut()
+        
+        XCTAssertEqual(flow.startedCount, 0)
+        _ = sut.application?(.shared, didFinishLaunchingWithOptions: nil)
+        
+        XCTAssertEqual(flow.startedCount, 1)
     }
     
     // MARK: - Helpers
     
     private func makeSut(
         file: StaticString = #file,
-        line: UInt = #line) -> AppDelegate
+        line: UInt = #line) -> (sut: UIApplicationDelegate, flow: FlowSpy)
     {
         let sut = AppDelegate()
+        let flow = FlowSpy()
+        
+        sut.flow = flow
         
         trackMemoryLeaks(for: sut, file: file, line: line)
+        trackMemoryLeaks(for: flow, file: file, line: line)
         
-        return sut
+        return (sut, flow)
     }
 }
