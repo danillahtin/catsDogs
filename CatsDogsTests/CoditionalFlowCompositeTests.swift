@@ -12,13 +12,19 @@ import XCTest
 
 class ConditionalFlowComposite: Flow {
     let primary: Flow
+    let secondary: Flow
+    let condition: Bool
     
-    init(primary: Flow) {
+    init(primary: Flow, secondary: Flow, condition: Bool) {
         self.primary = primary
+        self.secondary = secondary
+        self.condition = condition
     }
     
     func start() {
-        primary.start()
+        let flow = condition ? primary : secondary
+        
+        flow.start()
     }
 }
 
@@ -48,6 +54,22 @@ class CoditionalFlowCompositeTests: XCTestCase {
         XCTAssertEqual(secondary.startedCount, 0)
     }
     
+    func test_start_startsSecondaryWhenConditionIsFalse() {
+        let primary = FlowSpy()
+        let secondary = FlowSpy()
+        let sut = makeSut(primary: primary, secondary: secondary, condition: false)
+        
+        sut.start()
+        
+        XCTAssertEqual(primary.startedCount, 0)
+        XCTAssertEqual(secondary.startedCount, 1)
+        
+        sut.start()
+        
+        XCTAssertEqual(primary.startedCount, 0)
+        XCTAssertEqual(secondary.startedCount, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -57,7 +79,7 @@ class CoditionalFlowCompositeTests: XCTestCase {
         file: StaticString = #file,
         line: UInt = #line) -> Flow
     {
-        let sut = ConditionalFlowComposite(primary: primary)
+        let sut = ConditionalFlowComposite(primary: primary, secondary: secondary, condition: condition)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: primary, file: file, line: line)
