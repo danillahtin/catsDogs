@@ -12,20 +12,14 @@ import XCTest
 
 class CoditionalFlowCompositeTests: XCTestCase {
     func test_init_doesNotStartComponents() {
-        let primary = FlowSpy()
-        let secondary = FlowSpy()
-        _ = makeSut(primary: primary, secondary: secondary)
+        let (_, primary, secondary) = makeSut()
         
         XCTAssertEqual(primary.startedCount, 0)
         XCTAssertEqual(secondary.startedCount, 0)
     }
     
     func test_start_startsPrimaryWhenConditionIsTrue() {
-        let primary = FlowSpy()
-        let secondary = FlowSpy()
-        let sut = makeSut(primary: primary,
-                          secondary: secondary,
-                          condition: alwaysTrue)
+        let (sut, primary, secondary) = makeSut(condition: alwaysTrue)
         
         sut.start()
         
@@ -39,11 +33,7 @@ class CoditionalFlowCompositeTests: XCTestCase {
     }
     
     func test_start_startsSecondaryWhenConditionIsFalse() {
-        let primary = FlowSpy()
-        let secondary = FlowSpy()
-        let sut = makeSut(primary: primary,
-                          secondary: secondary,
-                          condition: alwaysFalse)
+        let (sut, primary, secondary) = makeSut(condition: alwaysFalse)
         
         sut.start()
         
@@ -57,14 +47,8 @@ class CoditionalFlowCompositeTests: XCTestCase {
     }
     
     func test_start_startsAnotherFlowAfterConditionHasChanged() {
-        let primary = FlowSpy()
-        let secondary = FlowSpy()
-        
         var condition = true
-        let sut = makeSut(
-            primary: primary,
-            secondary: secondary,
-            condition: { condition })
+        let (sut, primary, secondary) = makeSut(condition: { condition })
         
         sut.start()
         
@@ -81,19 +65,19 @@ class CoditionalFlowCompositeTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSut(
-        primary: FlowSpy = .init(),
-        secondary: FlowSpy = .init(),
         condition: @escaping () -> Bool = { true },
         file: StaticString = #file,
-        line: UInt = #line) -> Flow
+        line: UInt = #line) -> (sut: Flow, primary: FlowSpy, secondary: FlowSpy)
     {
+        let primary = FlowSpy()
+        let secondary = FlowSpy()
         let sut = ConditionalFlowComposite(primary: primary, secondary: secondary, condition: condition)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: primary, file: file, line: line)
         trackMemoryLeaks(for: secondary, file: file, line: line)
         
-        return sut
+        return (sut, primary, secondary)
     }
     
     private func alwaysTrue() -> Bool {
