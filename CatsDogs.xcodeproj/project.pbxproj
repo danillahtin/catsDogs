@@ -40,6 +40,7 @@
 		8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F0248ECA880053C55B /* Flow.swift */; };
 		8BF5C9F3248ECB270053C55B /* FlowSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F2248ECB270053C55B /* FlowSpy.swift */; };
 		8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */; };
+		8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		8BF5C9F0248ECA880053C55B /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		8BF5C9F2248ECB270053C55B /* FlowSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSpy.swift; sourceTree = "<group>"; };
 		8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoditionalFlowCompositeTests.swift; sourceTree = "<group>"; };
+		8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalFlowComposite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +237,7 @@
 				8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */,
 				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
 				8BF5C9F0248ECA880053C55B /* Flow.swift */,
+				8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -565,6 +568,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
+				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

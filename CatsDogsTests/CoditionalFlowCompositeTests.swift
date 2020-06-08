@@ -10,24 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-class ConditionalFlowComposite: Flow {
-    let primary: Flow
-    let secondary: Flow
-    let condition: () -> Bool
-    
-    init(primary: Flow, secondary: Flow, condition: @escaping () -> Bool) {
-        self.primary = primary
-        self.secondary = secondary
-        self.condition = condition
-    }
-    
-    func start() {
-        let flow = condition() ? primary : secondary
-        
-        flow.start()
-    }
-}
-
 class CoditionalFlowCompositeTests: XCTestCase {
     func test_init_doesNotStartComponents() {
         let primary = FlowSpy()
