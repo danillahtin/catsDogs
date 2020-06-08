@@ -41,6 +41,7 @@
 		8BF5C9F3248ECB270053C55B /* FlowSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F2248ECB270053C55B /* FlowSpy.swift */; };
 		8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */; };
 		8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */; };
+		8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		8BF5C9F2248ECB270053C55B /* FlowSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowSpy.swift; sourceTree = "<group>"; };
 		8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoditionalFlowCompositeTests.swift; sourceTree = "<group>"; };
 		8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalFlowComposite.swift; sourceTree = "<group>"; };
+		8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 				8BF5C9F4248ECB2C0053C55B /* Helpers */,
 				8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */,
 				8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */,
+				8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */,
 			);
 			path = CatsDogsTests;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				8BF5C9ED248EC9240053C55B /* AppDelegateTests.swift in Sources */,
 				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
+				8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */,
 				8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
