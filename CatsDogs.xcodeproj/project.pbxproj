@@ -35,6 +35,8 @@
 		8BF5C9CD248D61B00053C55B /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */; };
 		8BF5C9CF248D65DC0053C55B /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9CE248D65DC0053C55B /* Credentials.swift */; };
 		8BF5C9D1248D660C0053C55B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9D0248D660C0053C55B /* LoginViewController.swift */; };
+		8BF5C9ED248EC9240053C55B /* AppDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */; };
+		8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +115,8 @@
 		8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		8BF5C9CE248D65DC0053C55B /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		8BF5C9D0248D660C0053C55B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegateTests.swift; sourceTree = "<group>"; };
+		8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +237,8 @@
 			children = (
 				8BDDD1A82482A2C70056AEE9 /* CatsDogsTests.swift */,
 				8BDDD1AA2482A2C70056AEE9 /* Info.plist */,
+				8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */,
+				8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */,
 			);
 			path = CatsDogsTests;
 			sourceTree = "<group>";
@@ -549,7 +555,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF5C9ED248EC9240053C55B /* AppDelegateTests.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
+				8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
