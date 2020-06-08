@@ -13,16 +13,16 @@ import XCTest
 class ConditionalFlowComposite: Flow {
     let primary: Flow
     let secondary: Flow
-    let condition: Bool
+    let condition: () -> Bool
     
-    init(primary: Flow, secondary: Flow, condition: Bool) {
+    init(primary: Flow, secondary: Flow, condition: @escaping () -> Bool) {
         self.primary = primary
         self.secondary = secondary
         self.condition = condition
     }
     
     func start() {
-        let flow = condition ? primary : secondary
+        let flow = condition() ? primary : secondary
         
         flow.start()
     }
@@ -41,7 +41,9 @@ class CoditionalFlowCompositeTests: XCTestCase {
     func test_start_startsPrimaryWhenConditionIsTrue() {
         let primary = FlowSpy()
         let secondary = FlowSpy()
-        let sut = makeSut(primary: primary, secondary: secondary, condition: true)
+        let sut = makeSut(primary: primary,
+                          secondary: secondary,
+                          condition: alwaysTrue)
         
         sut.start()
         
@@ -57,7 +59,9 @@ class CoditionalFlowCompositeTests: XCTestCase {
     func test_start_startsSecondaryWhenConditionIsFalse() {
         let primary = FlowSpy()
         let secondary = FlowSpy()
-        let sut = makeSut(primary: primary, secondary: secondary, condition: false)
+        let sut = makeSut(primary: primary,
+                          secondary: secondary,
+                          condition: alwaysFalse)
         
         sut.start()
         
@@ -70,12 +74,34 @@ class CoditionalFlowCompositeTests: XCTestCase {
         XCTAssertEqual(secondary.startedCount, 2)
     }
     
+    func test_start_startsAnotherFlowAfterConditionHasChanged() {
+        let primary = FlowSpy()
+        let secondary = FlowSpy()
+        
+        var condition = true
+        let sut = makeSut(
+            primary: primary,
+            secondary: secondary,
+            condition: { condition })
+        
+        sut.start()
+        
+        XCTAssertEqual(primary.startedCount, 1)
+        XCTAssertEqual(secondary.startedCount, 0)
+        
+        condition = false
+        sut.start()
+        
+        XCTAssertEqual(primary.startedCount, 1)
+        XCTAssertEqual(secondary.startedCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
         primary: FlowSpy = .init(),
         secondary: FlowSpy = .init(),
-        condition: Bool = true,
+        condition: @escaping () -> Bool = { true },
         file: StaticString = #file,
         line: UInt = #line) -> Flow
     {
@@ -86,5 +112,13 @@ class CoditionalFlowCompositeTests: XCTestCase {
         trackMemoryLeaks(for: secondary, file: file, line: line)
         
         return sut
+    }
+    
+    private func alwaysTrue() -> Bool {
+        true
+    }
+    
+    private func alwaysFalse() -> Bool {
+        false
     }
 }
