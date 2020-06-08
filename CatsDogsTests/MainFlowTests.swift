@@ -13,10 +13,10 @@ import XCTest
 final class MainFlow: Flow {
     typealias ViewControllerBuilder = () -> UIViewController
     
-    let navigationController: UINavigationControllerProtocol
-    let catsViewControllerBuilder: ViewControllerBuilder
-    let dogsViewControllerBuilder: ViewControllerBuilder
-    let profileViewControllerBuilder: ViewControllerBuilder
+    private let navigationController: UINavigationControllerProtocol
+    private let catsViewControllerBuilder: ViewControllerBuilder
+    private let dogsViewControllerBuilder: ViewControllerBuilder
+    private let profileViewControllerBuilder: ViewControllerBuilder
     
     init(
         catsViewControllerBuilder: @escaping ViewControllerBuilder,
@@ -37,17 +37,13 @@ final class MainFlow: Flow {
         
         catsVc.tabBarItem = UITabBarItem(title: "Cats", image: nil, selectedImage: nil)
         dogsVc.tabBarItem = UITabBarItem(title: "Dogs", image: nil, selectedImage: nil)
-        profileVc.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)        
+        profileVc.tabBarItem = UITabBarItem(title: "Profile", image: nil, selectedImage: nil)
         
         let vc = UITabBarController()
         vc.viewControllers = [catsVc, dogsVc, profileVc]
         
         navigationController.setViewControllers([vc], animated: true)
     }
-}
-
-protocol UINavigationControllerProtocol {
-    func setViewControllers(_ viewControllers: [UIViewController], animated: Bool)
 }
 
 

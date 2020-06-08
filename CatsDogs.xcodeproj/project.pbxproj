@@ -42,6 +42,8 @@
 		8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */; };
 		8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */; };
 		8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */; };
+		8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FB248EE18B0053C55B /* MainFlow.swift */; };
+		8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +129,8 @@
 		8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoditionalFlowCompositeTests.swift; sourceTree = "<group>"; };
 		8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConditionalFlowComposite.swift; sourceTree = "<group>"; };
 		8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowTests.swift; sourceTree = "<group>"; };
+		8BF5C9FB248EE18B0053C55B /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
+		8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +244,8 @@
 				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
 				8BF5C9F0248ECA880053C55B /* Flow.swift */,
 				8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */,
+				8BF5C9FB248EE18B0053C55B /* MainFlow.swift */,
+				8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -572,7 +578,9 @@
 			files = (
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
+				8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
+				8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
