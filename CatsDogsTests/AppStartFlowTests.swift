@@ -10,38 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-final class AppStartFlow {
-    let userDefaults: UserDefaults
-    let sessionChecking: SessionChecking
-    let main: Flow
-    let auth: Flow
-    
-    init(userDefaults: UserDefaults, sessionChecking: SessionChecking, main: Flow, auth: Flow) {
-        self.userDefaults = userDefaults
-        self.sessionChecking = sessionChecking
-        self.main = main
-        self.auth = auth
-    }
-    
-    func start() {
-        let notFoundFlow = ConditionalFlowComposite(primary: main, secondary: auth, condition: { [userDefaults] in
-            userDefaults.bool(forKey: "hasSkippedAuth")
-        })
-        
-        sessionChecking.check { [main, auth] in
-            switch $0 {
-            case .exists:
-                main.start()
-            case .invalid:
-                auth.start()
-            case .notFound:
-                notFoundFlow.start()
-            }
-        }
-    }
-}
-
-
 class AppStartFlowTests: XCTestCase {
     private var userDefaults: UserDefaults!
     
