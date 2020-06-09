@@ -14,7 +14,9 @@ final class SessionController {
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
     }
+}
     
+extension SessionController: SessionChecking {
     func check(_ completion: @escaping (SessionCheckResult) -> ()) {
         tokenLoader.load { [profileLoader] in
             switch $0 {
