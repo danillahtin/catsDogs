@@ -9,28 +9,11 @@
 import XCTest
 @testable import CatsDogs
 
-
-
-final class ProfileLoaderSpy {
-    private var completions: [(Result<ProfileInfo, Error>) -> ()] = []
-    var loadCallCount: Int { completions.count }
-    
-    func load(_ completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
-        completions.append(completion)
-    }
-    
-    func complete(with result: Result<ProfileInfo, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
-        guard completions.indices.contains(index) else {
-            XCTFail(
-                "Completion at index \(index) not found, has only \(completions.count) completions",
-                file: file,
-                line: line)
-            return
-        }
-        
-        completions[index](result)
-    }
+protocol ProfileLoader {
+    func load(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
 }
+
+
 
 final class TokenStoreSpy {
     private var completions: [(Result<AccessToken, Error>) -> ()] = []
@@ -54,10 +37,10 @@ final class TokenStoreSpy {
 }
 
 final class SessionController {
-    let profileLoader: ProfileLoaderSpy
+    let profileLoader: ProfileLoader
     let tokenStore: TokenStoreSpy
     
-    init(profileLoader: ProfileLoaderSpy, tokenStore: TokenStoreSpy) {
+    init(profileLoader: ProfileLoader, tokenStore: TokenStoreSpy) {
         self.profileLoader = profileLoader
         self.tokenStore = tokenStore
     }
@@ -187,6 +170,27 @@ class SessionControllerTests: XCTestCase {
     
     private func makeProfileInfo() -> ProfileInfo {
         ProfileInfo()
+    }
+    
+    private final class ProfileLoaderSpy: ProfileLoader {
+        private var completions: [(Result<ProfileInfo, Error>) -> ()] = []
+        var loadCallCount: Int { completions.count }
+        
+        func load(_ completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
+            completions.append(completion)
+        }
+        
+        func complete(with result: Result<ProfileInfo, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
+        }
     }
 }
 
