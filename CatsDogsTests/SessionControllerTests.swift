@@ -13,34 +13,18 @@ protocol ProfileLoader {
     func load(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
 }
 
-
-
-final class TokenLoaderSpy {
-    private var completions: [(Result<AccessToken, Error>) -> ()] = []
-    var loadCallCount: Int { completions.count }
-    
-    func load(completion: @escaping (Result<AccessToken, Error>) -> ()) {
-        completions.append(completion)
-    }
-    
-    func complete(with result: Result<AccessToken, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
-        guard completions.indices.contains(index) else {
-            XCTFail(
-                "Completion at index \(index) not found, has only \(completions.count) completions",
-                file: file,
-                line: line)
-            return
-        }
-        
-        completions[index](result)
-    }
+protocol TokenLoader {
+    func load(_ completion: @escaping (Result<AccessToken, Error>) -> ())
 }
+
+
+
 
 final class SessionController {
     let profileLoader: ProfileLoader
-    let tokenLoader: TokenLoaderSpy
+    let tokenLoader: TokenLoader
     
-    init(profileLoader: ProfileLoader, tokenLoader: TokenLoaderSpy) {
+    init(profileLoader: ProfileLoader, tokenLoader: TokenLoader) {
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
     }
@@ -181,6 +165,27 @@ class SessionControllerTests: XCTestCase {
         }
         
         func complete(with result: Result<ProfileInfo, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
+        }
+    }
+    
+    private final class TokenLoaderSpy: TokenLoader {
+        private var completions: [(Result<AccessToken, Error>) -> ()] = []
+        var loadCallCount: Int { completions.count }
+        
+        func load(_ completion: @escaping (Result<AccessToken, Error>) -> ()) {
+            completions.append(completion)
+        }
+        
+        func complete(with result: Result<AccessToken, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
             guard completions.indices.contains(index) else {
                 XCTFail(
                     "Completion at index \(index) not found, has only \(completions.count) completions",
