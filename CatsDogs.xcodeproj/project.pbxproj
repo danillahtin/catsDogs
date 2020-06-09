@@ -53,6 +53,7 @@
 		8BF5CA0F248FBE400053C55B /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA0E248FBE400053C55B /* AccessToken.swift */; };
 		8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA10248FBF980053C55B /* ProfileLoader.swift */; };
 		8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA12248FBFB30053C55B /* TokenLoader.swift */; };
+		8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA14248FBFDA0053C55B /* SessionController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		8BF5CA0E248FBE400053C55B /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		8BF5CA10248FBF980053C55B /* ProfileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoader.swift; sourceTree = "<group>"; };
 		8BF5CA12248FBFB30053C55B /* TokenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLoader.swift; sourceTree = "<group>"; };
+		8BF5CA14248FBFDA0053C55B /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -271,6 +273,7 @@
 				8BF5CA0E248FBE400053C55B /* AccessToken.swift */,
 				8BF5CA10248FBF980053C55B /* ProfileLoader.swift */,
 				8BF5CA12248FBFB30053C55B /* TokenLoader.swift */,
+				8BF5CA14248FBFDA0053C55B /* SessionController.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -613,6 +616,7 @@
 				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
 				8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
+				8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */,
 				8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */,
 				8BF5CA0F248FBE400053C55B /* AccessToken.swift in Sources */,
 			);

@@ -10,34 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-final class SessionController {
-    let profileLoader: ProfileLoader
-    let tokenLoader: TokenLoader
-    
-    init(profileLoader: ProfileLoader, tokenLoader: TokenLoader) {
-        self.profileLoader = profileLoader
-        self.tokenLoader = tokenLoader
-    }
-    
-    func check(_ completion: @escaping (SessionCheckResult) -> ()) {
-        tokenLoader.load { [profileLoader] in
-            switch $0 {
-            case .success:
-                profileLoader.load {
-                    switch $0 {
-                    case .success:
-                        completion(.exists)
-                    case .failure:
-                        completion(.invalid)
-                    }
-                }
-            case .failure:
-                completion(.notFound)
-            }
-        }
-    }
-}
-
 class SessionControllerTests: XCTestCase {
     func test() {
         let _ = makeSut()
