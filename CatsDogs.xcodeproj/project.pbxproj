@@ -55,6 +55,7 @@
 		8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA12248FBFB30053C55B /* TokenLoader.swift */; };
 		8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA14248FBFDA0053C55B /* SessionController.swift */; };
 		8BF5CA17248FC0D00053C55B /* PushAuthFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA16248FC0D00053C55B /* PushAuthFlowTests.swift */; };
+		8BF5CA19248FC17D0053C55B /* NavigationControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +154,7 @@
 		8BF5CA12248FBFB30053C55B /* TokenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLoader.swift; sourceTree = "<group>"; };
 		8BF5CA14248FBFDA0053C55B /* SessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionController.swift; sourceTree = "<group>"; };
 		8BF5CA16248FC0D00053C55B /* PushAuthFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthFlowTests.swift; sourceTree = "<group>"; };
+		8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -343,6 +345,7 @@
 			children = (
 				8BF5C9EE248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift */,
 				8BF5C9F2248ECB270053C55B /* FlowSpy.swift */,
+				8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -635,6 +638,7 @@
 				8BF5CA17248FC0D00053C55B /* PushAuthFlowTests.swift in Sources */,
 				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
+				8BF5CA19248FC17D0053C55B /* NavigationControllerSpy.swift in Sources */,
 				8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */,
 				8BF5CA00248F8D8D0053C55B /* AppStartFlowTests.swift in Sources */,
 				8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
