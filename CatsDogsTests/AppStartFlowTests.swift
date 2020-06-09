@@ -9,11 +9,6 @@
 import XCTest
 @testable import CatsDogs
 
-enum SessionCheckResult {
-    case exists
-    case invalid
-    case notFound
-}
 
 final class SessionCheckingSpy {
     private var completions: [(SessionCheckResult) -> ()] = []
