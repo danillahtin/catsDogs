@@ -10,19 +10,23 @@ import XCTest
 @testable import CatsDogs
 
 
+struct ProfileInfo {
+    
+}
+
 struct AccessToken {
     
 }
 
 final class ProfileLoaderSpy {
-    private var completions: [(Error) -> ()] = []
+    private var completions: [(Result<ProfileInfo, Error>) -> ()] = []
     var loadCallCount: Int { completions.count }
     
-    func load(_ completion: @escaping (Error) -> ()) {
+    func load(_ completion: @escaping (Result<ProfileInfo, Error>) -> ()) {
         completions.append(completion)
     }
     
-    func complete(with error: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+    func complete(with result: Result<ProfileInfo, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
         guard completions.indices.contains(index) else {
             XCTFail(
                 "Completion at index \(index) not found, has only \(completions.count) completions",
@@ -31,7 +35,7 @@ final class ProfileLoaderSpy {
             return
         }
         
-        completions[index](error)
+        completions[index](result)
     }
 }
 
@@ -69,8 +73,13 @@ final class SessionController {
         tokenStore.load { [profileLoader] in
             switch $0 {
             case .success:
-                profileLoader.load { _ in
-                    completion(.invalid)
+                profileLoader.load {
+                    switch $0 {
+                    case .success:
+                        completion(.exists)
+                    case .failure:
+                        completion(.invalid)
+                    }
                 }
             case .failure:
                 completion(.notFound)
@@ -139,9 +148,23 @@ class SessionControllerTests: XCTestCase {
         sut.check { retrieved.append($0) }
         
         tokenStore.complete(with: .success(makeToken()))
-        profileLoader.complete(with: anyError())
+        profileLoader.complete(with: .failure(anyError()))
         
         XCTAssertEqual(retrieved, [.invalid])
+    }
+    
+    func test_profileLoadCompletionWithProfileInfo_completesWithExists() {
+        let profileLoader = ProfileLoaderSpy()
+        let tokenStore = TokenStoreSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        
+        var retrieved: [SessionCheckResult] = []
+        sut.check { retrieved.append($0) }
+        
+        tokenStore.complete(with: .success(makeToken()))
+        profileLoader.complete(with: .success(makeProfileInfo()))
+        
+        XCTAssertEqual(retrieved, [.exists])
     }
     
     // MARK: - Helpers
@@ -167,6 +190,10 @@ class SessionControllerTests: XCTestCase {
     
     private func makeToken() -> AccessToken {
         AccessToken()
+    }
+    
+    private func makeProfileInfo() -> ProfileInfo {
+        ProfileInfo()
     }
 }
 
