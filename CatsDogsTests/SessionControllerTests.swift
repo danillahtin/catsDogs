@@ -15,7 +15,7 @@ protocol ProfileLoader {
 
 
 
-final class TokenStoreSpy {
+final class TokenLoaderSpy {
     private var completions: [(Result<AccessToken, Error>) -> ()] = []
     var loadCallCount: Int { completions.count }
     
@@ -38,15 +38,15 @@ final class TokenStoreSpy {
 
 final class SessionController {
     let profileLoader: ProfileLoader
-    let tokenStore: TokenStoreSpy
+    let tokenLoader: TokenLoaderSpy
     
-    init(profileLoader: ProfileLoader, tokenStore: TokenStoreSpy) {
+    init(profileLoader: ProfileLoader, tokenLoader: TokenLoaderSpy) {
         self.profileLoader = profileLoader
-        self.tokenStore = tokenStore
+        self.tokenLoader = tokenLoader
     }
     
     func check(_ completion: @escaping (SessionCheckResult) -> ()) {
-        tokenStore.load { [profileLoader] in
+        tokenLoader.load { [profileLoader] in
             switch $0 {
             case .success:
                 profileLoader.load {
@@ -70,60 +70,60 @@ class SessionControllerTests: XCTestCase {
     }
     
     func test_check_startsTokenLoading() {
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(tokenLoader: tokenLoader)
         
-        XCTAssertEqual(tokenStore.loadCallCount, 0)
+        XCTAssertEqual(tokenLoader.loadCallCount, 0)
         sut.check()
-        XCTAssertEqual(tokenStore.loadCallCount, 1)
+        XCTAssertEqual(tokenLoader.loadCallCount, 1)
     }
     
     func test_tokenLoadingCompletionWithError_completesWithNotFound() {
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(tokenLoader: tokenLoader)
         
         var retrieved: [SessionCheckResult] = []
         sut.check { retrieved.append($0) }
         
         XCTAssertEqual(retrieved, [])
-        tokenStore.complete(with: .failure(anyError()))
+        tokenLoader.complete(with: .failure(anyError()))
         
         XCTAssertEqual(retrieved, [.notFound])
     }
     
     func test_tokenLoadingCompletionWithError_doesNotStartProfileRequest() {
         let profileLoader = ProfileLoaderSpy()
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
         
         sut.check()
         
         XCTAssertEqual(profileLoader.loadCallCount, 0)
-        tokenStore.complete(with: .failure(anyError()))
+        tokenLoader.complete(with: .failure(anyError()))
         XCTAssertEqual(profileLoader.loadCallCount, 0)
     }
     
     func test_tokenLoadingCompletionWithToken_startsProfileRequest() {
         let profileLoader = ProfileLoaderSpy()
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
         
         sut.check()
         
         XCTAssertEqual(profileLoader.loadCallCount, 0)
-        tokenStore.complete(with: .success(makeToken()))
+        tokenLoader.complete(with: .success(makeToken()))
         XCTAssertEqual(profileLoader.loadCallCount, 1)
     }
     
     func test_profileLoadCompletionWithError_completesWithInvalid() {
         let profileLoader = ProfileLoaderSpy()
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
         
         var retrieved: [SessionCheckResult] = []
         sut.check { retrieved.append($0) }
         
-        tokenStore.complete(with: .success(makeToken()))
+        tokenLoader.complete(with: .success(makeToken()))
         profileLoader.complete(with: .failure(anyError()))
         
         XCTAssertEqual(retrieved, [.invalid])
@@ -131,13 +131,13 @@ class SessionControllerTests: XCTestCase {
     
     func test_profileLoadCompletionWithProfileInfo_completesWithExists() {
         let profileLoader = ProfileLoaderSpy()
-        let tokenStore = TokenStoreSpy()
-        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
         
         var retrieved: [SessionCheckResult] = []
         sut.check { retrieved.append($0) }
         
-        tokenStore.complete(with: .success(makeToken()))
+        tokenLoader.complete(with: .success(makeToken()))
         profileLoader.complete(with: .success(makeProfileInfo()))
         
         XCTAssertEqual(retrieved, [.exists])
@@ -147,14 +147,14 @@ class SessionControllerTests: XCTestCase {
     
     private func makeSut(
         profileLoader: ProfileLoaderSpy = .init(),
-        tokenStore: TokenStoreSpy = .init(),
+        tokenLoader: TokenLoaderSpy = .init(),
         file: StaticString = #file,
         line: UInt = #line) -> SessionController
     {
-        let sut = SessionController(profileLoader: profileLoader, tokenStore: tokenStore)
+        let sut = SessionController(profileLoader: profileLoader, tokenLoader: tokenLoader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
-        trackMemoryLeaks(for: tokenStore, file: file, line: line)
+        trackMemoryLeaks(for: tokenLoader, file: file, line: line)
         trackMemoryLeaks(for: profileLoader, file: file, line: line)
         
         return sut
