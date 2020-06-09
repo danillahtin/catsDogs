@@ -10,39 +10,17 @@ import XCTest
 @testable import CatsDogs
 
 
-final class SessionCheckingSpy {
-    private var completions: [(SessionCheckResult) -> ()] = []
-    var requestsCount: Int { completions.count }
-    
-    func check(_ completion: @escaping (SessionCheckResult) -> () = { _ in }) {
-        completions.append(completion)
-    }
-    
-    func complete(
-        with result: SessionCheckResult,
-        at index: Int = 0,
-        file: StaticString = #file,
-        line: UInt = #line)
-    {
-        guard completions.indices.contains(index) else {
-            XCTFail(
-                "Completion at index \(index) not found, has only \(completions.count) completions",
-                file: file,
-                line: line)
-            return
-        }
-        
-        completions[index](result)
-    }
+protocol SessionChecking {
+    func check(_ completion: @escaping (SessionCheckResult) -> ())
 }
 
 final class AppStartFlow {
     let userDefaults: UserDefaults
-    let sessionChecking: SessionCheckingSpy
+    let sessionChecking: SessionChecking
     let main: Flow
     let auth: Flow
     
-    init(userDefaults: UserDefaults, sessionChecking: SessionCheckingSpy, main: Flow, auth: Flow) {
+    init(userDefaults: UserDefaults, sessionChecking: SessionChecking, main: Flow, auth: Flow) {
         self.userDefaults = userDefaults
         self.sessionChecking = sessionChecking
         self.main = main
@@ -170,5 +148,31 @@ class AppStartFlowTests: XCTestCase {
     
     private func setup(authWasSkipped: Bool) {
         userDefaults.set(authWasSkipped, forKey: "hasSkippedAuth")
+    }
+
+    private final class SessionCheckingSpy: SessionChecking {
+        private var completions: [(SessionCheckResult) -> ()] = []
+        var requestsCount: Int { completions.count }
+        
+        func check(_ completion: @escaping (SessionCheckResult) -> () = { _ in }) {
+            completions.append(completion)
+        }
+        
+        func complete(
+            with result: SessionCheckResult,
+            at index: Int = 0,
+            file: StaticString = #file,
+            line: UInt = #line)
+        {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
+        }
     }
 }
