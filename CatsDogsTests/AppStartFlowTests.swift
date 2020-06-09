@@ -12,6 +12,7 @@ import XCTest
 enum SessionCheckResult {
     case exists
     case invalid
+    case notFound
 }
 
 final class SessionCheckingSpy {
@@ -56,7 +57,7 @@ final class AppStartFlow {
             switch $0 {
             case .exists:
                 main.start()
-            case .invalid:
+            case .invalid, .notFound:
                 auth.start()
             }
         }
@@ -103,6 +104,18 @@ class AppStartFlowTests: XCTestCase {
         sut.start()
         
         sessionChecking.complete(with: .invalid)
+        
+        XCTAssertEqual(main.startedCount, 0)
+        XCTAssertEqual(auth.startedCount, 1)
+    }
+    
+    func test_sessionCheckCompletionWithNotFound_startsAuth() {
+        let sessionChecking = SessionCheckingSpy()
+        let (sut, main, auth) = makeSut(sessionChecking: sessionChecking)
+        
+        sut.start()
+        
+        sessionChecking.complete(with: .notFound)
         
         XCTAssertEqual(main.startedCount, 0)
         XCTAssertEqual(auth.startedCount, 1)
