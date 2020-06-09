@@ -7,13 +7,27 @@
 //
 
 import XCTest
+@testable import CatsDogs
 
 
 final class TokenStoreSpy {
-    private(set) var loadCallCount = 0
+    private var completions: [(Error) -> ()] = []
+    var loadCallCount: Int { completions.count }
     
-    func load() {
-        loadCallCount += 1
+    func load(completion: @escaping (Error) -> ()) {
+        completions.append(completion)
+    }
+    
+    func complete(with error: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+        guard completions.indices.contains(index) else {
+            XCTFail(
+                "Completion at index \(index) not found, has only \(completions.count) completions",
+                file: file,
+                line: line)
+            return
+        }
+        
+        completions[index](error)
     }
 }
 
@@ -24,8 +38,8 @@ final class SessionController {
         self.tokenStore = tokenStore
     }
     
-    func check() {
-        tokenStore.load()
+    func check(_ completion: @escaping (SessionCheckResult) -> ()) {
+        tokenStore.load { _ in completion(.notFound) }
     }
 }
 
@@ -43,6 +57,19 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(tokenStore.loadCallCount, 1)
     }
     
+    func test_tokenLoadingCompletionWithError_completesWithNotFound() {
+        let tokenStore = TokenStoreSpy()
+        let sut = makeSut(tokenStore: tokenStore)
+        
+        var retrieved: [SessionCheckResult] = []
+        sut.check { retrieved.append($0) }
+        
+        XCTAssertEqual(retrieved, [])
+        tokenStore.complete(with: anyError())
+        
+        XCTAssertEqual(retrieved, [.notFound])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -56,5 +83,15 @@ class SessionControllerTests: XCTestCase {
         trackMemoryLeaks(for: tokenStore, file: file, line: line)
         
         return sut
+    }
+    
+    private func anyError() -> NSError {
+        NSError(domain: #file, code: 0, userInfo: nil)
+    }
+}
+
+private extension SessionController {
+    func check() {
+        check({ _ in })
     }
 }
