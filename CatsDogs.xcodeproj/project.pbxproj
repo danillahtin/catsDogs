@@ -44,6 +44,7 @@
 		8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */; };
 		8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FB248EE18B0053C55B /* MainFlow.swift */; };
 		8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */; };
+		8BF5CA00248F8D8D0053C55B /* AppStartFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -131,6 +132,7 @@
 		8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlowTests.swift; sourceTree = "<group>"; };
 		8BF5C9FB248EE18B0053C55B /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerProtocol.swift; sourceTree = "<group>"; };
+		8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartFlowTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				8BF5C9EC248EC9240053C55B /* AppDelegateTests.swift */,
 				8BF5C9F5248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift */,
 				8BF5C9F9248ED8040053C55B /* MainFlowTests.swift */,
+				8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */,
 			);
 			path = CatsDogsTests;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
 				8BF5C9FA248ED8040053C55B /* MainFlowTests.swift in Sources */,
+				8BF5CA00248F8D8D0053C55B /* AppStartFlowTests.swift in Sources */,
 				8BF5C9EF248EC94C0053C55B /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
