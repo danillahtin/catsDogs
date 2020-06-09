@@ -52,6 +52,7 @@
 		8BF5CA0D248FBE1D0053C55B /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */; };
 		8BF5CA0F248FBE400053C55B /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA0E248FBE400053C55B /* AccessToken.swift */; };
 		8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA10248FBF980053C55B /* ProfileLoader.swift */; };
+		8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA12248FBFB30053C55B /* TokenLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +148,7 @@
 		8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 		8BF5CA0E248FBE400053C55B /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
 		8BF5CA10248FBF980053C55B /* ProfileLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLoader.swift; sourceTree = "<group>"; };
+		8BF5CA12248FBFB30053C55B /* TokenLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 				8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */,
 				8BF5CA0E248FBE400053C55B /* AccessToken.swift */,
 				8BF5CA10248FBF980053C55B /* ProfileLoader.swift */,
+				8BF5CA12248FBFB30053C55B /* TokenLoader.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -600,6 +603,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */,
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
 				8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */,

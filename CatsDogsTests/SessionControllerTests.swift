@@ -9,10 +9,6 @@
 import XCTest
 @testable import CatsDogs
 
-protocol TokenLoader {
-    func load(_ completion: @escaping (Result<AccessToken, Error>) -> ())
-}
-
 
 final class SessionController {
     let profileLoader: ProfileLoader
