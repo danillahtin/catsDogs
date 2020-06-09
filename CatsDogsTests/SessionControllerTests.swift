@@ -15,10 +15,23 @@ struct AccessToken {
 }
 
 final class ProfileLoaderSpy {
-    private(set) var loadCallCount: Int = 0
+    private var completions: [(Error) -> ()] = []
+    var loadCallCount: Int { completions.count }
     
-    func load() {
-        loadCallCount += 1
+    func load(_ completion: @escaping (Error) -> ()) {
+        completions.append(completion)
+    }
+    
+    func complete(with error: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+        guard completions.indices.contains(index) else {
+            XCTFail(
+                "Completion at index \(index) not found, has only \(completions.count) completions",
+                file: file,
+                line: line)
+            return
+        }
+        
+        completions[index](error)
     }
 }
 
@@ -56,7 +69,9 @@ final class SessionController {
         tokenStore.load { [profileLoader] in
             switch $0 {
             case .success:
-                profileLoader.load()
+                profileLoader.load { _ in
+                    completion(.invalid)
+                }
             case .failure:
                 completion(.notFound)
             }
@@ -108,14 +123,25 @@ class SessionControllerTests: XCTestCase {
         let tokenStore = TokenStoreSpy()
         let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
         
-        var retrieved: [SessionCheckResult] = []
-        sut.check { retrieved.append($0) }
+        sut.check()
         
         XCTAssertEqual(profileLoader.loadCallCount, 0)
         tokenStore.complete(with: .success(makeToken()))
         XCTAssertEqual(profileLoader.loadCallCount, 1)
+    }
+    
+    func test_profileLoadCompletionWithError_completesWithInvalid() {
+        let profileLoader = ProfileLoaderSpy()
+        let tokenStore = TokenStoreSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
         
-        XCTAssertEqual(retrieved, [])
+        var retrieved: [SessionCheckResult] = []
+        sut.check { retrieved.append($0) }
+        
+        tokenStore.complete(with: .success(makeToken()))
+        profileLoader.complete(with: anyError())
+        
+        XCTAssertEqual(retrieved, [.invalid])
     }
     
     // MARK: - Helpers
