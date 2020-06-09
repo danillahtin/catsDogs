@@ -53,8 +53,13 @@ final class SessionController {
     }
     
     func check(_ completion: @escaping (SessionCheckResult) -> ()) {
-        tokenStore.load { [profileLoader] _ in
-            completion(.notFound)
+        tokenStore.load { [profileLoader] in
+            switch $0 {
+            case .success:
+                profileLoader.load()
+            case .failure:
+                completion(.notFound)
+            }
         }
     }
 }
@@ -96,6 +101,21 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(profileLoader.loadCallCount, 0)
         tokenStore.complete(with: .failure(anyError()))
         XCTAssertEqual(profileLoader.loadCallCount, 0)
+    }
+    
+    func test_tokenLoadingCompletionWithToken_startsProfileRequest() {
+        let profileLoader = ProfileLoaderSpy()
+        let tokenStore = TokenStoreSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenStore: tokenStore)
+        
+        var retrieved: [SessionCheckResult] = []
+        sut.check { retrieved.append($0) }
+        
+        XCTAssertEqual(profileLoader.loadCallCount, 0)
+        tokenStore.complete(with: .success(makeToken()))
+        XCTAssertEqual(profileLoader.loadCallCount, 1)
+        
+        XCTAssertEqual(retrieved, [])
     }
     
     // MARK: - Helpers
