@@ -52,6 +52,19 @@ class LoginViewControllerTests: XCTestCase {
         ])
     }
     
+    func test_skipButtonTap_notifies() {
+        let sut = makeSut()
+        
+        var skippedCount = 0
+        sut.didSkip = { skippedCount += 1 }
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(skippedCount, 0)
+        sut.simulateSkipButtonTapped()
+        XCTAssertEqual(skippedCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -77,5 +90,9 @@ private extension LoginViewController {
     
     func simulatePasswordInput(_ password: String) {
         passwordTextField.text = password
+    }
+    
+    func simulateSkipButtonTapped() {
+        skipButton.triggerTap()
     }
 }
