@@ -106,10 +106,6 @@ class SessionControllerTests: XCTestCase {
         return sut
     }
     
-    private func anyError() -> NSError {
-        NSError(domain: #file, code: 0, userInfo: nil)
-    }
-    
     private func makeToken() -> AccessToken {
         AccessToken()
     }

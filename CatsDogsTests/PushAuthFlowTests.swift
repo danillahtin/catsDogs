@@ -13,10 +13,24 @@ import UI
 
 
 final class LoginRequestSpy {
+    var completions: [(Error) -> ()] = []
     private(set) var requestedCredentials: [Credentials] = []
     
     func start(credentials: Credentials) {
+        completions.append({ _ in })
         requestedCredentials.append(credentials)
+    }
+    
+    func complete(with error: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+        guard completions.indices.contains(index) else {
+            XCTFail(
+                "Completion at index \(index) not found, has only \(completions.count) completions",
+                file: file,
+                line: line)
+            return
+        }
+        
+        completions[index](error)
     }
 }
 
@@ -99,6 +113,23 @@ class PushAuthFlowTests: XCTestCase {
             Credentials(login: "login", password: "password"),
             Credentials(login: "another login", password: "another password"),
         ])
+    }
+    
+    func test_loginCompletionWithError_doesNotComplete() {
+        let loginRequest = LoginRequestSpy()
+        var completedCount = 0
+        
+        let (sut, navigationController) = makeSut(
+            loginRequest: loginRequest,
+            onComplete: { completedCount += 1 })
+        
+        sut.start()
+        getLoginViewController(from: navigationController)?
+            .simulateLogin(login: "login", password: "password")
+        
+        loginRequest.complete(with: anyError())
+        
+        XCTAssertEqual(completedCount, 0)
     }
     
     // MARK: - Helpers

@@ -57,6 +57,7 @@
 		8BF5CA17248FC0D00053C55B /* PushAuthFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA16248FC0D00053C55B /* PushAuthFlowTests.swift */; };
 		8BF5CA19248FC17D0053C55B /* NavigationControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */; };
 		8BF5CA1B24902EF80053C55B /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1A24902EF80053C55B /* UIControl.swift */; };
+		8BF5CA1D249034170053C55B /* XCTestCase+SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		8BF5CA16248FC0D00053C55B /* PushAuthFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthFlowTests.swift; sourceTree = "<group>"; };
 		8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpy.swift; sourceTree = "<group>"; };
 		8BF5CA1A24902EF80053C55B /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
+		8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+SharedHelpers.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +351,7 @@
 				8BF5CA1A24902EF80053C55B /* UIControl.swift */,
 				8BF5C9F2248ECB270053C55B /* FlowSpy.swift */,
 				8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */,
+				8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -640,6 +643,7 @@
 				8BF5CA09248FA7190053C55B /* SessionControllerTests.swift in Sources */,
 				8BF5CA17248FC0D00053C55B /* PushAuthFlowTests.swift in Sources */,
 				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
+				8BF5CA1D249034170053C55B /* XCTestCase+SharedHelpers.swift in Sources */,
 				8BF5CA1B24902EF80053C55B /* UIControl.swift in Sources */,
 				8BDDD1A92482A2C70056AEE9 /* CatsDogsTests.swift in Sources */,
 				8BF5CA19248FC17D0053C55B /* NavigationControllerSpy.swift in Sources */,
