@@ -10,9 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-struct AccessToken {
-    
-}
 
 final class ProfileLoaderSpy {
     private var completions: [(Result<ProfileInfo, Error>) -> ()] = []
