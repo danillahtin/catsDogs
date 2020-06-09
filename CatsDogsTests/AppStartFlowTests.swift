@@ -42,23 +42,31 @@ final class SessionCheckingSpy {
 }
 
 final class AppStartFlow {
+    let userDefaults: UserDefaults
     let sessionChecking: SessionCheckingSpy
     let main: Flow
     let auth: Flow
     
-    init(sessionChecking: SessionCheckingSpy, main: Flow, auth: Flow) {
+    init(userDefaults: UserDefaults, sessionChecking: SessionCheckingSpy, main: Flow, auth: Flow) {
+        self.userDefaults = userDefaults
         self.sessionChecking = sessionChecking
         self.main = main
         self.auth = auth
     }
     
     func start() {
+        let notFoundFlow = ConditionalFlowComposite(primary: main, secondary: auth, condition: { [userDefaults] in
+            userDefaults.bool(forKey: "hasSkippedAuth")
+        })
+        
         sessionChecking.check { [main, auth] in
             switch $0 {
             case .exists:
                 main.start()
-            case .invalid, .notFound:
+            case .invalid:
                 auth.start()
+            case .notFound:
+                notFoundFlow.start()
             }
         }
     }
@@ -66,6 +74,15 @@ final class AppStartFlow {
 
 
 class AppStartFlowTests: XCTestCase {
+    private var userDefaults: UserDefaults!
+    
+    override func setUp() {
+        super.setUp()
+        
+        userDefaults = UserDefaults(suiteName: #file)
+        userDefaults.removePersistentDomain(forName: #file)
+    }
+    
     func test_start_startsSessionCheck() {
         let sessionChecking = SessionCheckingSpy()
         let (sut, _, _) = makeSut(sessionChecking: sessionChecking)
@@ -109,7 +126,9 @@ class AppStartFlowTests: XCTestCase {
         XCTAssertEqual(auth.startedCount, 1)
     }
     
-    func test_sessionCheckCompletionWithNotFound_startsAuth() {
+    func test_sessionCheckCompletionWithNotFound_startsAuthWhenAuthWasNotSkipped() {
+        setup(authWasSkipped: false)
+        
         let sessionChecking = SessionCheckingSpy()
         let (sut, main, auth) = makeSut(sessionChecking: sessionChecking)
         
@@ -121,6 +140,20 @@ class AppStartFlowTests: XCTestCase {
         XCTAssertEqual(auth.startedCount, 1)
     }
     
+    func test_sessionCheckCompletionWithNotFound_startsMainWhenAuthWasSkipped() {
+        setup(authWasSkipped: true)
+        
+        let sessionChecking = SessionCheckingSpy()
+        let (sut, main, auth) = makeSut(sessionChecking: sessionChecking)
+        
+        sut.start()
+        
+        sessionChecking.complete(with: .notFound)
+        
+        XCTAssertEqual(main.startedCount, 1)
+        XCTAssertEqual(auth.startedCount, 0)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -130,7 +163,7 @@ class AppStartFlowTests: XCTestCase {
     {
         let main = FlowSpy()
         let auth = FlowSpy()
-        let sut = AppStartFlow(sessionChecking: sessionChecking, main: main, auth: auth)
+        let sut = AppStartFlow(userDefaults: userDefaults, sessionChecking: sessionChecking, main: main, auth: auth)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: main, file: file, line: line)
@@ -138,5 +171,9 @@ class AppStartFlowTests: XCTestCase {
         trackMemoryLeaks(for: sessionChecking, file: file, line: line)
         
         return (sut, main, auth)
+    }
+    
+    private func setup(authWasSkipped: Bool) {
+        userDefaults.set(authWasSkipped, forKey: "hasSkippedAuth")
     }
 }
