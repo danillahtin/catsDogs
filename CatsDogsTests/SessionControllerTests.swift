@@ -10,10 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-struct ProfileInfo {
-    
-}
-
 struct AccessToken {
     
 }

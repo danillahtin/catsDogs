@@ -49,6 +49,7 @@
 		8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */; };
 		8BF5CA07248F9D8E0053C55B /* AppStartFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA06248F9D8E0053C55B /* AppStartFlow.swift */; };
 		8BF5CA09248FA7190053C55B /* SessionControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA08248FA7190053C55B /* SessionControllerTests.swift */; };
+		8BF5CA0D248FBE1D0053C55B /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,7 @@
 		8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChecking.swift; sourceTree = "<group>"; };
 		8BF5CA06248F9D8E0053C55B /* AppStartFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartFlow.swift; sourceTree = "<group>"; };
 		8BF5CA08248FA7190053C55B /* SessionControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionControllerTests.swift; sourceTree = "<group>"; };
+		8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -259,6 +261,7 @@
 				8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */,
 				8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */,
 				8BF5CA06248F9D8E0053C55B /* AppStartFlow.swift */,
+				8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -594,6 +597,7 @@
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
 				8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */,
+				8BF5CA0D248FBE1D0053C55B /* ProfileInfo.swift in Sources */,
 				8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */,
 				8BF5CA07248F9D8E0053C55B /* AppStartFlow.swift in Sources */,
 				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
