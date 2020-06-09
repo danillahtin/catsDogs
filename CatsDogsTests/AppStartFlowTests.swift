@@ -10,10 +10,6 @@ import XCTest
 @testable import CatsDogs
 
 
-protocol SessionChecking {
-    func check(_ completion: @escaping (SessionCheckResult) -> ())
-}
-
 final class AppStartFlow {
     let userDefaults: UserDefaults
     let sessionChecking: SessionChecking

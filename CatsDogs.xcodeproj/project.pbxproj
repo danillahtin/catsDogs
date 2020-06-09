@@ -46,6 +46,7 @@
 		8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */; };
 		8BF5CA00248F8D8D0053C55B /* AppStartFlowTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */; };
 		8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */; };
+		8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,6 +136,7 @@
 		8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerProtocol.swift; sourceTree = "<group>"; };
 		8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStartFlowTests.swift; sourceTree = "<group>"; };
 		8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionCheckResult.swift; sourceTree = "<group>"; };
+		8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionChecking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,6 +253,7 @@
 				8BF5C9FB248EE18B0053C55B /* MainFlow.swift */,
 				8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */,
 				8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */,
+				8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -586,6 +589,7 @@
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
 				8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */,
 				8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */,
+				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
 				8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */,
 			);
