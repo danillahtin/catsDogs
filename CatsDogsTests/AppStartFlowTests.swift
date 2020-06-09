@@ -11,6 +11,7 @@ import XCTest
 
 enum SessionCheckResult {
     case exists
+    case invalid
 }
 
 final class SessionCheckingSpy {
@@ -42,15 +43,22 @@ final class SessionCheckingSpy {
 final class AppStartFlow {
     let sessionChecking: SessionCheckingSpy
     let main: Flow
+    let auth: Flow
     
-    init(sessionChecking: SessionCheckingSpy, main: Flow) {
+    init(sessionChecking: SessionCheckingSpy, main: Flow, auth: Flow) {
         self.sessionChecking = sessionChecking
         self.main = main
+        self.auth = auth
     }
     
     func start() {
-        sessionChecking.check { [main] _ in
-            main.start()
+        sessionChecking.check { [main, auth] in
+            switch $0 {
+            case .exists:
+                main.start()
+            case .invalid:
+                auth.start()
+            }
         }
     }
 }
@@ -88,6 +96,18 @@ class AppStartFlowTests: XCTestCase {
         XCTAssertEqual(auth.startedCount, 0)
     }
     
+    func test_sessionCheckCompletionWithValid_startsAuth() {
+        let sessionChecking = SessionCheckingSpy()
+        let (sut, main, auth) = makeSut(sessionChecking: sessionChecking)
+        
+        sut.start()
+        
+        sessionChecking.complete(with: .invalid)
+        
+        XCTAssertEqual(main.startedCount, 0)
+        XCTAssertEqual(auth.startedCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -97,7 +117,7 @@ class AppStartFlowTests: XCTestCase {
     {
         let main = FlowSpy()
         let auth = FlowSpy()
-        let sut = AppStartFlow(sessionChecking: sessionChecking, main: main)
+        let sut = AppStartFlow(sessionChecking: sessionChecking, main: main, auth: auth)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: main, file: file, line: line)
