@@ -95,18 +95,34 @@ class SessionControllerTests: XCTestCase {
         let sut = makeSut(authorizeApi: authorizeApi)
         
         XCTAssertEqual(authorizeApi.credentials, [])
-        sut.start(credentials: Credentials(login: "login", password: "password"))
+        sut.start(credentials: makeCredentials(login: "login"))
         
         XCTAssertEqual(authorizeApi.credentials, [
-            Credentials(login: "login", password: "password"),
+            makeCredentials(login: "login"),
         ])
         
-        sut.start(credentials: Credentials(login: "another login", password: "another password"))
+        sut.start(credentials: makeCredentials(login: "another login"))
         
         XCTAssertEqual(authorizeApi.credentials, [
-            Credentials(login: "login", password: "password"),
-            Credentials(login: "another login", password: "another password"),
+            makeCredentials(login: "login"),
+            makeCredentials(login: "another login"),
         ])
+    }
+    
+    func test_authorizationCompletionWithError_completesWithError() {
+        let authorizeApi = AuthorizeApiSpy()
+        let sut = makeSut(authorizeApi: authorizeApi)
+        let error = anyError()
+        
+        var retrieved: [NSError] = []
+        sut.start(credentials: makeCredentials()) {
+            retrieved.append($0 as NSError)
+        }
+        
+        XCTAssertEqual(retrieved, [])
+        authorizeApi.complete(with: error)
+        
+        XCTAssertEqual(retrieved, [error])
     }
     
     // MARK: - Helpers
@@ -133,12 +149,16 @@ class SessionControllerTests: XCTestCase {
     
     private func makeToken() -> AccessToken {
         AccessToken(
-            credentials: Credentials(login: "login", password: "password"),
+            credentials: makeCredentials(),
             expirationDate: Date())
     }
     
     private func makeProfileInfo() -> ProfileInfo {
         ProfileInfo(username: "username")
+    }
+    
+    private func makeCredentials(login: String = "some login") -> Credentials {
+        Credentials(login: login, password: "any password")
     }
     
     private final class ProfileLoaderSpy: ProfileLoader {
@@ -184,10 +204,27 @@ class SessionControllerTests: XCTestCase {
     }
     
     private final class AuthorizeApiSpy: AuthorizeApi {
-        private(set) var credentials: [Credentials] = []
+        typealias Completion = (Error) -> ()
+        typealias Message = (credentials: Credentials, completion: Completion)
+        private var messages: [Message] = []
         
-        func authorize(with credentials: Credentials) {
-            self.credentials.append(credentials)
+        var completions: [(Error) -> ()] { messages.map({ $0.completion }) }
+        var credentials: [Credentials] { messages.map({ $0.credentials }) }
+        
+        func authorize(with credentials: Credentials, _ completion: @escaping (Error) -> ()) {
+            self.messages.append((credentials, completion))
+        }
+        
+        func complete(with result: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
         }
     }
 }
@@ -195,5 +232,9 @@ class SessionControllerTests: XCTestCase {
 private extension SessionController {
     func check() {
         check({ _ in })
+    }
+    
+    func start(credentials: Credentials) {
+        start(credentials: credentials) { _ in }
     }
 }

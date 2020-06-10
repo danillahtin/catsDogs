@@ -9,7 +9,7 @@
 import Core
 
 protocol AuthorizeApi {
-    func authorize(with credentials: Credentials)
+    func authorize(with credentials: Credentials, _ completion: @escaping (Error) -> ())
 }
 
 
@@ -26,8 +26,8 @@ final class SessionController {
         self.tokenLoader = tokenLoader
     }
     
-    func start(credentials: Credentials) {
-        authorizeApi.authorize(with: credentials)
+    func start(credentials: Credentials, _ completion: @escaping (Error) -> ()) {
+        authorizeApi.authorize(with: credentials, completion)
     }
 }
     
