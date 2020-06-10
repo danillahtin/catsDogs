@@ -125,10 +125,23 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [error])
     }
     
+    func test_authorizationCompletionWithError_doesNotSaveToken() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
+        let error = anyError()
+        
+        sut.start(credentials: makeCredentials())
+        authorizeApi.complete(with: error)
+        
+        XCTAssertEqual(tokenSaver.saveCallCount, 0)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
         authorizeApi: AuthorizeApiSpy = .init(),
+        tokenSaver: TokenSaverSpy = .init(),
         profileLoader: ProfileLoaderSpy = .init(),
         tokenLoader: TokenLoaderSpy = .init(),
         file: StaticString = #file,
@@ -141,6 +154,7 @@ class SessionControllerTests: XCTestCase {
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: authorizeApi, file: file, line: line)
+        trackMemoryLeaks(for: tokenSaver, file: file, line: line)
         trackMemoryLeaks(for: tokenLoader, file: file, line: line)
         trackMemoryLeaks(for: profileLoader, file: file, line: line)
         
@@ -216,6 +230,31 @@ class SessionControllerTests: XCTestCase {
         }
         
         func complete(with result: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
+        }
+    }
+    
+    private final class TokenSaverSpy: TokenSaver {
+        typealias Completion = (Result<Void, Error>) -> ()
+        typealias Message = (token: AccessToken, completion: Completion)
+        private var messages: [Message] = []
+        
+        var completions: [(Result<Void, Error>) -> ()] { messages.map({ $0.completion }) }
+        var saveCallCount: Int { messages.count }
+        
+        func save(token: AccessToken, completion: @escaping (Result<Void, Error>) -> ()) {
+            messages.append((token, completion))
+        }
+        
+        func complete(with result: Result<Void, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
             guard completions.indices.contains(index) else {
                 XCTFail(
                     "Completion at index \(index) not found, has only \(completions.count) completions",
