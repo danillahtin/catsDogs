@@ -47,7 +47,10 @@ final class UserDefaultsTokenStore {
             completion(.failure(error))
         }
     }
-    
+}
+
+
+extension UserDefaultsTokenStore: TokenLoader {
     func load(_ completion: @escaping (Result<AccessToken, Swift.Error>) -> ()) {
         guard let data = userDefaults.data(forKey: key) else {
             return completion(.failure(Error.dataNotFound))
