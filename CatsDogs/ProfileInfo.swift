@@ -7,5 +7,5 @@
 //
 
 struct ProfileInfo {
-    
+    let username: String
 }

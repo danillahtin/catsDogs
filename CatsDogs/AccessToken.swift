@@ -11,5 +11,5 @@ import Core
 
 struct AccessToken {
     let credentials: Credentials
-    let ttl: TimeInterval
+    let expirationDate: Date
 }

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Core
 @testable import CatsDogs
 
 
@@ -107,11 +108,13 @@ class SessionControllerTests: XCTestCase {
     }
     
     private func makeToken() -> AccessToken {
-        AccessToken()
+        AccessToken(
+            credentials: Credentials(login: "login", password: "password"),
+            expirationDate: Date())
     }
     
     private func makeProfileInfo() -> ProfileInfo {
-        ProfileInfo()
+        ProfileInfo(username: "username")
     }
     
     private final class ProfileLoaderSpy: ProfileLoader {
