@@ -184,6 +184,20 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [.failure(error)])
     }
     
+    func test_tokenSaveCompletionWithError_doesNotLoadProfile() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let profileLoader = ProfileLoaderSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver, profileLoader: profileLoader)
+        let error = anyError()
+        
+        sut.start(credentials: makeCredentials())
+        authorizeApi.complete(with: .success(makeToken()))
+        tokenSaver.complete(with: .failure(error))
+        
+        XCTAssertEqual(profileLoader.loadCallCount, 0)
+    }
+    
     func test_tokenSaveCompletionWithSuccess_completesWithSuccess() {
         let authorizeApi = AuthorizeApiSpy()
         let tokenSaver = TokenSaverSpy()
