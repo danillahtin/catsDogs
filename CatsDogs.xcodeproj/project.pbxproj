@@ -63,6 +63,7 @@
 		8BF5CA24249070730053C55B /* RemoteApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA23249070730053C55B /* RemoteApi.swift */; };
 		8BF5CA2624907BDF0053C55B /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2524907BDF0053C55B /* Dog.swift */; };
 		8BF5CA2824907E780053C55B /* RemoteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2724907E780053C55B /* RemoteDatabase.swift */; };
+		8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -169,6 +170,7 @@
 		8BF5CA23249070730053C55B /* RemoteApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApi.swift; sourceTree = "<group>"; };
 		8BF5CA2524907BDF0053C55B /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		8BF5CA2724907E780053C55B /* RemoteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDatabase.swift; sourceTree = "<group>"; };
+		8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApiStub.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -294,6 +296,7 @@
 				8BF5CA14248FBFDA0053C55B /* SessionController.swift */,
 				8BF5CA2124906F010053C55B /* PushAuthFlow.swift */,
 				8BF5CA23249070730053C55B /* RemoteApi.swift */,
+				8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */,
 				8BF5CA2724907E780053C55B /* RemoteDatabase.swift */,
 			);
 			path = CatsDogs;
@@ -643,6 +646,7 @@
 				8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */,
 				8BF5CA07248F9D8E0053C55B /* AppStartFlow.swift in Sources */,
 				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
+				8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */,
 				8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
 				8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */,
