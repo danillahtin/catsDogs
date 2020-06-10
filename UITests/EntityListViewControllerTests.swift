@@ -76,6 +76,20 @@ class EntityListViewControllerTests: XCTestCase {
         assertStopsRefreshing(onRendering: [makeCat(), makeCat()])
     }
     
+    func test_pullToRefresh_notifies() {
+        let sut = makeSut()
+        
+        var refreshCount = 0
+        sut.didRefresh = { refreshCount += 1 }
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(refreshCount, 0)
+        sut.simulatePullToRefresh()
+        
+        XCTAssertEqual(refreshCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -164,6 +178,10 @@ private extension EntityListViewController {
         let indexPath = IndexPath(row: index, section: 0)
         
         return tableView.dataSource?.tableView(tableView, cellForRowAt: indexPath) as? EntityTableViewCell
+    }
+    
+    func simulatePullToRefresh() {
+        tableView.refreshControl?.trigger(event: .valueChanged)
     }
 }
 

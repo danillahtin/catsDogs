@@ -15,6 +15,8 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     public private(set) weak var tableView: UITableView!
     private var cellFactory: CellFactory!
     
+    public var didRefresh: () -> () = {}
+    
     private var entities: [Entity] = [] {
         didSet {
             tableView?.reloadData()
@@ -55,7 +57,7 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     
     @objc
     private func onRefreshValueChanged() {
-        
+        didRefresh()
     }
     
     // MARK: UITableViewDataSource
