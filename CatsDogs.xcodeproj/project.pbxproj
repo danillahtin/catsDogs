@@ -284,6 +284,36 @@
 			path = UITests;
 			sourceTree = "<group>";
 		};
+		8B23A4602490FE720021F5F6 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */,
+				8BF5C9CE248D65DC0053C55B /* Credentials.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		8B23A4612490FE7D0021F5F6 /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
+				8BF5CA2524907BDF0053C55B /* Dog.swift */,
+				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
+				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
+				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
+				8BDDD251248303400056AEE9 /* LoadingStorage.swift */,
+			);
+			path = Lists;
+			sourceTree = "<group>";
+		};
+		8B23A4622490FE880021F5F6 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5C9BE248CDFF30053C55B /* ProfileState.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
 		8BDDD1852482A2C20056AEE9 = {
 			isa = PBXGroup;
 			children = (
@@ -362,16 +392,10 @@
 		8BDDD1B92482A37E0056AEE9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */,
-				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
-				8BF5CA2524907BDF0053C55B /* Dog.swift */,
+				8B23A4602490FE720021F5F6 /* Login */,
+				8B23A4612490FE7D0021F5F6 /* Lists */,
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
-				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
-				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
-				8BDDD25D24839EE10056AEE9 /* Loader.swift */,
-				8BDDD251248303400056AEE9 /* LoadingStorage.swift */,
-				8BF5C9BE248CDFF30053C55B /* ProfileState.swift */,
-				8BF5C9CE248D65DC0053C55B /* Credentials.swift */,
+				8B23A4622490FE880021F5F6 /* Profile */,
 			);
 			path = Core;
 			sourceTree = "<group>";
