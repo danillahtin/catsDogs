@@ -30,12 +30,19 @@ final class SessionController {
 
 extension SessionController: LoginRequest {
     func start(credentials: Credentials, _ completion: @escaping (Result<Void, Error>) -> ()) {
-        authorizeApi.authorize(with: credentials) { [tokenSaver] in
+        authorizeApi.authorize(with: credentials) { [tokenSaver, profileLoader] in
             switch $0 {
             case .failure:
                 completion($0.map({ _ in () }))
             case .success(let token):
-                tokenSaver.save(token: token, completion: completion)
+                tokenSaver.save(token: token) {
+                    switch $0 {
+                    case .failure(let error):
+                        completion($0)
+                    case .success:
+                        profileLoader.load({ _ in})
+                    }
+                }
             }
         }
     }
