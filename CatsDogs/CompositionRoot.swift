@@ -26,14 +26,16 @@ class CompositionRoot {
         let dogsStorage = LoadingStorage(loader: LoaderAdapter(load: api.dogs))
         
         let catsViewController = EntityListViewController<Cat>(imageLoader: imageLoader)
-        let dogsViewController = EntityListViewController<Dog>(imageLoader: imageLoader)
+        let dogsViewAdapter = DogListViewControllerAdapter(
+            controller: EntityListViewController<Dog>(imageLoader: imageLoader),
+            errorView: errorView)
         
         catsViewController.didRefresh = catsStorage.refresh
-        dogsViewController.didRefresh = dogsStorage.refresh
+        dogsViewAdapter.controller.didRefresh = dogsStorage.refresh
         
         subscriptions = [
             catsStorage.subscribe(onError: errorView.display),
-            dogsStorage.subscribe(onError: errorView.display),
+            dogsStorage.subscribe(onError: dogsViewAdapter.display),
         ]
         
         let profileViewController = ProfileViewController()
@@ -46,10 +48,10 @@ class CompositionRoot {
                 
                 return catsViewController
             }, dogsViewControllerBuilder: { [unowned self, dogsStorage] in
-                let subscription = dogsStorage.subscribe(onNext: dogsViewController.entitiesUpdated)
+                let subscription = dogsStorage.subscribe(onNext: dogsViewAdapter.entitiesUpdated)
                 self.subscriptions.append(subscription)
                 
-                return dogsViewController
+                return dogsViewAdapter.controller
             },
             profileViewControllerBuilder: {
                 profileViewController
@@ -112,3 +114,37 @@ final class ImageLoaderStub: ImageLoader {
 
 
 extension UINavigationController: UINavigationControllerProtocol {}
+
+
+final class DogListViewControllerAdapter {
+    let controller: EntityListViewController<Dog>
+    let errorView: ErrorView
+    let notPurchasedLabel = UILabel()
+    
+    init(
+        controller: EntityListViewController<Dog>,
+        errorView: ErrorView)
+    {
+        self.controller = controller
+        self.errorView = errorView
+    }
+    
+    func display(error: Error) {
+        guard case .unauthorized = error as? RemoteApiStub.Error else {
+            return errorView.display(error: error)
+        }
+        
+        notPurchasedLabel.isHidden = false
+        notPurchasedLabel.text = "Content is not available\nfor unauthorized users"
+        notPurchasedLabel.textAlignment = .center
+        
+        controller.loadViewIfNeeded()
+        controller.tableView.backgroundView = notPurchasedLabel
+        controller.entitiesUpdated(with: [])
+    }
+    
+    func entitiesUpdated(with dogs: [Dog]) {
+        notPurchasedLabel.isHidden = true
+        controller.entitiesUpdated(with: dogs)
+    }
+}
