@@ -76,6 +76,15 @@ class EntityListViewControllerTests: XCTestCase {
         assertStopsRefreshing(onRendering: [makeCat(), makeCat()])
     }
     
+    func test_entitiesUpdatedBeforeLoadView_stopsRefreshing() {
+        let sut = makeSut()
+        sut.entitiesUpdated(with: [])
+        
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.isRefreshing, false)
+    }
+    
     func test_pullToRefresh_notifies() {
         let sut = makeSut()
         

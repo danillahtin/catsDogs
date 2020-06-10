@@ -17,8 +17,11 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     
     public var didRefresh: () -> () = {}
     
+    private var didLoadEntities = false
     private var entities: [Entity] = [] {
         didSet {
+            didLoadEntities = true
+            
             tableView?.reloadData()
             tableView?.refreshControl?.endRefreshing()
         }
@@ -48,7 +51,10 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
         tableView.rowHeight = 44
         tableView.estimatedRowHeight = 44
         tableView.tableFooterView = UIView()
-        tableView.refreshControl?.beginRefreshing()
+        
+        if !didLoadEntities {
+            tableView.refreshControl?.beginRefreshing()
+        }
     }
     
     public func entitiesUpdated(with entities: [Entity]) {
