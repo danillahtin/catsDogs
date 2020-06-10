@@ -54,6 +54,12 @@ public final class LoadingStorage<LoaderType: Loader> {
         return cancellable
     }
     
+    public func refresh() {
+        loader.load { [weak self] in
+            self?.handle(loadResult: $0)
+        }
+    }
+    
     private func handle(loadResult: Result<[Entity], Error>) {
         switch loadResult {
         case .success(let entities):

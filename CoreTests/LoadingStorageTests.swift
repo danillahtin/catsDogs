@@ -110,6 +110,22 @@ class LoadingStorageTests: XCTestCase {
         XCTAssertEqual(retrieved, [])
     }
     
+    func test_refresh_loadsEntities() {
+        let (sut, loader) = makeSut()
+        
+        XCTAssertEqual(loader.loadCallCount, 0)
+        sut.subscribeEntities()
+        
+        XCTAssertEqual(loader.loadCallCount, 1)
+        sut.refresh()
+        
+        XCTAssertEqual(loader.loadCallCount, 2)
+        loader.complete(with: [], at: 1)
+        sut.refresh()
+        
+        XCTAssertEqual(loader.loadCallCount, 3)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
