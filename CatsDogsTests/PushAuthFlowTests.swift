@@ -13,15 +13,18 @@ import UI
 
 
 final class LoginRequestSpy {
-    var completions: [(Error) -> ()] = []
-    private(set) var requestedCredentials: [Credentials] = []
+    typealias Completion = (Result<Void, Error>) -> ()
+    typealias Message = (credentials: Credentials, completion: Completion)
     
-    func start(credentials: Credentials) {
-        completions.append({ _ in })
-        requestedCredentials.append(credentials)
+    private var messages: [Message] = []
+    var completions: [(Result<Void, Error>) -> ()] { messages.map({ $0.completion }) }
+    var requestedCredentials: [Credentials] { messages.map({ $0.credentials }) }
+    
+    func start(credentials: Credentials, _ completion: @escaping Completion) {
+        messages.append((credentials, completion))
     }
     
-    func complete(with error: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+    func complete(with result: Result<Void, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
         guard completions.indices.contains(index) else {
             XCTFail(
                 "Completion at index \(index) not found, has only \(completions.count) completions",
@@ -30,7 +33,7 @@ final class LoginRequestSpy {
             return
         }
         
-        completions[index](error)
+        completions[index](result)
     }
 }
 
@@ -51,7 +54,16 @@ final class PushAuthFlow {
     func start() {
         let vc = LoginViewController()
         vc.didSkip = onComplete
-        vc.didLogin = loginRequest.start
+        vc.didLogin = { [loginRequest, onComplete] in
+            loginRequest.start(credentials: $0, { 
+                switch $0 {
+                case .success:
+                    onComplete()
+                case .failure:
+                    break
+                }
+            })
+        }
         
         navigationController.setViewControllers([vc], animated: true)
     }
@@ -72,7 +84,7 @@ class PushAuthFlowTests: XCTestCase {
         XCTAssertEqual(navigationController.messages.count, 1)
         XCTAssertEqual(navigationController.messages[0].viewControllers?.count, 1)
         XCTAssertEqual(navigationController.messages[0].animated, true)
-        
+
         let loginViewController = getLoginViewController(from: navigationController)
 
         XCTAssertNotNil(loginViewController)
@@ -127,9 +139,26 @@ class PushAuthFlowTests: XCTestCase {
         getLoginViewController(from: navigationController)?
             .simulateLogin(login: "login", password: "password")
         
-        loginRequest.complete(with: anyError())
+        loginRequest.complete(with: .failure(anyError()))
         
         XCTAssertEqual(completedCount, 0)
+    }
+    
+    func test_loginCompletionWithSuccess_completes() {
+        let loginRequest = LoginRequestSpy()
+        var completedCount = 0
+        
+        let (sut, navigationController) = makeSut(
+            loginRequest: loginRequest,
+            onComplete: { completedCount += 1 })
+        
+        sut.start()
+        getLoginViewController(from: navigationController)?
+            .simulateLogin(login: "login", password: "password")
+        
+        loginRequest.complete(with: .success(()))
+        
+        XCTAssertEqual(completedCount, 1)
     }
     
     // MARK: - Helpers
