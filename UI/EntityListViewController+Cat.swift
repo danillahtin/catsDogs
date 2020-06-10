@@ -10,7 +10,7 @@ import UIKit
 import Core
 
 
-extension EntityListViewController: CatsListener where Entity == Cat {
+extension EntityListViewController where Entity == Cat {
     public convenience init(imageLoader: ImageLoader) {
         self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
     }

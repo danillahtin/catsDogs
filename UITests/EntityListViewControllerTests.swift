@@ -12,10 +12,10 @@ import UI
 
 
 class EntityListViewControllerTests: XCTestCase {
-    func test_catsUpdated_doesNotLoadView() {
+    func test_entitiesUpdated_doesNotLoadView() {
         let sut = makeSut()
         
-        sut.catsUpdated(with: [])
+        sut.entitiesUpdated(with: [])
         
         XCTAssertFalse(sut.isViewLoaded)
     }
@@ -35,15 +35,15 @@ class EntityListViewControllerTests: XCTestCase {
             makeCat(name: "Buckwheat"),
         ]
         
-        sut.catsUpdated(with: cats)
+        sut.entitiesUpdated(with: cats)
         sut.loadViewIfNeeded()
         
         assert(sut: sut, renders: cats)
         
-        sut.catsUpdated(with: cats.reversed())
+        sut.entitiesUpdated(with: cats.reversed())
         assert(sut: sut, renders: cats.reversed())
         
-        sut.catsUpdated(with: [])
+        sut.entitiesUpdated(with: [])
         assert(sut: sut, renders: [])
     }
     
@@ -57,11 +57,11 @@ class EntityListViewControllerTests: XCTestCase {
         let buffy = makeCat(name: "Buffy", url: "buffy.url")
         let buckwheat = makeCat(name: "Buckwheat", url: "buckwheat.url")
         
-        sut.catsUpdated(with: [buffy])
+        sut.entitiesUpdated(with: [buffy])
         _ = sut.view(at: 0)
         XCTAssertEqual(imageLoader.requestedUrls, ["buffy.url"])
         
-        sut.catsUpdated(with: [buckwheat, buffy])
+        sut.entitiesUpdated(with: [buckwheat, buffy])
         _ = sut.view(at: 0)
         XCTAssertEqual(imageLoader.requestedUrls,
                        ["buffy.url", "buckwheat.url"])
