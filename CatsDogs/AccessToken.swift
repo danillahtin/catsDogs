@@ -9,7 +9,7 @@
 import Foundation
 import Core
 
-struct AccessToken {
+struct AccessToken: Equatable {
     let credentials: Credentials
     let expirationDate: Date
 }

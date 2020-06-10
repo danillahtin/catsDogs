@@ -7,12 +7,22 @@
 //
 
 import XCTest
+@testable import CatsDogs
 
-class UserDefaultsTokenStore {}
+class UserDefaultsTokenStore {
+    func load(_ completion: @escaping (Result<AccessToken, Error>) -> ()) {
+        
+    }
+}
 
 class UserDefaultsTokenStoreTests: XCTestCase {
-    func test() {
-        let _ = makeSut()
+    func test_load_returnsNotFoundErrorWhenNothingSaved() {
+        var retrieved: [Result<AccessToken, NSError>] = []
+        makeSut().load {
+            retrieved.append($0.mapError({ $0 as NSError }))
+        }
+        
+        XCTAssertEqual(retrieved, [])
     }
     
     // MARK: - Helpers
