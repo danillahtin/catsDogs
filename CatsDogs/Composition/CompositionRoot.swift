@@ -25,7 +25,7 @@ class CompositionRoot {
             logoutApi: api,
             tokenSaver: TokenSaverSerialComposite(savers: [tokenStore, api]),
             profileLoader: api,
-            tokenLoader: tokenStore)
+            tokenLoader: TokenLoaderDecorator(didLoadToken: api.sign, decoratee: tokenStore))
         let imageLoader = SDWebImageLoader()
         
         let catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
@@ -114,5 +114,32 @@ class CompositionRoot {
         activityIndicatorView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
         
         return vc
+    }
+}
+
+
+private final class TokenLoaderDecorator: TokenLoader {
+    let didLoadToken: (AccessToken) -> ()
+    let decoratee: TokenLoader
+    
+    init(
+        didLoadToken: @escaping (AccessToken) -> (),
+        decoratee: TokenLoader)
+    {
+        self.didLoadToken = didLoadToken
+        self.decoratee = decoratee
+    }
+    
+    func load(_ completion: @escaping (Result<AccessToken, Error>) -> ()) {
+        decoratee.load { [weak self] in
+            switch $0 {
+            case .success(let token):
+                self?.didLoadToken(token)
+            default:
+                break
+            }
+            
+            completion($0)
+        }
     }
 }
