@@ -9,7 +9,6 @@
 import Core
 
 
-
 final class SessionController {
     private let authorizeApi: AuthorizeApi
     private let tokenSaver: TokenSaver
@@ -25,7 +24,9 @@ final class SessionController {
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
     }
-    
+}
+
+extension SessionController: LoginRequest {
     func start(credentials: Credentials, _ completion: @escaping (Result<Void, Error>) -> ()) {
         authorizeApi.authorize(with: credentials) { [tokenSaver] in
             switch $0 {
