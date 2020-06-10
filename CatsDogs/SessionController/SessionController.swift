@@ -9,10 +9,6 @@
 import Core
 
 
-protocol LogoutApi {
-    func logout(_ completion: @escaping (Result<Void, Error>) -> ())
-}
-
 final class SessionController {
     private let authorizeApi: AuthorizeApi
     private let logoutApi: LogoutApi

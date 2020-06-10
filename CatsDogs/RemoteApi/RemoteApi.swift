@@ -14,9 +14,11 @@ protocol AuthorizeApi {
     func authorize(with credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ())
 }
 
-
-protocol RemoteApi: AuthorizeApi {
+protocol LogoutApi {
     func logout(_ completion: @escaping (Result<Void, Error>) -> ())
+}
+
+protocol RemoteApi: AuthorizeApi, LogoutApi {
     func profile(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
     func cats(_ completion: @escaping (Result<[Cat], Error>) -> ())
     func dogs(_ completion: @escaping (Result<[Dog], Error>) -> ())
