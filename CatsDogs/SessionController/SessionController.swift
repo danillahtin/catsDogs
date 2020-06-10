@@ -9,8 +9,13 @@
 import Core
 
 
+protocol LogoutApi {
+    func logout()
+}
+
 final class SessionController {
     private let authorizeApi: AuthorizeApi
+    private let logoutApi: LogoutApi
     private let tokenSaver: TokenSaver
     private let profileLoader: ProfileLoader
     private let tokenLoader: TokenLoader
@@ -25,13 +30,19 @@ final class SessionController {
     public var didUpdateProfileState: (ProfileState) -> () = { _ in }
     
     init(authorizeApi: AuthorizeApi,
+         logoutApi: LogoutApi,
          tokenSaver: TokenSaver,
          profileLoader: ProfileLoader,
          tokenLoader: TokenLoader) {
         self.authorizeApi = authorizeApi
+        self.logoutApi = logoutApi
         self.tokenSaver = tokenSaver
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
+    }
+    
+    func logout() {
+        logoutApi.logout()
     }
 }
 

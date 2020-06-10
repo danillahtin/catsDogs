@@ -315,10 +315,20 @@ class SessionControllerTests: XCTestCase {
         ])
     }
     
+    func test_logout_requestsLogout() {
+        let logoutApi = LogoutApiSpy()
+        let sut = makeSut(logoutApi: logoutApi)
+        
+        XCTAssertEqual(logoutApi.logoutCallCount, 0)
+        sut.logout()
+        XCTAssertEqual(logoutApi.logoutCallCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
         authorizeApi: AuthorizeApiSpy = .init(),
+        logoutApi: LogoutApiSpy = .init(),
         tokenSaver: TokenSaverSpy = .init(),
         profileLoader: ProfileLoaderSpy = .init(),
         tokenLoader: TokenLoaderSpy = .init(),
@@ -327,12 +337,14 @@ class SessionControllerTests: XCTestCase {
     {
         let sut = SessionController(
             authorizeApi: authorizeApi,
+            logoutApi: logoutApi,
             tokenSaver: tokenSaver,
             profileLoader: profileLoader,
             tokenLoader: tokenLoader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: authorizeApi, file: file, line: line)
+        trackMemoryLeaks(for: logoutApi, file: file, line: line)
         trackMemoryLeaks(for: tokenSaver, file: file, line: line)
         trackMemoryLeaks(for: tokenLoader, file: file, line: line)
         trackMemoryLeaks(for: profileLoader, file: file, line: line)
@@ -443,6 +455,14 @@ class SessionControllerTests: XCTestCase {
             }
             
             completions[index](result)
+        }
+    }
+    
+    private final class LogoutApiSpy: LogoutApi {
+        private(set) var logoutCallCount = 0
+        
+        func logout() {
+            logoutCallCount += 1
         }
     }
 }

@@ -23,9 +23,11 @@ public final class LoginViewController: UIViewController {
         view.backgroundColor = .white
         
         loginTextField.borderStyle = .line
-        loginTextField.placeholder = "Login"
+        loginTextField.autocapitalizationType = .none
+        loginTextField.placeholder = "Login (admin)"
         passwordTextField.borderStyle = .line
-        passwordTextField.placeholder = "Password"
+        passwordTextField.autocapitalizationType = .none
+        passwordTextField.placeholder = "Password (admin)"
         
         loginButton.setTitle("Sign in", for: .normal)
         skipButton.setTitle("Skip", for: .normal)

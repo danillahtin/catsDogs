@@ -11,6 +11,12 @@ import Core
 import UI
 
 
+private struct LogoutApiStub: LogoutApi {
+    func logout() {
+        
+    }
+}
+
 class CompositionRoot {
     private var subscriptions: [Cancellable] = []
     
@@ -22,6 +28,7 @@ class CompositionRoot {
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
         let sessionController = SessionController(
             authorizeApi: api,
+            logoutApi: LogoutApiStub(),
             tokenSaver: TokenSaverSerialComposite(savers: [tokenStore, api]),
             profileLoader: api,
             tokenLoader: tokenStore)
@@ -58,6 +65,8 @@ class CompositionRoot {
             
             presentingVc?.present(nc, animated: true, completion: nil)
         }
+        
+        profileViewController.onLogout = sessionController.logout
         
         let mainFlow = MainFlow(
             catsViewControllerBuilder: { [unowned self, catsStorage] in
