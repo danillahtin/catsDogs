@@ -9,14 +9,14 @@
 import UIKit
 
 
-final class ErrorView {
-    weak var presentingViewController: UIViewController?
+public final class ErrorView {
+    private weak var presentingViewController: UIViewController?
     
-    init(presentingViewController: UIViewController) {
+    public init(presentingViewController: UIViewController) {
         self.presentingViewController = presentingViewController
     }
     
-    func display(error: Error) {
+    public func display(error: Error) {
         let alertVc = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
         
         alertVc.addAction(.init(title: "Ok", style: .default, handler: nil))
