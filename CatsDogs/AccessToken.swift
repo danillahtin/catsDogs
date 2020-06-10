@@ -6,6 +6,10 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
+import Foundation
+import Core
+
 struct AccessToken {
-    
+    let credentials: Credentials
+    let ttl: TimeInterval
 }

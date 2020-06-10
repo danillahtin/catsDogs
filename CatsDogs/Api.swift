@@ -9,6 +9,7 @@
 import Foundation
 import Core
 
+
 final class Api {
     enum Error: LocalizedError {
         case invalidLoginOrPassword
@@ -21,6 +22,7 @@ final class Api {
         }
     }
     
+    private let ttl: TimeInterval = 60 * 5
     private let validCredentials: [Credentials] = [
         Credentials(login: "admin", password: "admin"),
     ]
@@ -32,24 +34,23 @@ final class Api {
     }
 }
 
+
 extension Api {
     func authorize(
         with credentials: Credentials,
         _ completion: @escaping (Result<AccessToken, Swift.Error>) -> ())
     {
-        dispatch { [validCredentials] in
+        dispatch { [validCredentials, ttl] in
             guard validCredentials.contains(credentials) else {
                 completion(.failure(Error.invalidLoginOrPassword))
                 return
             }
             
-            completion(.success(AccessToken()))
+            let token = AccessToken(credentials: credentials, ttl: ttl)
+            completion(.success(token))
         }
     }
-}
-
-
-extension Api: ProfileLoader {
+    
     func load(_ completion: @escaping (Result<ProfileInfo, Swift.Error>) -> ()) {
         dispatch {
             completion(.success(ProfileInfo()))
