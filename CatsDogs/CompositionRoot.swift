@@ -72,22 +72,6 @@ class CompositionRoot {
     }
 }
 
-final class ErrorView {
-    weak var presentingViewController: UIViewController?
-    
-    init(presentingViewController: UIViewController) {
-        self.presentingViewController = presentingViewController
-    }
-    
-    func display(error: Error) {
-        let alertVc = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
-        
-        alertVc.addAction(.init(title: "Ok", style: .default, handler: nil))
-        
-        presentingViewController?.present(alertVc, animated: true, completion: nil)
-    }
-}
-
 final class LoaderAdapter<Entity>: Loader {
     typealias Completion = (Result<[Entity], Error>) -> ()
     
