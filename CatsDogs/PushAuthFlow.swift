@@ -9,7 +9,7 @@
 import Core
 import UI
 
-final class PushAuthFlow {
+final class PushAuthFlow: Flow {
     private let loginRequest: LoginRequest
     private let navigationController: UINavigationControllerProtocol
     private let onComplete: () -> ()
