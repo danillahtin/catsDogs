@@ -71,6 +71,11 @@ class EntityListViewControllerTests: XCTestCase {
                        ["buffy.url", "buckwheat.url", "buffy.url"])
     }
     
+    func test_renderCats_endsRefreshing() {
+        assertStopsRefreshing(onRendering: [])
+        assertStopsRefreshing(onRendering: [makeCat(), makeCat()])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -119,6 +124,21 @@ class EntityListViewControllerTests: XCTestCase {
         }
     }
     
+    private func assertStopsRefreshing(
+        onRendering cats: [Cat],
+        file: StaticString = #file,
+        line: UInt = #line)
+    {
+        let sut = makeSut(file: file, line: line)
+        sut.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.isRefreshing, true, file: file, line: line)
+        
+        sut.entitiesUpdated(with: cats)
+        
+        XCTAssertEqual(sut.isRefreshing, false, file: file, line: line)
+    }
+    
     private final class ImageLoaderSpy: ImageLoader {
         private var urls: [URL] = []
         
@@ -134,6 +154,10 @@ class EntityListViewControllerTests: XCTestCase {
 private extension EntityListViewController {
     var renderedViewsCount: Int {
         tableView.numberOfRows(inSection: 0)
+    }
+    
+    var isRefreshing: Bool {
+        tableView.refreshControl?.isRefreshing ?? false
     }
     
     func view(at index: Int) -> EntityTableViewCell? {

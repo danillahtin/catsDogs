@@ -18,10 +18,7 @@ class CompositionRoot {
     private var subscriptions: [Cancellable] = []
     
     func compose() -> (nc: UINavigationController, flow: Flow) {
-        let initialViewController = UIViewController()
-        initialViewController.view.backgroundColor = .white
-        
-        let navigationController = UINavigationController(rootViewController: initialViewController)
+        let navigationController = UINavigationController(rootViewController: buildInitialViewController())
         let errorView = ErrorView(presentingViewController: navigationController)
         let userDefaults = UserDefaults.standard
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
@@ -69,6 +66,22 @@ class CompositionRoot {
             auth: authFlow)
         
         return (navigationController, flow)
+    }
+    
+    private func buildInitialViewController() -> UIViewController {
+        let vc = UIViewController()
+        vc.view.backgroundColor = .white
+        
+        let activityIndicatorView = UIActivityIndicatorView(style: .medium)
+        activityIndicatorView.color = .gray
+        activityIndicatorView.startAnimating()
+        
+        vc.view.addSubview(activityIndicatorView)
+        activityIndicatorView.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicatorView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor).isActive = true
+        activityIndicatorView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
+        
+        return vc
     }
 }
 

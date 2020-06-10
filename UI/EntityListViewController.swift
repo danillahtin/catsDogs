@@ -18,6 +18,7 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     private var entities: [Entity] = [] {
         didSet {
             tableView?.reloadData()
+            tableView?.refreshControl?.endRefreshing()
         }
     }
     
@@ -29,6 +30,10 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
     
     public override func loadView() {
         let tableView = UITableView()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(onRefreshValueChanged), for: .valueChanged)
+        
+        tableView.refreshControl = refreshControl
         
         self.view = tableView
         self.tableView = tableView
@@ -41,10 +46,16 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
         tableView.rowHeight = 44
         tableView.estimatedRowHeight = 44
         tableView.tableFooterView = UIView()
+        tableView.refreshControl?.beginRefreshing()
     }
     
     public func entitiesUpdated(with entities: [Entity]) {
         self.entities = entities
+    }
+    
+    @objc
+    private func onRefreshValueChanged() {
+        
     }
     
     // MARK: UITableViewDataSource
