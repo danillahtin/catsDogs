@@ -66,6 +66,7 @@
 		8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */; };
 		8BF5CA2C249080610053C55B /* UserDefaultsTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2B249080610053C55B /* UserDefaultsTokenStoreTests.swift */; };
 		8BF5CA2E24909C8C0053C55B /* UserDefaultsTokenStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2D24909C8C0053C55B /* UserDefaultsTokenStore.swift */; };
+		8BF5CA302490A6470053C55B /* TokenSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2F2490A6470053C55B /* TokenSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +176,7 @@
 		8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApiStub.swift; sourceTree = "<group>"; };
 		8BF5CA2B249080610053C55B /* UserDefaultsTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTokenStoreTests.swift; sourceTree = "<group>"; };
 		8BF5CA2D24909C8C0053C55B /* UserDefaultsTokenStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTokenStore.swift; sourceTree = "<group>"; };
+		8BF5CA2F2490A6470053C55B /* TokenSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +305,7 @@
 				8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */,
 				8BF5CA2724907E780053C55B /* RemoteDatabase.swift */,
 				8BF5CA2D24909C8C0053C55B /* UserDefaultsTokenStore.swift */,
+				8BF5CA2F2490A6470053C55B /* TokenSaver.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 				8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */,
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
+				8BF5CA302490A6470053C55B /* TokenSaver.swift in Sources */,
 				8BF5CA24249070730053C55B /* RemoteApi.swift in Sources */,
 				8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */,
 				8BF5CA0D248FBE1D0053C55B /* ProfileInfo.swift in Sources */,

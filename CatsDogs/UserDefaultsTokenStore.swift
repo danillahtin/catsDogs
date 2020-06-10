@@ -37,7 +37,9 @@ final class UserDefaultsTokenStore {
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
     }
-    
+}
+
+extension UserDefaultsTokenStore: TokenSaver {
     func save(token: AccessToken, completion: @escaping (Result<Void, Swift.Error>) -> ()) {
         do {
             let data = try JSONEncoder().encode(CodableToken(token: token))
