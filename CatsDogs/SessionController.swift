@@ -8,9 +8,6 @@
 
 import Core
 
-protocol AuthorizeApi {
-    func authorize(with credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ())
-}
 
 
 final class SessionController {

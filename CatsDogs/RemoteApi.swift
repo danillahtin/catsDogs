@@ -10,11 +10,12 @@ import Foundation
 import Core
 
 
-protocol RemoteApi {
-    func authorize(
-        with credentials: Credentials,
-        _ completion: @escaping (Result<AccessToken, Error>) -> ())
-    
+protocol AuthorizeApi {
+    func authorize(with credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ())
+}
+
+
+protocol RemoteApi: AuthorizeApi {
     func logout(_ completion: @escaping (Result<Void, Error>) -> ())
     func profile(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
     func cats(_ completion: @escaping (Result<[Cat], Error>) -> ())
