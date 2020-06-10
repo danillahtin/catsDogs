@@ -114,27 +114,40 @@ class SessionControllerTests: XCTestCase {
         let sut = makeSut(authorizeApi: authorizeApi)
         let error = anyError()
         
-        var retrieved: [NSError] = []
+        var retrieved: [Result<AccessToken, NSError>] = []
         sut.start(credentials: makeCredentials()) {
-            retrieved.append($0 as NSError)
+            retrieved.append($0.mapError({ $0 as NSError }))
         }
         
         XCTAssertEqual(retrieved, [])
-        authorizeApi.complete(with: error)
+        authorizeApi.complete(with: .failure(error))
         
-        XCTAssertEqual(retrieved, [error])
+        XCTAssertEqual(retrieved, [.failure(error)])
     }
     
     func test_authorizationCompletionWithError_doesNotSaveToken() {
         let authorizeApi = AuthorizeApiSpy()
         let tokenSaver = TokenSaverSpy()
         let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
-        let error = anyError()
         
         sut.start(credentials: makeCredentials())
-        authorizeApi.complete(with: error)
+        authorizeApi.complete(with: .failure(anyError()))
         
-        XCTAssertEqual(tokenSaver.saveCallCount, 0)
+        XCTAssertEqual(tokenSaver.tokens, [])
+    }
+    
+    func test_authorizationCompletionWithSuccess_savesToken() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
+        let token = makeToken()
+        
+        sut.start(credentials: makeCredentials())
+        
+        XCTAssertEqual(tokenSaver.tokens, [])
+        authorizeApi.complete(with: .success(token))
+        
+        XCTAssertEqual(tokenSaver.tokens, [token])
     }
     
     // MARK: - Helpers
@@ -149,6 +162,7 @@ class SessionControllerTests: XCTestCase {
     {
         let sut = SessionController(
             authorizeApi: authorizeApi,
+            tokenSaver: tokenSaver,
             profileLoader: profileLoader,
             tokenLoader: tokenLoader)
         
@@ -218,18 +232,18 @@ class SessionControllerTests: XCTestCase {
     }
     
     private final class AuthorizeApiSpy: AuthorizeApi {
-        typealias Completion = (Error) -> ()
+        typealias Completion = (Result<AccessToken, Error>) -> ()
         typealias Message = (credentials: Credentials, completion: Completion)
         private var messages: [Message] = []
         
-        var completions: [(Error) -> ()] { messages.map({ $0.completion }) }
+        var completions: [(Result<AccessToken, Error>) -> ()] { messages.map({ $0.completion }) }
         var credentials: [Credentials] { messages.map({ $0.credentials }) }
         
-        func authorize(with credentials: Credentials, _ completion: @escaping (Error) -> ()) {
+        func authorize(with credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ()) {
             self.messages.append((credentials, completion))
         }
         
-        func complete(with result: Error, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+        func complete(with result: Result<AccessToken, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
             guard completions.indices.contains(index) else {
                 XCTFail(
                     "Completion at index \(index) not found, has only \(completions.count) completions",
@@ -248,7 +262,7 @@ class SessionControllerTests: XCTestCase {
         private var messages: [Message] = []
         
         var completions: [(Result<Void, Error>) -> ()] { messages.map({ $0.completion }) }
-        var saveCallCount: Int { messages.count }
+        var tokens: [AccessToken] { messages.map({ $0.token }) }
         
         func save(token: AccessToken, completion: @escaping (Result<Void, Error>) -> ()) {
             messages.append((token, completion))

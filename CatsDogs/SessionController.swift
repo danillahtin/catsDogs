@@ -9,25 +9,37 @@
 import Core
 
 protocol AuthorizeApi {
-    func authorize(with credentials: Credentials, _ completion: @escaping (Error) -> ())
+    func authorize(with credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ())
 }
 
 
 final class SessionController {
     private let authorizeApi: AuthorizeApi
+    private let tokenSaver: TokenSaver
     private let profileLoader: ProfileLoader
     private let tokenLoader: TokenLoader
     
     init(authorizeApi: AuthorizeApi,
+         tokenSaver: TokenSaver,
          profileLoader: ProfileLoader,
          tokenLoader: TokenLoader) {
         self.authorizeApi = authorizeApi
+        self.tokenSaver = tokenSaver
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
     }
     
-    func start(credentials: Credentials, _ completion: @escaping (Error) -> ()) {
-        authorizeApi.authorize(with: credentials, completion)
+    func start(credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ()) {
+        authorizeApi.authorize(with: credentials) { [tokenSaver] in
+            completion($0)
+            
+            switch $0 {
+            case .failure:
+                break
+            case .success(let token):
+                tokenSaver.save(token: token, completion: { _ in })
+            }
+        }
     }
 }
     
