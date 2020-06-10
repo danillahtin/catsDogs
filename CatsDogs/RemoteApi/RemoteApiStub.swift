@@ -37,7 +37,7 @@ final class RemoteApiStub {
     private let database = RemoteDatabase()
     
     private func dispatch(_ block: @escaping () -> ()) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1, execute: {
             block()
         })
     }

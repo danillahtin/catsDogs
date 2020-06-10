@@ -18,8 +18,13 @@ protocol LogoutApi {
     func logout(_ completion: @escaping (Result<Void, Error>) -> ())
 }
 
-protocol RemoteApi: AuthorizeApi, LogoutApi {
+protocol ProfileApi {
     func profile(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
+}
+
+protocol ContentApi {
     func cats(_ completion: @escaping (Result<[Cat], Error>) -> ())
     func dogs(_ completion: @escaping (Result<[Dog], Error>) -> ())
 }
+
+typealias RemoteApi = AuthorizeApi & LogoutApi & ProfileApi & ContentApi

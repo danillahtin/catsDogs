@@ -19,6 +19,8 @@
 		8B23A48324912E250021F5F6 /* RemoteApiStub+TokeSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48224912E250021F5F6 /* RemoteApiStub+TokeSaver.swift */; };
 		8B23A48524912E4E0021F5F6 /* TokenSaverSerialComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48424912E4E0021F5F6 /* TokenSaverSerialComposite.swift */; };
 		8B23A48724912FFA0021F5F6 /* UserDefaults+Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48624912FFA0021F5F6 /* UserDefaults+Keys.swift */; };
+		8B23A48B24914A2C0021F5F6 /* ActivityIndicatorDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48A24914A2C0021F5F6 /* ActivityIndicatorDecorator.swift */; };
+		8B23A48D24914B0F0021F5F6 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48C24914B0F0021F5F6 /* ActivityIndicatorView.swift */; };
 		8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
@@ -158,6 +160,8 @@
 		8B23A48224912E250021F5F6 /* RemoteApiStub+TokeSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteApiStub+TokeSaver.swift"; sourceTree = "<group>"; };
 		8B23A48424912E4E0021F5F6 /* TokenSaverSerialComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSaverSerialComposite.swift; sourceTree = "<group>"; };
 		8B23A48624912FFA0021F5F6 /* UserDefaults+Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Keys.swift"; sourceTree = "<group>"; };
+		8B23A48A24914A2C0021F5F6 /* ActivityIndicatorDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorDecorator.swift; sourceTree = "<group>"; };
+		8B23A48C24914B0F0021F5F6 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -374,6 +378,7 @@
 			children = (
 				8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */,
 				8B23A48624912FFA0021F5F6 /* UserDefaults+Keys.swift */,
+				8B23A48C24914B0F0021F5F6 /* ActivityIndicatorView.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -392,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
+				8B23A48A24914A2C0021F5F6 /* ActivityIndicatorDecorator.swift */,
 				8B23A48224912E250021F5F6 /* RemoteApiStub+TokeSaver.swift */,
 				8B23A48024912D860021F5F6 /* LoaderAdapter.swift */,
 				8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */,
@@ -806,9 +812,11 @@
 				8B23A48724912FFA0021F5F6 /* UserDefaults+Keys.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
 				8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */,
+				8B23A48B24914A2C0021F5F6 /* ActivityIndicatorDecorator.swift in Sources */,
 				8BF5CA2224906F010053C55B /* PushAuthFlow.swift in Sources */,
 				8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */,
 				8BF5CA0F248FBE400053C55B /* AccessToken.swift in Sources */,
+				8B23A48D24914B0F0021F5F6 /* ActivityIndicatorView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

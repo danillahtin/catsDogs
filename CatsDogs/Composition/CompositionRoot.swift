@@ -21,11 +21,11 @@ class CompositionRoot {
         let api = RemoteApiStub()
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
         let sessionController = SessionController(
-            authorizeApi: api,
-            logoutApi: api,
-            tokenSaver: TokenSaverSerialComposite(savers: [tokenStore, api]),
-            profileLoader: api,
-            tokenLoader: TokenLoaderDecorator(didLoadToken: api.sign, decoratee: tokenStore))
+            authorizeApi: ActivityIndicatorDecorator(api),
+            logoutApi: ActivityIndicatorDecorator(api),
+            tokenSaver: ActivityIndicatorDecorator(TokenSaverSerialComposite(savers: [tokenStore, api])),
+            profileLoader: ActivityIndicatorDecorator(api),
+            tokenLoader: ActivityIndicatorDecorator(TokenLoaderDecorator(didLoadToken: api.sign, decoratee: tokenStore)))
         let imageLoader = SDWebImageLoader()
         
         let catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
