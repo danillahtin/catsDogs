@@ -15,8 +15,8 @@ class CompositionRoot {
     private var subscriptions: [Cancellable] = []
     
     func compose() -> (nc: UINavigationController, flow: Flow) {
-        let navigationController = UINavigationController(rootViewController: buildInitialViewController())
-        let errorView = ErrorView(presentingViewController: navigationController)
+        let rootNc = UINavigationController(rootViewController: buildInitialViewController())
+        let errorView = ErrorView(presentingViewController: rootNc)
         let userDefaults = UserDefaults.standard
         let api = RemoteApiStub()
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
@@ -44,7 +44,20 @@ class CompositionRoot {
         ]
         
         let profileViewController = ProfileViewController()
-        profileViewController.profileUpdated(state: .unauthorized)
+        sessionController.didUpdateProfileState = profileViewController.profileUpdated
+        
+        profileViewController.onSignIn = { [weak presentingVc = rootNc] in
+            let nc = UINavigationController()
+            
+            PushAuthFlow(
+                userDefaults: userDefaults,
+                loginRequest: sessionController,
+                navigationController: nc,
+                onComplete: { [weak nc] in nc?.dismiss(animated: true, completion: nil) },
+                onError: errorView.display).start()
+            
+            presentingVc?.present(nc, animated: true, completion: nil)
+        }
         
         let mainFlow = MainFlow(
             catsViewControllerBuilder: { [unowned self, catsStorage] in
@@ -61,12 +74,12 @@ class CompositionRoot {
             profileViewControllerBuilder: {
                 profileViewController
             },
-            navigationController: navigationController)
+            navigationController: rootNc)
 
         let authFlow = PushAuthFlow(
             userDefaults: userDefaults,
             loginRequest: sessionController,
-            navigationController: navigationController,
+            navigationController: rootNc,
             onComplete: mainFlow.start,
             onError: errorView.display)
         
@@ -76,7 +89,7 @@ class CompositionRoot {
             main: mainFlow,
             auth: authFlow)
         
-        return (navigationController, flow)
+        return (rootNc, flow)
     }
     
     private func buildInitialViewController() -> UIViewController {
