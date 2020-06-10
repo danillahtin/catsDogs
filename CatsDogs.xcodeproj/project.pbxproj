@@ -314,6 +314,69 @@
 			path = Profile;
 			sourceTree = "<group>";
 		};
+		8B23A4632490FEBE0021F5F6 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */,
+				8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		8B23A4642490FEC70021F5F6 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
+			);
+			path = "Supporting files";
+			sourceTree = "<group>";
+		};
+		8B23A4652490FEDC0021F5F6 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5C9F0248ECA880053C55B /* Flow.swift */,
+				8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */,
+				8BF5C9FB248EE18B0053C55B /* MainFlow.swift */,
+				8BF5CA06248F9D8E0053C55B /* AppStartFlow.swift */,
+				8BF5CA2124906F010053C55B /* PushAuthFlow.swift */,
+			);
+			path = Flow;
+			sourceTree = "<group>";
+		};
+		8B23A4662490FEFE0021F5F6 /* SessionController */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */,
+				8BF5CA10248FBF980053C55B /* ProfileLoader.swift */,
+				8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */,
+				8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */,
+				8BF5CA0E248FBE400053C55B /* AccessToken.swift */,
+				8BF5CA12248FBFB30053C55B /* TokenLoader.swift */,
+				8BF5CA14248FBFDA0053C55B /* SessionController.swift */,
+				8BF5CA2D24909C8C0053C55B /* UserDefaultsTokenStore.swift */,
+				8BF5CA2F2490A6470053C55B /* TokenSaver.swift */,
+			);
+			path = SessionController;
+			sourceTree = "<group>";
+		};
+		8B23A4672490FF060021F5F6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		8B23A4682490FF450021F5F6 /* RemoteApi */ = {
+			isa = PBXGroup;
+			children = (
+				8BF5CA23249070730053C55B /* RemoteApi.swift */,
+				8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */,
+				8BF5CA2724907E780053C55B /* RemoteDatabase.swift */,
+			);
+			path = RemoteApi;
+			sourceTree = "<group>";
+		};
 		8BDDD1852482A2C20056AEE9 = {
 			isa = PBXGroup;
 			children = (
@@ -345,29 +408,14 @@
 			isa = PBXGroup;
 			children = (
 				8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */,
-				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
 				8B23A45E2490F49E0021F5F6 /* ErrorView.swift */,
-				8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */,
-				8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */,
-				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
-				8BF5C9F0248ECA880053C55B /* Flow.swift */,
-				8BF5C9F7248ED04C0053C55B /* ConditionalFlowComposite.swift */,
-				8BF5C9FB248EE18B0053C55B /* MainFlow.swift */,
-				8BF5C9FD248EE1980053C55B /* UINavigationControllerProtocol.swift */,
-				8BF5CA02248F9A550053C55B /* SessionCheckResult.swift */,
-				8BF5CA04248F9D6E0053C55B /* SessionChecking.swift */,
-				8BF5CA06248F9D8E0053C55B /* AppStartFlow.swift */,
-				8BF5CA0C248FBE1D0053C55B /* ProfileInfo.swift */,
-				8BF5CA0E248FBE400053C55B /* AccessToken.swift */,
-				8BF5CA10248FBF980053C55B /* ProfileLoader.swift */,
-				8BF5CA12248FBFB30053C55B /* TokenLoader.swift */,
-				8BF5CA14248FBFDA0053C55B /* SessionController.swift */,
-				8BF5CA2124906F010053C55B /* PushAuthFlow.swift */,
-				8BF5CA23249070730053C55B /* RemoteApi.swift */,
-				8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */,
-				8BF5CA2724907E780053C55B /* RemoteDatabase.swift */,
-				8BF5CA2D24909C8C0053C55B /* UserDefaultsTokenStore.swift */,
-				8BF5CA2F2490A6470053C55B /* TokenSaver.swift */,
+				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
+				8B23A4632490FEBE0021F5F6 /* Resources */,
+				8B23A4642490FEC70021F5F6 /* Supporting files */,
+				8B23A4652490FEDC0021F5F6 /* Flow */,
+				8B23A4672490FF060021F5F6 /* Helpers */,
+				8B23A4662490FEFE0021F5F6 /* SessionController */,
+				8B23A4682490FF450021F5F6 /* RemoteApi */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
