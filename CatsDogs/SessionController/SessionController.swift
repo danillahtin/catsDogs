@@ -37,10 +37,17 @@ extension SessionController: LoginRequest {
             case .success(let token):
                 tokenSaver.save(token: token) {
                     switch $0 {
-                    case .failure(let error):
+                    case .failure:
                         completion($0)
                     case .success:
-                        profileLoader.load({ _ in})
+                        profileLoader.load({
+                            switch $0 {
+                            case .failure(let error):
+                                completion(.failure(error))
+                            default:
+                                break
+                            }
+                        })
                     }
                 }
             }
