@@ -62,6 +62,24 @@ class ProfileViewControllerTests: XCTestCase {
         XCTAssertEqual(signInCallsCount, 2)
     }
     
+    func test_logoutButtonTapped_notifies() {
+        let sut = makeSut()
+        
+        var logoutCallsCount = 0
+        sut.onLogout = { logoutCallsCount += 1 }
+        
+        sut.loadViewIfNeeded()
+        sut.profileUpdated(state: .unauthorized)
+        
+        XCTAssertEqual(logoutCallsCount, 0)
+        sut.simulateLogoutButtonTapped()
+        
+        XCTAssertEqual(logoutCallsCount, 1)
+        sut.simulateLogoutButtonTapped()
+        
+        XCTAssertEqual(logoutCallsCount, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -128,5 +146,9 @@ private extension ProfileViewController {
     
     func simulateSignInButtonTapped() {
         signInButton.triggerTap()
+    }
+    
+    func simulateLogoutButtonTapped() {
+        logoutButton.triggerTap()
     }
 }

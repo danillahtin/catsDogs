@@ -21,6 +21,7 @@ public final class ProfileViewController: UIViewController {
     public private(set) weak var logoutButton: UIButton!
     
     public var onSignIn: () -> () = {}
+    public var onLogout: () -> () = {}
     
     private var state: ProfileState = .unauthorized
     
@@ -82,7 +83,8 @@ public final class ProfileViewController: UIViewController {
     public override func viewDidLoad() {
         super.viewDidLoad()
         
-        signInButton.addTarget(self, action: #selector(onSigninButtonTapped), for: .touchUpInside)
+        signInButton.addTarget(self, action: #selector(onSignInButtonTapped), for: .touchUpInside)
+        logoutButton.addTarget(self, action: #selector(onLogoutButtonTapped), for: .touchUpInside)
         render(state: state)
     }
     
@@ -111,8 +113,13 @@ public final class ProfileViewController: UIViewController {
     }
     
     @objc
-    func onSigninButtonTapped() {
+    func onSignInButtonTapped() {
         onSignIn()
+    }
+    
+    @objc
+    func onLogoutButtonTapped() {
+        onLogout()
     }
 }
 
