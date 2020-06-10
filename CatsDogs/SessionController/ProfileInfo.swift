@@ -6,6 +6,6 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
-struct ProfileInfo {
+struct ProfileInfo: Equatable {
     let username: String
 }

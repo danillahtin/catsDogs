@@ -15,6 +15,8 @@ final class SessionController {
     private let profileLoader: ProfileLoader
     private let tokenLoader: TokenLoader
     
+    private(set) var profileInfo: ProfileInfo?
+    
     init(authorizeApi: AuthorizeApi,
          tokenSaver: TokenSaver,
          profileLoader: ProfileLoader,
@@ -41,12 +43,13 @@ extension SessionController: LoginRequest {
     
 extension SessionController: SessionChecking {
     func check(_ completion: @escaping (SessionCheckResult) -> ()) {
-        tokenLoader.load { [profileLoader] in
+        tokenLoader.load { [weak self, profileLoader] in
             switch $0 {
             case .success:
                 profileLoader.load {
                     switch $0 {
-                    case .success:
+                    case .success(let info):
+                        self?.profileInfo = info
                         completion(.exists)
                     case .failure:
                         completion(.invalid)

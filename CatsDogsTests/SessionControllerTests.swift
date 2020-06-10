@@ -90,6 +90,21 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [.exists])
     }
     
+    func test_profileLoadCompletionWithProfileInfo_updatesProfileInfo() {
+        let profileLoader = ProfileLoaderSpy()
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
+        let profileInfo = makeProfileInfo()
+        
+        sut.check()
+        tokenLoader.complete(with: .success(makeToken()))
+        
+        XCTAssertEqual(sut.profileInfo, nil)
+        profileLoader.complete(with: .success(profileInfo))
+        
+        XCTAssertEqual(sut.profileInfo, profileInfo)
+    }
+    
     func test_startWithCredentials_requestsAuthorizationWithCredentials() {
         let authorizeApi = AuthorizeApiSpy()
         let sut = makeSut(authorizeApi: authorizeApi)
