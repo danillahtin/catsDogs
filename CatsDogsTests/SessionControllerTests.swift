@@ -324,6 +324,50 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(logoutApi.logoutCallCount, 1)
     }
     
+    func test_logoutCompletionWithError_completes() {
+        let logoutApi = LogoutApiSpy()
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let profileLoader = ProfileLoaderSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, logoutApi: logoutApi, tokenSaver: tokenSaver, profileLoader: profileLoader)
+        
+        sut.start(credentials: makeCredentials())
+        authorizeApi.complete(with: .success(makeToken()))
+        tokenSaver.complete(with: .success(()))
+        profileLoader.complete(with: .success(makeProfileInfo()))
+        
+        var completedCount = 0
+        sut.logout { completedCount += 1 }
+        
+        XCTAssertEqual(completedCount, 0)
+        logoutApi.complete(with: .failure(anyError()))
+        
+        XCTAssertEqual(completedCount, 1)
+        XCTAssertEqual(sut.profileInfo, nil)
+    }
+    
+    func test_logoutCompletionWithSuccess_completes() {
+        let logoutApi = LogoutApiSpy()
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let profileLoader = ProfileLoaderSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, logoutApi: logoutApi, tokenSaver: tokenSaver, profileLoader: profileLoader)
+        
+        sut.start(credentials: makeCredentials())
+        authorizeApi.complete(with: .success(makeToken()))
+        tokenSaver.complete(with: .success(()))
+        profileLoader.complete(with: .success(makeProfileInfo()))
+        
+        var completedCount = 0
+        sut.logout { completedCount += 1 }
+        
+        XCTAssertEqual(completedCount, 0)
+        logoutApi.complete(with: .success(()))
+        
+        XCTAssertEqual(completedCount, 1)
+        XCTAssertEqual(sut.profileInfo, nil)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -459,10 +503,25 @@ class SessionControllerTests: XCTestCase {
     }
     
     private final class LogoutApiSpy: LogoutApi {
-        private(set) var logoutCallCount = 0
+        typealias Completion = (Result<Void, Error>) -> ()
+        private var completions: [Completion] = []
         
-        func logout() {
-            logoutCallCount += 1
+        var logoutCallCount: Int { completions.count }
+        
+        func logout(_ completion: @escaping (Result<Void, Error>) -> ()) {
+            completions.append(completion)
+        }
+        
+        func complete(with result: Result<Void, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
         }
     }
 }
@@ -474,6 +533,10 @@ private extension SessionController {
     
     func start(credentials: Credentials) {
         start(credentials: credentials) { _ in }
+    }
+    
+    func logout() {
+        logout {}
     }
 }
 

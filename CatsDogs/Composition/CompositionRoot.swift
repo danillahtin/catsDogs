@@ -12,7 +12,7 @@ import UI
 
 
 private struct LogoutApiStub: LogoutApi {
-    func logout() {
+    func logout(_ completion: @escaping (Result<Void, Error>) -> ()) {
         
     }
 }
@@ -66,7 +66,9 @@ class CompositionRoot {
             presentingVc?.present(nc, animated: true, completion: nil)
         }
         
-        profileViewController.onLogout = sessionController.logout
+        profileViewController.onLogout = {
+            sessionController.logout {}
+        }
         
         let mainFlow = MainFlow(
             catsViewControllerBuilder: { [unowned self, catsStorage] in

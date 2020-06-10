@@ -10,7 +10,7 @@ import Core
 
 
 protocol LogoutApi {
-    func logout()
+    func logout(_ completion: @escaping (Result<Void, Error>) -> ())
 }
 
 final class SessionController {
@@ -41,8 +41,11 @@ final class SessionController {
         self.tokenLoader = tokenLoader
     }
     
-    func logout() {
-        logoutApi.logout()
+    func logout(_ completion: @escaping () -> ()) {
+        logoutApi.logout { [weak self] _ in
+            self?.profileInfo = nil
+            completion()
+        }
     }
 }
 
