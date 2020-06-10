@@ -64,7 +64,7 @@ class CompositionRoot {
         }
         
         profileViewController.onLogout = {
-            sessionController.logout()
+            sessionController.logout(tokenStore.clear)
         }
         
         let mainFlow = MainFlow(
