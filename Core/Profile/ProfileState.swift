@@ -6,7 +6,7 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
-public enum ProfileState {
+public enum ProfileState: Equatable {
     case authorized(String)
     case unauthorized
 }

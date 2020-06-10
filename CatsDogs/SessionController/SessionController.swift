@@ -15,7 +15,14 @@ final class SessionController {
     private let profileLoader: ProfileLoader
     private let tokenLoader: TokenLoader
     
-    private(set) var profileInfo: ProfileInfo?
+    private(set) var profileInfo: ProfileInfo? {
+        didSet {
+            let state = profileInfo.map({ ProfileState.authorized($0.username) }) ?? .unauthorized
+            didUpdateProfileState(state)
+        }
+    }
+    
+    public var didUpdateProfileState: (ProfileState) -> () = { _ in }
     
     init(authorizeApi: AuthorizeApi,
          tokenSaver: TokenSaver,

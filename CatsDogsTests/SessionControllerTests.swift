@@ -289,6 +289,32 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [.success(EquatableVoid())])
     }
     
+    func test_profileInfoChanged_notifiesWithProfileState() {
+        let profileLoader = ProfileLoaderSpy()
+        let tokenLoader = TokenLoaderSpy()
+        let sut = makeSut(profileLoader: profileLoader, tokenLoader: tokenLoader)
+        
+        sut.check()
+        
+        var retrieved: [ProfileState] = []
+        sut.didUpdateProfileState = { retrieved.append($0) }
+        
+        tokenLoader.complete(with: .success(makeToken()))
+        
+        XCTAssertEqual(retrieved, [])
+        
+        profileLoader.complete(with: .success(makeProfileInfo(username: "username")))
+        
+        XCTAssertEqual(retrieved, [.authorized("username")])
+        
+        profileLoader.complete(with: .success(makeProfileInfo(username: "another username")))
+        
+        XCTAssertEqual(retrieved, [
+            .authorized("username"),
+            .authorized("another username")
+        ])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -320,8 +346,8 @@ class SessionControllerTests: XCTestCase {
             expirationDate: Date())
     }
     
-    private func makeProfileInfo() -> ProfileInfo {
-        ProfileInfo(username: "username")
+    private func makeProfileInfo(username: String = "some username") -> ProfileInfo {
+        ProfileInfo(username: username)
     }
     
     private func makeCredentials(login: String = "some login") -> Credentials {
