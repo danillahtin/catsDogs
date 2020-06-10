@@ -11,22 +11,25 @@ import Core
 import UI
 
 class CompositionRoot {
-    let api = RemoteApiStub()
-    lazy var catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
-    lazy var dogsStorage = LoadingStorage(loader: LoaderAdapter(load: api.dogs))
-    
     private var subscriptions: [Cancellable] = []
     
     func compose() -> (nc: UINavigationController, flow: Flow) {
         let navigationController = UINavigationController(rootViewController: buildInitialViewController())
         let errorView = ErrorView(presentingViewController: navigationController)
         let userDefaults = UserDefaults.standard
+        let api = RemoteApiStub()
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
         let sessionController = SessionController(authorizeApi: api, tokenSaver: tokenStore, profileLoader: api, tokenLoader: tokenStore)
         let imageLoader = ImageLoaderStub()
         
+        let catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
+        let dogsStorage = LoadingStorage(loader: LoaderAdapter(load: api.dogs))
+        
         let catsViewController = EntityListViewController<Cat>(imageLoader: imageLoader)
         let dogsViewController = EntityListViewController<Dog>(imageLoader: imageLoader)
+        
+        catsViewController.didRefresh = catsStorage.refresh
+        dogsViewController.didRefresh = dogsStorage.refresh
         
         subscriptions = [
             catsStorage.subscribe(onError: errorView.display),
