@@ -46,7 +46,7 @@ extension SessionController: LoginRequest {
                                 completion(.failure(error))
                             case .success(let profileInfo):
                                 self?.profileInfo = profileInfo
-//                                completion(.success(()))
+                                completion(.success(()))
                             }
                         })
                     }
