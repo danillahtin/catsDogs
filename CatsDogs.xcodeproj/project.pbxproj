@@ -58,6 +58,7 @@
 		8BF5CA19248FC17D0053C55B /* NavigationControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */; };
 		8BF5CA1B24902EF80053C55B /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1A24902EF80053C55B /* UIControl.swift */; };
 		8BF5CA1D249034170053C55B /* XCTestCase+SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */; };
+		8BF5CA2024906ECA0053C55B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,7 @@
 		8BF5CA18248FC17D0053C55B /* NavigationControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerSpy.swift; sourceTree = "<group>"; };
 		8BF5CA1A24902EF80053C55B /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+SharedHelpers.swift"; sourceTree = "<group>"; };
+		8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -305,6 +307,7 @@
 		8BDDD1B92482A37E0056AEE9 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */,
 				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
 				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
@@ -657,6 +660,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8BF5CA2024906ECA0053C55B /* LoginRequest.swift in Sources */,
 				8BDDD252248303400056AEE9 /* LoadingStorage.swift in Sources */,
 				8BDDD24E2483023E0056AEE9 /* Cat.swift in Sources */,
 				8BF5C9CF248D65DC0053C55B /* Credentials.swift in Sources */,

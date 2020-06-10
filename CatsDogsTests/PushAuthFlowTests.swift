@@ -11,10 +11,6 @@ import Core
 import UI
 @testable import CatsDogs
 
-protocol LoginRequest {
-    func start(credentials: Credentials,
-               _ completion: @escaping (Result<Void, Error>) -> ())
-}
 
 final class PushAuthFlow {
     private let loginRequest: LoginRequest
