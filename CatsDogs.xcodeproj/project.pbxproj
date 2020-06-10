@@ -61,6 +61,7 @@
 		8BF5CA2024906ECA0053C55B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */; };
 		8BF5CA2224906F010053C55B /* PushAuthFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2124906F010053C55B /* PushAuthFlow.swift */; };
 		8BF5CA24249070730053C55B /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA23249070730053C55B /* Api.swift */; };
+		8BF5CA2624907BDF0053C55B /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2524907BDF0053C55B /* Dog.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +166,7 @@
 		8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		8BF5CA2124906F010053C55B /* PushAuthFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthFlow.swift; sourceTree = "<group>"; };
 		8BF5CA23249070730053C55B /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		8BF5CA2524907BDF0053C55B /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -315,6 +317,7 @@
 			children = (
 				8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */,
 				8BDDD24D2483023E0056AEE9 /* Cat.swift */,
+				8BF5CA2524907BDF0053C55B /* Dog.swift */,
 				8BDDD1BB2482A37E0056AEE9 /* Info.plist */,
 				8BDDD25724839A840056AEE9 /* Cancellable.swift */,
 				8BDDD25924839ABF0056AEE9 /* CancellableBlock.swift */,
@@ -676,6 +679,7 @@
 				8BF5C9BF248CDFF30053C55B /* ProfileState.swift in Sources */,
 				8BDDD25824839A840056AEE9 /* Cancellable.swift in Sources */,
 				8B270CB724859B7400A345B4 /* CatsListener.swift in Sources */,
+				8BF5CA2624907BDF0053C55B /* Dog.swift in Sources */,
 				8BDDD25A24839ABF0056AEE9 /* CancellableBlock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
