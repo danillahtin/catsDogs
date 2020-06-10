@@ -18,6 +18,7 @@
 		8B23A47F24912D720021F5F6 /* SDWebImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */; };
 		8B23A48124912D860021F5F6 /* LoaderAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48024912D860021F5F6 /* LoaderAdapter.swift */; };
 		8B23A48324912E250021F5F6 /* RemoteApiStub+TokeSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48224912E250021F5F6 /* RemoteApiStub+TokeSaver.swift */; };
+		8B23A48524912E4E0021F5F6 /* TokenSaverSerialComposite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48424912E4E0021F5F6 /* TokenSaverSerialComposite.swift */; };
 		8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
@@ -156,6 +157,7 @@
 		8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDWebImageLoader.swift; sourceTree = "<group>"; };
 		8B23A48024912D860021F5F6 /* LoaderAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAdapter.swift; sourceTree = "<group>"; };
 		8B23A48224912E250021F5F6 /* RemoteApiStub+TokeSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RemoteApiStub+TokeSaver.swift"; sourceTree = "<group>"; };
+		8B23A48424912E4E0021F5F6 /* TokenSaverSerialComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenSaverSerialComposite.swift; sourceTree = "<group>"; };
 		8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 				8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */,
 				8B23A47A24912D280021F5F6 /* DogListViewControllerAdapter.swift */,
 				8B23A47C24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift */,
+				8B23A48424912E4E0021F5F6 /* TokenSaverSerialComposite.swift */,
 			);
 			path = Composition;
 			sourceTree = "<group>";
@@ -785,6 +788,7 @@
 				8BF5CA13248FBFB30053C55B /* TokenLoader.swift in Sources */,
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
+				8B23A48524912E4E0021F5F6 /* TokenSaverSerialComposite.swift in Sources */,
 				8BF5CA302490A6470053C55B /* TokenSaver.swift in Sources */,
 				8B23A48124912D860021F5F6 /* LoaderAdapter.swift in Sources */,
 				8B23A47F24912D720021F5F6 /* SDWebImageLoader.swift in Sources */,
