@@ -1,5 +1,5 @@
 //
-//  Api.swift
+//  RemoteApi.swift
 //  CatsDogs
 //
 //  Created by Danil Lahtin on 10.06.2020.
@@ -10,7 +10,19 @@ import Foundation
 import Core
 
 
-final class Api {
+protocol RemoteApi {
+    func authorize(
+        with credentials: Credentials,
+        _ completion: @escaping (Result<AccessToken, Swift.Error>) -> ())
+    
+    func logout(_ completion: @escaping (Result<Void, Swift.Error>) -> ())
+    func profile(_ completion: @escaping (Result<ProfileInfo, Swift.Error>) -> ())
+    func cats(_ completion: @escaping (Result<[Cat], Error>) -> ())
+    func dogs(_ completion: @escaping (Result<[Dog], Error>) -> ())
+}
+
+
+final class RemoteApiStub {
     enum Error: LocalizedError {
         case invalidLoginOrPassword
         case serverUnavailable
@@ -44,7 +56,7 @@ final class Api {
 }
 
 
-extension Api {
+extension RemoteApiStub: RemoteApi {
     func sign(with token: AccessToken) {
         self.token = token
     }
