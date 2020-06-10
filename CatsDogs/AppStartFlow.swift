@@ -9,7 +9,7 @@
 import Foundation
 
 
-final class AppStartFlow {
+final class AppStartFlow: Flow {
     private let userDefaults: UserDefaults
     private let sessionChecking: SessionChecking
     private let main: Flow
