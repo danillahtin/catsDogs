@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8B0F98752483C8B2008E6D50 /* UI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8B0F986C2483C8B1008E6D50 /* UI.framework */; };
 		8B0F988A2483C8DA008E6D50 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDD1B82482A37E0056AEE9 /* Core.framework */; platformFilter = ios; };
+		8B10A8132490DE3B00CC1309 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */; };
 		8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
@@ -111,6 +112,7 @@
 		8B0F986F2483C8B1008E6D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B0F98742483C8B2008E6D50 /* UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8B0F987D2483C8B2008E6D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */,
+				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
 				8BDDD19A2482A2C70056AEE9 /* Assets.xcassets */,
 				8BDDD19C2482A2C70056AEE9 /* LaunchScreen.storyboard */,
 				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
@@ -654,6 +657,7 @@
 				8BF5C9FC248EE18B0053C55B /* MainFlow.swift in Sources */,
 				8BF5CA07248F9D8E0053C55B /* AppStartFlow.swift in Sources */,
 				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
+				8B10A8132490DE3B00CC1309 /* CompositionRoot.swift in Sources */,
 				8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */,
 				8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,

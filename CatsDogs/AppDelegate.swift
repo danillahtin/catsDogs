@@ -10,20 +10,22 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var flow: Flow?
+    var window: UIWindow?
+    var flow: Flow!
+    var navigationController: UINavigationController!
+    
+    let compositionRoot = CompositionRoot()
+    
+    override init() {
+        (navigationController, flow) = compositionRoot.compose()
+    }
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
         
-        flow?.start()
-        
-//        let userDefaults = UserDefaults.standard
-//        let api = RemoteApiStub()
-//        let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
-//        let sessionController = SessionController(profileLoader: api, tokenLoader: tokenStore)
-//        let mainFlow = MainFlow(catsViewControllerBuilder: <#MainFlow.ViewControllerBuilder#>, dogsViewControllerBuilder: <#MainFlow.ViewControllerBuilder#>, profileViewControllerBuilder: <#MainFlow.ViewControllerBuilder#>, navigationController: <#UINavigationControllerProtocol#>
-        
-//        let authFlow = PushAuthFlow(loginRequest: <#T##LoginRequest#>, navigationController: <#T##UINavigationControllerProtocol#>, onComplete: <#T##() -> ()#>)
-//        AppStartFlow(userDefaults: userDefaults, sessionChecking: sessionController, main: <#T##Flow#>, auth: <#T##Flow#>)
+        flow.start()
         
         return true
     }
