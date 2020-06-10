@@ -12,3 +12,5 @@ import UIKit
 protocol UINavigationControllerProtocol {
     func setViewControllers(_ viewControllers: [UIViewController], animated: Bool)
 }
+
+extension UINavigationController: UINavigationControllerProtocol {}

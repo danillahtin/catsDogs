@@ -13,6 +13,15 @@ import UI
 
 
 class PushAuthFlowTests: XCTestCase {
+    private var userDefaults: UserDefaults!
+    
+    override func setUp() {
+        super.setUp()
+        
+        userDefaults = UserDefaults(suiteName: #file)
+        userDefaults.removePersistentDomain(forName: #file)
+    }
+    
     func test_init_doesNotSet() {
         let (_, navigationController) = makeSut()
 
@@ -114,6 +123,7 @@ class PushAuthFlowTests: XCTestCase {
     {
         let navigationControllerSpy = NavigationControllerSpy()
         let sut = PushAuthFlow(
+            userDefaults: userDefaults,
             loginRequest: loginRequest,
             navigationController: navigationControllerSpy,
             onComplete: onComplete,

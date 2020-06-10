@@ -20,7 +20,11 @@ class CompositionRoot {
         let userDefaults = UserDefaults.standard
         let api = RemoteApiStub()
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
-        let sessionController = SessionController(authorizeApi: api, tokenSaver: tokenStore, profileLoader: api, tokenLoader: tokenStore)
+        let sessionController = SessionController(
+            authorizeApi: api,
+            tokenSaver: TokenSaverSerialComposite(savers: [tokenStore, api]),
+            profileLoader: api,
+            tokenLoader: tokenStore)
         let imageLoader = SDWebImageLoader()
         
         let catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
@@ -60,6 +64,7 @@ class CompositionRoot {
             navigationController: navigationController)
 
         let authFlow = PushAuthFlow(
+            userDefaults: userDefaults,
             loginRequest: sessionController,
             navigationController: navigationController,
             onComplete: mainFlow.start,

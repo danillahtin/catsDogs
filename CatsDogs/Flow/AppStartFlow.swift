@@ -24,7 +24,7 @@ final class AppStartFlow: Flow {
     
     func start() {
         let notFoundFlow = ConditionalFlowComposite(primary: main, secondary: auth, condition: { [userDefaults] in
-            userDefaults.bool(forKey: "hasSkippedAuth")
+            userDefaults.hasSkippedAuth
         })
         
         sessionChecking.check { [main, auth] in

@@ -97,10 +97,12 @@ class ProfileViewControllerTests: XCTestCase {
         switch state {
         case .authorized(let user):
             XCTAssertEqual(sut.isSignInButtonHidden, true, file: file, line: line)
+            XCTAssertEqual(sut.isLogoutButtonHidden, false, file: file, line: line)
             XCTAssertEqual(sut.isProfileViewHidden, false, file: file, line: line)
             XCTAssertEqual(sut.renderedProfileName, user, file: file, line: line)
         case .unauthorized:
             XCTAssertEqual(sut.isSignInButtonHidden, false, file: file, line: line)
+            XCTAssertEqual(sut.isLogoutButtonHidden, true, file: file, line: line)
             XCTAssertEqual(sut.isProfileViewHidden, true, file: file, line: line)
         }
     }
@@ -114,6 +116,10 @@ private extension ProfileViewController {
     
     var isProfileViewHidden: Bool {
         profileViewContainerView.isHidden
+    }
+    
+    var isLogoutButtonHidden: Bool {
+        logoutButtonContainerView.isHidden
     }
     
     var renderedProfileName: String? {

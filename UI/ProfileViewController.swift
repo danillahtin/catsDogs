@@ -15,8 +15,10 @@ public final class ProfileViewController: UIViewController {
     
     public private(set) weak var profileViewContainerView: UIView!
     public private(set) weak var signInButtonContainerView: UIView!
+    public private(set) weak var logoutButtonContainerView: UIView!
     public private(set) weak var profileNameLabel: UILabel!
     public private(set) weak var signInButton: UIButton!
+    public private(set) weak var logoutButton: UIButton!
     
     public var onSignIn: () -> () = {}
     
@@ -25,32 +27,46 @@ public final class ProfileViewController: UIViewController {
     public override func loadView() {
         let profile = buildProfileView()
         let signIn = buildSignInButton()
+        let logout = buildLogoutButton()
         
         profile.container.translatesAutoresizingMaskIntoConstraints = false
         signIn.container.translatesAutoresizingMaskIntoConstraints = false
+        logout.container.translatesAutoresizingMaskIntoConstraints = false
         
-        let stackView = UIStackView(arrangedSubviews: [profile.container, signIn.container])
+        let stackView = UIStackView(arrangedSubviews: [profile.container, signIn.container, logout.container])
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         let view = UIView()
+        view.backgroundColor = .white
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([
             view.leftAnchor.constraint(equalTo: stackView.leftAnchor),
             view.rightAnchor.constraint(equalTo: stackView.rightAnchor),
-            view.topAnchor.constraint(equalTo: stackView.topAnchor),
+            view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: stackView.topAnchor),
         ])
         
         self.profileViewContainerView = profile.container
         self.signInButtonContainerView = signIn.container
+        self.logoutButtonContainerView = logout.container
         self.profileNameLabel = profile.nameLabel
         self.signInButton = signIn.button
+        self.logoutButton = logout.button
         self.view = view
     }
     
     private func buildSignInButton() -> (container: UIView, button: UIButton) {
-        let button = UIButton()
+        let button = UIButton(type: .system)
+        button.setTitle("Sign in", for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return (UIView.wrapping(button, padding: padding), button)
+    }
+    
+    private func buildLogoutButton() -> (container: UIView, button: UIButton) {
+        let button = UIButton(type: .system)
+        button.setTitle("Log out", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         
         return (UIView.wrapping(button, padding: padding), button)
@@ -84,10 +100,12 @@ public final class ProfileViewController: UIViewController {
         switch state {
         case .authorized(let user):
             signInButtonContainerView.isHidden = true
+            logoutButtonContainerView.isHidden = false
             profileViewContainerView.isHidden = false
             profileNameLabel.text = user
         case .unauthorized:
             signInButtonContainerView.isHidden = false
+            logoutButtonContainerView.isHidden = true
             profileViewContainerView.isHidden = true
         }
     }

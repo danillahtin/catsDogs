@@ -6,20 +6,24 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
+import Foundation
 import Core
 import UI
 
 final class PushAuthFlow: Flow {
+    private let userDefaults: UserDefaults
     private let loginRequest: LoginRequest
     private let navigationController: UINavigationControllerProtocol
     private let onComplete: () -> ()
     private let onError: (Error) -> ()
     
-    init(loginRequest: LoginRequest,
+    init(userDefaults: UserDefaults,
+         loginRequest: LoginRequest,
          navigationController: UINavigationControllerProtocol,
          onComplete: @escaping () -> (),
          onError: @escaping (Error) -> ())
     {
+        self.userDefaults = userDefaults
         self.loginRequest = loginRequest
         self.navigationController = navigationController
         self.onComplete = onComplete
@@ -29,7 +33,11 @@ final class PushAuthFlow: Flow {
     func start() {
         let vc = LoginViewController()
         vc.loadViewIfNeeded()
-        vc.didSkip = onComplete
+        vc.didSkip = { [userDefaults, onComplete] in
+            userDefaults.hasSkippedAuth = true
+            onComplete()
+        }
+        
         vc.didLogin = { [loginRequest, onComplete, onError] in
             loginRequest.start(credentials: $0, {
                 switch $0 {
