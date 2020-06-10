@@ -11,12 +11,6 @@ import Core
 import UI
 
 
-private struct LogoutApiStub: LogoutApi {
-    func logout(_ completion: @escaping (Result<Void, Error>) -> ()) {
-        
-    }
-}
-
 class CompositionRoot {
     private var subscriptions: [Cancellable] = []
     
@@ -28,7 +22,7 @@ class CompositionRoot {
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
         let sessionController = SessionController(
             authorizeApi: api,
-            logoutApi: LogoutApiStub(),
+            logoutApi: api,
             tokenSaver: TokenSaverSerialComposite(savers: [tokenStore, api]),
             profileLoader: api,
             tokenLoader: tokenStore)
@@ -51,7 +45,10 @@ class CompositionRoot {
         ]
         
         let profileViewController = ProfileViewController()
-        sessionController.didUpdateProfileState = profileViewController.profileUpdated
+        sessionController.didUpdateProfileState = {
+            profileViewController.profileUpdated(state: $0)
+            dogsStorage.refresh()
+        }
         
         profileViewController.onSignIn = { [weak presentingVc = rootNc] in
             let nc = UINavigationController()
@@ -67,7 +64,7 @@ class CompositionRoot {
         }
         
         profileViewController.onLogout = {
-            sessionController.logout {}
+            sessionController.logout()
         }
         
         let mainFlow = MainFlow(

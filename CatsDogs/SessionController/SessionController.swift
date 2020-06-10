@@ -37,7 +37,7 @@ final class SessionController {
         self.tokenLoader = tokenLoader
     }
     
-    func logout(_ completion: @escaping () -> ()) {
+    func logout(_ completion: @escaping () -> () = {}) {
         logoutApi.logout { [weak self] _ in
             self?.profileInfo = nil
             completion()

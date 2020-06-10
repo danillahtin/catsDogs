@@ -37,6 +37,14 @@ final class UserDefaultsTokenStore {
     init(userDefaults: UserDefaults) {
         self.userDefaults = userDefaults
     }
+    
+    public func clear() {
+        guard userDefaults.object(forKey: key) != nil else {
+            return
+        }
+        
+        userDefaults.removeObject(forKey: key)
+    }
 }
 
 extension UserDefaultsTokenStore: TokenSaver {

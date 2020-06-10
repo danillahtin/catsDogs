@@ -38,6 +38,16 @@ class UserDefaultsTokenStoreTests: XCTestCase {
         XCTAssertEqual(load(), [.success(token)])
     }
     
+    func test_clear_removesSavedToken() {
+        _ = save(token: makeToken())
+        
+        makeSut().clear()
+        
+        let loadResult = load()
+        XCTAssertEqual(loadResult.count, 1)
+        XCTAssertThrowsError(try loadResult.first?.get())
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
@@ -57,6 +67,7 @@ class UserDefaultsTokenStoreTests: XCTestCase {
             expirationDate: Date(timeIntervalSince1970: 0))
     }
     
+    @discardableResult
     private func save(token: AccessToken) -> [Result<Void, NSError>] {
         var retrieved: [Result<Void, NSError>] = []
         
