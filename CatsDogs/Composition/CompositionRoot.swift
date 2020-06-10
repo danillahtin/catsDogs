@@ -10,6 +10,7 @@ import UIKit
 import Core
 import UI
 
+
 class CompositionRoot {
     private var subscriptions: [Cancellable] = []
     
@@ -20,7 +21,7 @@ class CompositionRoot {
         let api = RemoteApiStub()
         let tokenStore = UserDefaultsTokenStore(userDefaults: userDefaults)
         let sessionController = SessionController(authorizeApi: api, tokenSaver: tokenStore, profileLoader: api, tokenLoader: tokenStore)
-        let imageLoader = ImageLoaderStub()
+        let imageLoader = SDWebImageLoader()
         
         let catsStorage = LoadingStorage(loader: LoaderAdapter(load: api.cats))
         let dogsStorage = LoadingStorage(loader: LoaderAdapter(load: api.dogs))
@@ -87,64 +88,5 @@ class CompositionRoot {
         activityIndicatorView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor).isActive = true
         
         return vc
-    }
-}
-
-final class LoaderAdapter<Entity>: Loader {
-    typealias Completion = (Result<[Entity], Error>) -> ()
-    
-    private let loadBlock: (@escaping Completion) -> ()
-    
-    init(load: @escaping (@escaping Completion) -> ()) {
-        self.loadBlock = load
-    }
-    
-    func load(_ completion: @escaping (Result<[Entity], Error>) -> ()) {
-        loadBlock(completion)
-    }
-}
-
-import SDWebImage
-
-final class ImageLoaderStub: ImageLoader {
-    func load(from url: URL, into imageView: UIImageView?) {
-        imageView?.sd_setImage(with: url, completed: nil)
-    }
-}
-
-
-extension UINavigationController: UINavigationControllerProtocol {}
-
-
-final class DogListViewControllerAdapter {
-    let controller: EntityListViewController<Dog>
-    let errorView: ErrorView
-    let notPurchasedLabel = UILabel()
-    
-    init(
-        controller: EntityListViewController<Dog>,
-        errorView: ErrorView)
-    {
-        self.controller = controller
-        self.errorView = errorView
-    }
-    
-    func display(error: Error) {
-        guard case .unauthorized = error as? RemoteApiStub.Error else {
-            return errorView.display(error: error)
-        }
-        
-        notPurchasedLabel.isHidden = false
-        notPurchasedLabel.text = "Content is not available\nfor unauthorized users"
-        notPurchasedLabel.textAlignment = .center
-        
-        controller.loadViewIfNeeded()
-        controller.tableView.backgroundView = notPurchasedLabel
-        controller.entitiesUpdated(with: [])
-    }
-    
-    func entitiesUpdated(with dogs: [Dog]) {
-        notPurchasedLabel.isHidden = true
-        controller.entitiesUpdated(with: dogs)
     }
 }

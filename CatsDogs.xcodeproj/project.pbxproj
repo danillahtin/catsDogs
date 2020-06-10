@@ -13,6 +13,10 @@
 		8B23A46A2490FF8A0021F5F6 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A45E2490F49E0021F5F6 /* ErrorView.swift */; };
 		8B23A476249102930021F5F6 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8B23A475249102930021F5F6 /* SDWebImage */; };
 		8B23A47824910DDD0021F5F6 /* EntityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47724910DDD0021F5F6 /* EntityTableViewCell.swift */; };
+		8B23A47B24912D280021F5F6 /* DogListViewControllerAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47A24912D280021F5F6 /* DogListViewControllerAdapter.swift */; };
+		8B23A47D24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47C24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift */; };
+		8B23A47F24912D720021F5F6 /* SDWebImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */; };
+		8B23A48124912D860021F5F6 /* LoaderAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A48024912D860021F5F6 /* LoaderAdapter.swift */; };
 		8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
@@ -146,6 +150,10 @@
 		8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		8B23A45E2490F49E0021F5F6 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		8B23A47724910DDD0021F5F6 /* EntityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityTableViewCell.swift; sourceTree = "<group>"; };
+		8B23A47A24912D280021F5F6 /* DogListViewControllerAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogListViewControllerAdapter.swift; sourceTree = "<group>"; };
+		8B23A47C24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UINavigationControllerProtocol.swift"; sourceTree = "<group>"; };
+		8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SDWebImageLoader.swift; sourceTree = "<group>"; };
+		8B23A48024912D860021F5F6 /* LoaderAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderAdapter.swift; sourceTree = "<group>"; };
 		8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -375,6 +383,18 @@
 			path = RemoteApi;
 			sourceTree = "<group>";
 		};
+		8B23A47924912D1E0021F5F6 /* Composition */ = {
+			isa = PBXGroup;
+			children = (
+				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
+				8B23A48024912D860021F5F6 /* LoaderAdapter.swift */,
+				8B23A47E24912D720021F5F6 /* SDWebImageLoader.swift */,
+				8B23A47A24912D280021F5F6 /* DogListViewControllerAdapter.swift */,
+				8B23A47C24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift */,
+			);
+			path = Composition;
+			sourceTree = "<group>";
+		};
 		8BDDD1852482A2C20056AEE9 = {
 			isa = PBXGroup;
 			children = (
@@ -407,7 +427,7 @@
 			children = (
 				8BDDD1912482A2C20056AEE9 /* AppDelegate.swift */,
 				8BDDD19F2482A2C70056AEE9 /* Info.plist */,
-				8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */,
+				8B23A47924912D1E0021F5F6 /* Composition */,
 				8B23A4632490FEBE0021F5F6 /* Resources */,
 				8B23A4652490FEDC0021F5F6 /* Flow */,
 				8B23A4672490FF060021F5F6 /* Helpers */,
@@ -763,6 +783,8 @@
 				8BDDD1922482A2C20056AEE9 /* AppDelegate.swift in Sources */,
 				8BF5C9F8248ED04C0053C55B /* ConditionalFlowComposite.swift in Sources */,
 				8BF5CA302490A6470053C55B /* TokenSaver.swift in Sources */,
+				8B23A48124912D860021F5F6 /* LoaderAdapter.swift in Sources */,
+				8B23A47F24912D720021F5F6 /* SDWebImageLoader.swift in Sources */,
 				8BF5CA24249070730053C55B /* RemoteApi.swift in Sources */,
 				8BF5CA03248F9A550053C55B /* SessionCheckResult.swift in Sources */,
 				8BF5CA0D248FBE1D0053C55B /* ProfileInfo.swift in Sources */,
@@ -770,6 +792,8 @@
 				8BF5CA07248F9D8E0053C55B /* AppStartFlow.swift in Sources */,
 				8BF5CA05248F9D6E0053C55B /* SessionChecking.swift in Sources */,
 				8B10A8132490DE3B00CC1309 /* CompositionRoot.swift in Sources */,
+				8B23A47D24912D520021F5F6 /* UINavigationController+UINavigationControllerProtocol.swift in Sources */,
+				8B23A47B24912D280021F5F6 /* DogListViewControllerAdapter.swift in Sources */,
 				8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */,
 				8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
