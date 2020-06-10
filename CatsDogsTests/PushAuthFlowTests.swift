@@ -11,38 +11,17 @@ import Core
 import UI
 @testable import CatsDogs
 
-
-final class LoginRequestSpy {
-    typealias Completion = (Result<Void, Error>) -> ()
-    typealias Message = (credentials: Credentials, completion: Completion)
-    
-    private var messages: [Message] = []
-    var completions: [(Result<Void, Error>) -> ()] { messages.map({ $0.completion }) }
-    var requestedCredentials: [Credentials] { messages.map({ $0.credentials }) }
-    
-    func start(credentials: Credentials, _ completion: @escaping Completion) {
-        messages.append((credentials, completion))
-    }
-    
-    func complete(with result: Result<Void, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
-        guard completions.indices.contains(index) else {
-            XCTFail(
-                "Completion at index \(index) not found, has only \(completions.count) completions",
-                file: file,
-                line: line)
-            return
-        }
-        
-        completions[index](result)
-    }
+protocol LoginRequest {
+    func start(credentials: Credentials,
+               _ completion: @escaping (Result<Void, Error>) -> ())
 }
 
 final class PushAuthFlow {
-    let loginRequest: LoginRequestSpy
-    let navigationController: UINavigationControllerProtocol
-    let onComplete: () -> ()
+    private let loginRequest: LoginRequest
+    private let navigationController: UINavigationControllerProtocol
+    private let onComplete: () -> ()
     
-    init(loginRequest: LoginRequestSpy,
+    init(loginRequest: LoginRequest,
          navigationController: UINavigationControllerProtocol,
          onComplete: @escaping () -> ())
     {
@@ -55,7 +34,7 @@ final class PushAuthFlow {
         let vc = LoginViewController()
         vc.didSkip = onComplete
         vc.didLogin = { [loginRequest, onComplete] in
-            loginRequest.start(credentials: $0, { 
+            loginRequest.start(credentials: $0, {
                 switch $0 {
                 case .success:
                     onComplete()
@@ -187,6 +166,31 @@ class PushAuthFlowTests: XCTestCase {
         rootVc?.loadViewIfNeeded()
         
         return rootVc as? LoginViewController
+    }
+    
+    private final class LoginRequestSpy: LoginRequest {
+        typealias Completion = (Result<Void, Error>) -> ()
+        typealias Message = (credentials: Credentials, completion: Completion)
+        
+        private var messages: [Message] = []
+        var completions: [(Result<Void, Error>) -> ()] { messages.map({ $0.completion }) }
+        var requestedCredentials: [Credentials] { messages.map({ $0.credentials }) }
+        
+        func start(credentials: Credentials, _ completion: @escaping Completion) {
+            messages.append((credentials, completion))
+        }
+        
+        func complete(with result: Result<Void, Error>, at index: Int = 0, file: StaticString = #file, line: UInt = #line) {
+            guard completions.indices.contains(index) else {
+                XCTFail(
+                    "Completion at index \(index) not found, has only \(completions.count) completions",
+                    file: file,
+                    line: line)
+                return
+            }
+            
+            completions[index](result)
+        }
     }
 }
 
