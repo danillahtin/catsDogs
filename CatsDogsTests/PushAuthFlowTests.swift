@@ -12,38 +12,6 @@ import UI
 @testable import CatsDogs
 
 
-final class PushAuthFlow {
-    private let loginRequest: LoginRequest
-    private let navigationController: UINavigationControllerProtocol
-    private let onComplete: () -> ()
-    
-    init(loginRequest: LoginRequest,
-         navigationController: UINavigationControllerProtocol,
-         onComplete: @escaping () -> ())
-    {
-        self.loginRequest = loginRequest
-        self.navigationController = navigationController
-        self.onComplete = onComplete
-    }
-    
-    func start() {
-        let vc = LoginViewController()
-        vc.didSkip = onComplete
-        vc.didLogin = { [loginRequest, onComplete] in
-            loginRequest.start(credentials: $0, {
-                switch $0 {
-                case .success:
-                    onComplete()
-                case .failure:
-                    break
-                }
-            })
-        }
-        
-        navigationController.setViewControllers([vc], animated: true)
-    }
-}
-
 class PushAuthFlowTests: XCTestCase {
     func test_init_doesNotSet() {
         let (_, navigationController) = makeSut()

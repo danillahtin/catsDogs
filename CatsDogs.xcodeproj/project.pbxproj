@@ -59,6 +59,7 @@
 		8BF5CA1B24902EF80053C55B /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1A24902EF80053C55B /* UIControl.swift */; };
 		8BF5CA1D249034170053C55B /* XCTestCase+SharedHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */; };
 		8BF5CA2024906ECA0053C55B /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */; };
+		8BF5CA2224906F010053C55B /* PushAuthFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2124906F010053C55B /* PushAuthFlow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,7 @@
 		8BF5CA1A24902EF80053C55B /* UIControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
 		8BF5CA1C249034170053C55B /* XCTestCase+SharedHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+SharedHelpers.swift"; sourceTree = "<group>"; };
 		8BF5CA1E24906EAF0053C55B /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		8BF5CA2124906F010053C55B /* PushAuthFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAuthFlow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,6 +286,7 @@
 				8BF5CA10248FBF980053C55B /* ProfileLoader.swift */,
 				8BF5CA12248FBFB30053C55B /* TokenLoader.swift */,
 				8BF5CA14248FBFDA0053C55B /* SessionController.swift */,
+				8BF5CA2124906F010053C55B /* PushAuthFlow.swift */,
 			);
 			path = CatsDogs;
 			sourceTree = "<group>";
@@ -632,6 +635,7 @@
 				8BF5CA11248FBF980053C55B /* ProfileLoader.swift in Sources */,
 				8BF5C9F1248ECA880053C55B /* Flow.swift in Sources */,
 				8BF5CA15248FBFDA0053C55B /* SessionController.swift in Sources */,
+				8BF5CA2224906F010053C55B /* PushAuthFlow.swift in Sources */,
 				8BF5C9FE248EE1980053C55B /* UINavigationControllerProtocol.swift in Sources */,
 				8BF5CA0F248FBE400053C55B /* AccessToken.swift in Sources */,
 			);
