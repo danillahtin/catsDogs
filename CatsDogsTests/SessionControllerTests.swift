@@ -150,6 +150,25 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(tokenSaver.tokens, [token])
     }
     
+    func test_tokenSaveCompletionWithError_completesWithError() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
+        let error = anyError()
+        
+        var retrieved: [Result<AccessToken, NSError>] = []
+        sut.start(credentials: makeCredentials()) {
+            retrieved.append($0.mapError({ $0 as NSError }))
+        }
+        
+        authorizeApi.complete(with: .success(makeToken()))
+        
+        XCTAssertEqual(retrieved, [])
+        tokenSaver.complete(with: .failure(error))
+        
+        XCTAssertEqual(retrieved, [.failure(error)])
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(

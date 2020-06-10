@@ -31,13 +31,13 @@ final class SessionController {
     
     func start(credentials: Credentials, _ completion: @escaping (Result<AccessToken, Error>) -> ()) {
         authorizeApi.authorize(with: credentials) { [tokenSaver] in
-            completion($0)
-            
             switch $0 {
             case .failure:
-                break
+                completion($0)
             case .success(let token):
-                tokenSaver.save(token: token, completion: { _ in })
+                tokenSaver.save(token: token, completion: {
+                    completion($0.map({ _ in token }))
+                })
             }
         }
     }
