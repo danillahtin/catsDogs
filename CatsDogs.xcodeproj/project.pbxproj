@@ -30,7 +30,7 @@
 		8BF5C9BF248CDFF30053C55B /* ProfileState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9BE248CDFF30053C55B /* ProfileState.swift */; };
 		8BF5C9C1248CE0290053C55B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */; };
 		8BF5C9C3248CE1070053C55B /* UIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C2248CE1070053C55B /* UIControl.swift */; };
-		8BF5C9C5248CE5650053C55B /* EntityListViewController+Cat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C4248CE5650053C55B /* EntityListViewController+Cat.swift */; };
+		8BF5C9C5248CE5650053C55B /* EntityListViewController+CellFactories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9C4248CE5650053C55B /* EntityListViewController+CellFactories.swift */; };
 		8BF5C9CD248D61B00053C55B /* LoginViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */; };
 		8BF5C9CF248D65DC0053C55B /* Credentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9CE248D65DC0053C55B /* Credentials.swift */; };
 		8BF5C9D1248D660C0053C55B /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5C9D0248D660C0053C55B /* LoginViewController.swift */; };
@@ -139,7 +139,7 @@
 		8BF5C9BE248CDFF30053C55B /* ProfileState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileState.swift; sourceTree = "<group>"; };
 		8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8BF5C9C2248CE1070053C55B /* UIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIControl.swift; sourceTree = "<group>"; };
-		8BF5C9C4248CE5650053C55B /* EntityListViewController+Cat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityListViewController+Cat.swift"; sourceTree = "<group>"; };
+		8BF5C9C4248CE5650053C55B /* EntityListViewController+CellFactories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EntityListViewController+CellFactories.swift"; sourceTree = "<group>"; };
 		8BF5C9CC248D61B00053C55B /* LoginViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewControllerTests.swift; sourceTree = "<group>"; };
 		8BF5C9CE248D65DC0053C55B /* Credentials.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Credentials.swift; sourceTree = "<group>"; };
 		8BF5C9D0248D660C0053C55B /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 				8B270CB424859B4400A345B4 /* ImageLoader.swift */,
 				8B270CB824859BAA00A345B4 /* EntityListViewController.swift */,
 				8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */,
-				8BF5C9C4248CE5650053C55B /* EntityListViewController+Cat.swift */,
+				8BF5C9C4248CE5650053C55B /* EntityListViewController+CellFactories.swift */,
 				8BF5C9D0248D660C0053C55B /* LoginViewController.swift */,
 			);
 			path = UI;
@@ -618,7 +618,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8BF5C9C5248CE5650053C55B /* EntityListViewController+Cat.swift in Sources */,
+				8BF5C9C5248CE5650053C55B /* EntityListViewController+CellFactories.swift in Sources */,
 				8BF5C9C1248CE0290053C55B /* ProfileViewController.swift in Sources */,
 				8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */,
 				8BF5C9D1248D660C0053C55B /* LoginViewController.swift in Sources */,

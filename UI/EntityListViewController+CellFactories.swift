@@ -14,12 +14,7 @@ extension EntityListViewController where Entity == Cat {
     public convenience init(imageLoader: ImageLoader) {
         self.init(cellFactory: catCellFactory(imageLoader: imageLoader))
     }
-    
-    public func catsUpdated(with cats: [Cat]) {
-        entitiesUpdated(with: cats)
-    }
 }
-
 
 private func catCellFactory(imageLoader: ImageLoader)
     -> (UITableView, IndexPath, Cat) -> UITableViewCell
@@ -29,6 +24,25 @@ private func catCellFactory(imageLoader: ImageLoader)
         
         cell.textLabel?.text = cat.name
         imageLoader.load(from: cat.imageUrl, into: cell.imageView)
+        
+        return cell
+    }
+}
+
+extension EntityListViewController where Entity == Dog {
+    public convenience init(imageLoader: ImageLoader) {
+        self.init(cellFactory: dogCellFactory(imageLoader: imageLoader))
+    }
+}
+
+private func dogCellFactory(imageLoader: ImageLoader)
+    -> (UITableView, IndexPath, Dog) -> UITableViewCell
+{
+    return { _, _, dog in
+        let cell = UITableViewCell()
+        
+        cell.textLabel?.text = dog.name
+        imageLoader.load(from: dog.imageUrl, into: cell.imageView)
         
         return cell
     }
