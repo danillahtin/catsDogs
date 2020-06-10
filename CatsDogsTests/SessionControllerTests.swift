@@ -114,9 +114,9 @@ class SessionControllerTests: XCTestCase {
         let sut = makeSut(authorizeApi: authorizeApi)
         let error = anyError()
         
-        var retrieved: [Result<AccessToken, NSError>] = []
+        var retrieved: [Result<EquatableVoid, NSError>] = []
         sut.start(credentials: makeCredentials()) {
-            retrieved.append($0.mapError({ $0 as NSError }))
+            retrieved.append(toEquatable($0))
         }
         
         XCTAssertEqual(retrieved, [])
@@ -156,9 +156,28 @@ class SessionControllerTests: XCTestCase {
         let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
         let error = anyError()
         
-        var retrieved: [Result<AccessToken, NSError>] = []
+        var retrieved: [Result<EquatableVoid, NSError>] = []
         sut.start(credentials: makeCredentials()) {
-            retrieved.append($0.mapError({ $0 as NSError }))
+            retrieved.append(toEquatable($0))
+        }
+        
+        authorizeApi.complete(with: .success(makeToken()))
+        
+        XCTAssertEqual(retrieved, [])
+        tokenSaver.complete(with: .failure(error))
+        
+        XCTAssertEqual(retrieved, [.failure(error)])
+    }
+    
+    func test_tokenSaveCompletionWithSuccess_completesWithSuccess() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver)
+        let error = anyError()
+        
+        var retrieved: [Result<EquatableVoid, NSError>] = []
+        sut.start(credentials: makeCredentials()) {
+            retrieved.append(toEquatable($0))
         }
         
         authorizeApi.complete(with: .success(makeToken()))
@@ -309,4 +328,11 @@ private extension SessionController {
     func start(credentials: Credentials) {
         start(credentials: credentials) { _ in }
     }
+}
+
+
+private struct EquatableVoid: Equatable {}
+
+private func toEquatable(_ result: Result<Void, Error>) -> Result<EquatableVoid, NSError> {
+    result.map(EquatableVoid.init).mapError({ $0 as NSError })
 }
