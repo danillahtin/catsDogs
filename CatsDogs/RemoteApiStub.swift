@@ -123,3 +123,8 @@ extension RemoteApiStub: RemoteApi {
     }
 }
 
+extension RemoteApiStub: ProfileLoader {
+    func load(_ completion: @escaping (Result<ProfileInfo, Swift.Error>) -> ()) {
+        profile(completion)
+    }
+}

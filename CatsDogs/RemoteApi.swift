@@ -13,10 +13,10 @@ import Core
 protocol RemoteApi {
     func authorize(
         with credentials: Credentials,
-        _ completion: @escaping (Result<AccessToken, Swift.Error>) -> ())
+        _ completion: @escaping (Result<AccessToken, Error>) -> ())
     
-    func logout(_ completion: @escaping (Result<Void, Swift.Error>) -> ())
-    func profile(_ completion: @escaping (Result<ProfileInfo, Swift.Error>) -> ())
+    func logout(_ completion: @escaping (Result<Void, Error>) -> ())
+    func profile(_ completion: @escaping (Result<ProfileInfo, Error>) -> ())
     func cats(_ completion: @escaping (Result<[Cat], Error>) -> ())
     func dogs(_ completion: @escaping (Result<[Dog], Error>) -> ())
 }
