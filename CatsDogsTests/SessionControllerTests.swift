@@ -90,17 +90,33 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [.exists])
     }
     
+    func test_start_requestsAuthorization() {
+        
+        let authorizeApi = AuthorizeApiSpy()
+        let sut = makeSut(authorizeApi: authorizeApi)
+        
+        XCTAssertEqual(authorizeApi.authorizeCallCount, 0)
+        sut.start()
+        
+        XCTAssertEqual(authorizeApi.authorizeCallCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSut(
+        authorizeApi: AuthorizeApiSpy = .init(),
         profileLoader: ProfileLoaderSpy = .init(),
         tokenLoader: TokenLoaderSpy = .init(),
         file: StaticString = #file,
         line: UInt = #line) -> SessionController
     {
-        let sut = SessionController(profileLoader: profileLoader, tokenLoader: tokenLoader)
+        let sut = SessionController(
+            authorizeApi: authorizeApi,
+            profileLoader: profileLoader,
+            tokenLoader: tokenLoader)
         
         trackMemoryLeaks(for: sut, file: file, line: line)
+        trackMemoryLeaks(for: authorizeApi, file: file, line: line)
         trackMemoryLeaks(for: tokenLoader, file: file, line: line)
         trackMemoryLeaks(for: profileLoader, file: file, line: line)
         
@@ -156,6 +172,14 @@ class SessionControllerTests: XCTestCase {
             }
             
             completions[index](result)
+        }
+    }
+    
+    private final class AuthorizeApiSpy: AuthorizeApi {
+        private(set) var authorizeCallCount = 0
+        
+        func start() {
+            authorizeCallCount += 1
         }
     }
 }

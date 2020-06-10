@@ -6,13 +6,26 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
+protocol AuthorizeApi {
+    func start()
+}
+
+
 final class SessionController {
+    private let authorizeApi: AuthorizeApi
     private let profileLoader: ProfileLoader
     private let tokenLoader: TokenLoader
     
-    init(profileLoader: ProfileLoader, tokenLoader: TokenLoader) {
+    init(authorizeApi: AuthorizeApi,
+         profileLoader: ProfileLoader,
+         tokenLoader: TokenLoader) {
+        self.authorizeApi = authorizeApi
         self.profileLoader = profileLoader
         self.tokenLoader = tokenLoader
+    }
+    
+    func start() {
+        authorizeApi.start()
     }
 }
     
