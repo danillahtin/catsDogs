@@ -239,12 +239,8 @@ class SessionControllerTests: XCTestCase {
         let profileLoader = ProfileLoaderSpy()
         let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver, profileLoader: profileLoader)
         let error = anyError()
-        
-        var retrieved: [Result<EquatableVoid, NSError>] = []
-        sut.start(credentials: makeCredentials()) {
-            retrieved.append(toEquatable($0))
-        }
-        
+
+        sut.start(credentials: makeCredentials())
         authorizeApi.complete(with: .success(makeToken()))
         tokenSaver.complete(with: .success(()))
         
@@ -252,6 +248,24 @@ class SessionControllerTests: XCTestCase {
         profileLoader.complete(with: .failure(error))
         
         XCTAssertEqual(sut.profileInfo, nil)
+    }
+    
+    func test_completeLoadProfileOnAuthorizeWithSuccess_storesProfileInfo() {
+        let authorizeApi = AuthorizeApiSpy()
+        let tokenSaver = TokenSaverSpy()
+        let profileLoader = ProfileLoaderSpy()
+        let sut = makeSut(authorizeApi: authorizeApi, tokenSaver: tokenSaver, profileLoader: profileLoader)
+        let profileInfo = makeProfileInfo()
+        
+        sut.start(credentials: makeCredentials())
+        
+        authorizeApi.complete(with: .success(makeToken()))
+        tokenSaver.complete(with: .success(()))
+        
+        XCTAssertEqual(sut.profileInfo, nil)
+        profileLoader.complete(with: .success(profileInfo))
+        
+        XCTAssertEqual(sut.profileInfo, profileInfo)
     }
     
     // MARK: - Helpers
