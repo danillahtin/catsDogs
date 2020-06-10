@@ -90,15 +90,23 @@ class SessionControllerTests: XCTestCase {
         XCTAssertEqual(retrieved, [.exists])
     }
     
-    func test_start_requestsAuthorization() {
-        
+    func test_startWithCredentials_requestsAuthorizationWithCredentials() {
         let authorizeApi = AuthorizeApiSpy()
         let sut = makeSut(authorizeApi: authorizeApi)
         
-        XCTAssertEqual(authorizeApi.authorizeCallCount, 0)
-        sut.start()
+        XCTAssertEqual(authorizeApi.credentials, [])
+        sut.start(credentials: Credentials(login: "login", password: "password"))
         
-        XCTAssertEqual(authorizeApi.authorizeCallCount, 1)
+        XCTAssertEqual(authorizeApi.credentials, [
+            Credentials(login: "login", password: "password"),
+        ])
+        
+        sut.start(credentials: Credentials(login: "another login", password: "another password"))
+        
+        XCTAssertEqual(authorizeApi.credentials, [
+            Credentials(login: "login", password: "password"),
+            Credentials(login: "another login", password: "another password"),
+        ])
     }
     
     // MARK: - Helpers
@@ -176,10 +184,10 @@ class SessionControllerTests: XCTestCase {
     }
     
     private final class AuthorizeApiSpy: AuthorizeApi {
-        private(set) var authorizeCallCount = 0
+        private(set) var credentials: [Credentials] = []
         
-        func start() {
-            authorizeCallCount += 1
+        func authorize(with credentials: Credentials) {
+            self.credentials.append(credentials)
         }
     }
 }

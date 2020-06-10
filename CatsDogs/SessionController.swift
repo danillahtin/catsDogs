@@ -6,8 +6,10 @@
 //  Copyright © 2020 Danil Lahtin. All rights reserved.
 //
 
+import Core
+
 protocol AuthorizeApi {
-    func start()
+    func authorize(with credentials: Credentials)
 }
 
 
@@ -24,8 +26,8 @@ final class SessionController {
         self.tokenLoader = tokenLoader
     }
     
-    func start() {
-        authorizeApi.start()
+    func start(credentials: Credentials) {
+        authorizeApi.authorize(with: credentials)
     }
 }
     
