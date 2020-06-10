@@ -91,6 +91,34 @@
 			remoteGlobalIDString = 8BDDD1B72482A37E0056AEE9;
 			remoteInfo = Core;
 		};
+		8B23A4562490EC790021F5F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDDD1862482A2C20056AEE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BDDD1B72482A37E0056AEE9;
+			remoteInfo = Core;
+		};
+		8B23A4582490EC7E0021F5F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDDD1862482A2C20056AEE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B0F986B2483C8B1008E6D50;
+			remoteInfo = UI;
+		};
+		8B23A45A2490EC970021F5F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDDD1862482A2C20056AEE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8BDDD1B72482A37E0056AEE9;
+			remoteInfo = Core;
+		};
+		8B23A45C2490EC970021F5F6 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8BDDD1862482A2C20056AEE9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8B0F986B2483C8B1008E6D50;
+			remoteInfo = UI;
+		};
 		8BDDD1A52482A2C70056AEE9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8BDDD1862482A2C20056AEE9 /* Project object */;
@@ -452,6 +480,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				8B23A4592490EC7E0021F5F6 /* PBXTargetDependency */,
+				8B23A4572490EC790021F5F6 /* PBXTargetDependency */,
 			);
 			name = CatsDogs;
 			productName = CatsDogs;
@@ -469,6 +499,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				8B23A45B2490EC970021F5F6 /* PBXTargetDependency */,
+				8B23A45D2490EC970021F5F6 /* PBXTargetDependency */,
 				8BDDD1A62482A2C70056AEE9 /* PBXTargetDependency */,
 			);
 			name = CatsDogsTests;
@@ -732,6 +764,26 @@
 			platformFilter = ios;
 			target = 8BDDD1B72482A37E0056AEE9 /* Core */;
 			targetProxy = 8B0F988C2483C8DA008E6D50 /* PBXContainerItemProxy */;
+		};
+		8B23A4572490EC790021F5F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BDDD1B72482A37E0056AEE9 /* Core */;
+			targetProxy = 8B23A4562490EC790021F5F6 /* PBXContainerItemProxy */;
+		};
+		8B23A4592490EC7E0021F5F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B0F986B2483C8B1008E6D50 /* UI */;
+			targetProxy = 8B23A4582490EC7E0021F5F6 /* PBXContainerItemProxy */;
+		};
+		8B23A45B2490EC970021F5F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8BDDD1B72482A37E0056AEE9 /* Core */;
+			targetProxy = 8B23A45A2490EC970021F5F6 /* PBXContainerItemProxy */;
+		};
+		8B23A45D2490EC970021F5F6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8B0F986B2483C8B1008E6D50 /* UI */;
+			targetProxy = 8B23A45C2490EC970021F5F6 /* PBXContainerItemProxy */;
 		};
 		8BDDD1A62482A2C70056AEE9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1064,7 +1116,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1095,7 +1147,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos";
+				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

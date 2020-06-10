@@ -13,26 +13,30 @@ final class PushAuthFlow: Flow {
     private let loginRequest: LoginRequest
     private let navigationController: UINavigationControllerProtocol
     private let onComplete: () -> ()
+    private let onError: (Error) -> ()
     
     init(loginRequest: LoginRequest,
          navigationController: UINavigationControllerProtocol,
-         onComplete: @escaping () -> ())
+         onComplete: @escaping () -> (),
+         onError: @escaping (Error) -> ())
     {
         self.loginRequest = loginRequest
         self.navigationController = navigationController
         self.onComplete = onComplete
+        self.onError = onError
     }
     
     func start() {
         let vc = LoginViewController()
+        vc.loadViewIfNeeded()
         vc.didSkip = onComplete
-        vc.didLogin = { [loginRequest, onComplete] in
+        vc.didLogin = { [loginRequest, onComplete, onError] in
             loginRequest.start(credentials: $0, {
                 switch $0 {
                 case .success:
                     onComplete()
-                case .failure:
-                    break
+                case .failure(let error):
+                    onError(error)
                 }
             })
         }

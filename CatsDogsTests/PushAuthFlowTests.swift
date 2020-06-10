@@ -116,7 +116,8 @@ class PushAuthFlowTests: XCTestCase {
         let sut = PushAuthFlow(
             loginRequest: loginRequest,
             navigationController: navigationControllerSpy,
-            onComplete: onComplete)
+            onComplete: onComplete,
+            onError: { _ in })
         
         trackMemoryLeaks(for: sut, file: file, line: line)
         trackMemoryLeaks(for: navigationControllerSpy, file: file, line: line)
