@@ -11,6 +11,8 @@
 		8B0F988A2483C8DA008E6D50 /* Core.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BDDD1B82482A37E0056AEE9 /* Core.framework */; platformFilter = ios; };
 		8B10A8132490DE3B00CC1309 /* CompositionRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */; };
 		8B23A46A2490FF8A0021F5F6 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A45E2490F49E0021F5F6 /* ErrorView.swift */; };
+		8B23A476249102930021F5F6 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 8B23A475249102930021F5F6 /* SDWebImage */; };
+		8B23A47824910DDD0021F5F6 /* EntityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B23A47724910DDD0021F5F6 /* EntityTableViewCell.swift */; };
 		8B270C822483CA5C00A345B4 /* EntityListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */; };
 		8B270C852483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */; };
 		8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B270CB424859B4400A345B4 /* ImageLoader.swift */; };
@@ -143,6 +145,7 @@
 		8B0F987D2483C8B2008E6D50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8B10A8122490DE3B00CC1309 /* CompositionRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionRoot.swift; sourceTree = "<group>"; };
 		8B23A45E2490F49E0021F5F6 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		8B23A47724910DDD0021F5F6 /* EntityTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityTableViewCell.swift; sourceTree = "<group>"; };
 		8B270C812483CA5C00A345B4 /* EntityListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityListViewControllerTests.swift; sourceTree = "<group>"; };
 		8B270C842483CDA300A345B4 /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
 		8B270CB424859B4400A345B4 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
@@ -230,6 +233,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8B23A476249102930021F5F6 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +271,7 @@
 				8B270CB824859BAA00A345B4 /* EntityListViewController.swift */,
 				8BF5C9C0248CE0290053C55B /* ProfileViewController.swift */,
 				8BF5C9C4248CE5650053C55B /* EntityListViewController+CellFactories.swift */,
+				8B23A47724910DDD0021F5F6 /* EntityTableViewCell.swift */,
 				8BF5C9D0248D660C0053C55B /* LoginViewController.swift */,
 			);
 			path = UI;
@@ -551,6 +556,9 @@
 				8B23A4572490EC790021F5F6 /* PBXTargetDependency */,
 			);
 			name = CatsDogs;
+			packageProductDependencies = (
+				8B23A475249102930021F5F6 /* SDWebImage */,
+			);
 			productName = CatsDogs;
 			productReference = 8BDDD18E2482A2C20056AEE9 /* CatsDogs.app */;
 			productType = "com.apple.product-type.application";
@@ -654,6 +662,9 @@
 				Base,
 			);
 			mainGroup = 8BDDD1852482A2C20056AEE9;
+			packageReferences = (
+				8B23A474249102930021F5F6 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 8BDDD18F2482A2C20056AEE9 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -722,6 +733,7 @@
 			files = (
 				8BF5C9C5248CE5650053C55B /* EntityListViewController+CellFactories.swift in Sources */,
 				8B23A46A2490FF8A0021F5F6 /* ErrorView.swift in Sources */,
+				8B23A47824910DDD0021F5F6 /* EntityTableViewCell.swift in Sources */,
 				8BF5C9C1248CE0290053C55B /* ProfileViewController.swift in Sources */,
 				8B270CB524859B4400A345B4 /* ImageLoader.swift in Sources */,
 				8BF5C9D1248D660C0053C55B /* LoginViewController.swift in Sources */,
@@ -1329,6 +1341,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8B23A474249102930021F5F6 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8B23A475249102930021F5F6 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8B23A474249102930021F5F6 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8BDDD1862482A2C20056AEE9 /* Project object */;
 }

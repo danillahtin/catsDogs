@@ -38,6 +38,9 @@ public final class EntityListViewController<Entity>: UIViewController, UITableVi
         super.viewDidLoad()
         
         tableView.dataSource = self
+        tableView.rowHeight = 44
+        tableView.estimatedRowHeight = 44
+        tableView.tableFooterView = UIView()
     }
     
     public func entitiesUpdated(with entities: [Entity]) {

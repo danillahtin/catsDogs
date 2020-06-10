@@ -20,10 +20,10 @@ private func catCellFactory(imageLoader: ImageLoader)
     -> (UITableView, IndexPath, Cat) -> UITableViewCell
 {
     return { _, _, cat in
-        let cell = UITableViewCell()
+        let cell = EntityTableViewCell(style: .default, reuseIdentifier: nil)
         
-        cell.textLabel?.text = cat.name
-        imageLoader.load(from: cat.imageUrl, into: cell.imageView)
+        cell.titleLabel.text = cat.name
+        imageLoader.load(from: cat.imageUrl, into: cell.thumbImageView)
         
         return cell
     }
@@ -39,10 +39,10 @@ private func dogCellFactory(imageLoader: ImageLoader)
     -> (UITableView, IndexPath, Dog) -> UITableViewCell
 {
     return { _, _, dog in
-        let cell = UITableViewCell()
+        let cell = EntityTableViewCell(style: .default, reuseIdentifier: nil)
         
-        cell.textLabel?.text = dog.name
-        imageLoader.load(from: dog.imageUrl, into: cell.imageView)
+        cell.titleLabel.text = dog.name
+        imageLoader.load(from: dog.imageUrl, into: cell.thumbImageView)
         
         return cell
     }

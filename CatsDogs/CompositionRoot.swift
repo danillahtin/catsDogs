@@ -86,10 +86,11 @@ final class LoaderAdapter<Entity>: Loader {
     }
 }
 
+import SDWebImage
 
 final class ImageLoaderStub: ImageLoader {
     func load(from url: URL, into imageView: UIImageView?) {
-        // TODO
+        imageView?.sd_setImage(with: url, completed: nil)
     }
 }
 

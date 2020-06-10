@@ -136,16 +136,16 @@ private extension EntityListViewController {
         tableView.numberOfRows(inSection: 0)
     }
     
-    func view(at index: Int) -> UITableViewCell? {
+    func view(at index: Int) -> EntityTableViewCell? {
         let indexPath = IndexPath(row: index, section: 0)
         
-        return tableView.dataSource?.tableView(tableView, cellForRowAt: indexPath)
+        return tableView.dataSource?.tableView(tableView, cellForRowAt: indexPath) as? EntityTableViewCell
     }
 }
 
 
-private extension UITableViewCell {
+private extension EntityTableViewCell {
     var title: String? {
-        textLabel?.text
+        titleLabel.text
     }
 }
