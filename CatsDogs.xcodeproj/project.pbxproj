@@ -64,6 +64,7 @@
 		8BF5CA2624907BDF0053C55B /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2524907BDF0053C55B /* Dog.swift */; };
 		8BF5CA2824907E780053C55B /* RemoteDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2724907E780053C55B /* RemoteDatabase.swift */; };
 		8BF5CA2A24907F5E0053C55B /* RemoteApiStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */; };
+		8BF5CA2C249080610053C55B /* UserDefaultsTokenStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BF5CA2B249080610053C55B /* UserDefaultsTokenStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -171,6 +172,7 @@
 		8BF5CA2524907BDF0053C55B /* Dog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		8BF5CA2724907E780053C55B /* RemoteDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDatabase.swift; sourceTree = "<group>"; };
 		8BF5CA2924907F5E0053C55B /* RemoteApiStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApiStub.swift; sourceTree = "<group>"; };
+		8BF5CA2B249080610053C55B /* UserDefaultsTokenStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsTokenStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -314,6 +316,7 @@
 				8BF5C9FF248F8D8D0053C55B /* AppStartFlowTests.swift */,
 				8BF5CA08248FA7190053C55B /* SessionControllerTests.swift */,
 				8BF5CA16248FC0D00053C55B /* PushAuthFlowTests.swift */,
+				8BF5CA2B249080610053C55B /* UserDefaultsTokenStoreTests.swift */,
 			);
 			path = CatsDogsTests;
 			sourceTree = "<group>";
@@ -663,6 +666,7 @@
 				8BF5C9F3248ECB270053C55B /* FlowSpy.swift in Sources */,
 				8BF5C9ED248EC9240053C55B /* AppDelegateTests.swift in Sources */,
 				8BF5CA09248FA7190053C55B /* SessionControllerTests.swift in Sources */,
+				8BF5CA2C249080610053C55B /* UserDefaultsTokenStoreTests.swift in Sources */,
 				8BF5CA17248FC0D00053C55B /* PushAuthFlowTests.swift in Sources */,
 				8BF5C9F6248ECBDF0053C55B /* CoditionalFlowCompositeTests.swift in Sources */,
 				8BF5CA1D249034170053C55B /* XCTestCase+SharedHelpers.swift in Sources */,
